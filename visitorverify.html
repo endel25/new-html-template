@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visitor Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .form-scroll::-webkit-scrollbar-thumb {
+            background-color: #bbb;
+            border-radius: 4px;
+        }
+
+        .form-scroll::-webkit-scrollbar-track {
+            background-color: #eee;
+        }
+
+        label {
+            min-width: 160px;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid #4361ee;
+            color: #4361ee;
+            background-color: transparent;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #4361ee;
+            color: white;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+        }
+
+        .error {
+            margin-top: 4px;
+            color: #dc3545;
+            font-size: 12px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 1px #4361ee;
+            border-color: #4361ee;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="h-l flex items-center justify-center p-4">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div class="w-full max-w-5xl h-full bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                <div class="px-6 py-4 border-b text-xl font-semibold text-center"
+                    style="font-family: 'Nunito', sans-serif;">
+                    Visitor Registration Form
+                </div>
+                <form class="flex-1 overflow-y-auto p-6 space-y-4 form-scroll">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="firstname" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">First Name</label>
+                            <div class="form-group">
+                                <input type="text" id="firstname" name="firstname" placeholder="Enter first name"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-firstname"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="lastname" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Last Name</label>
+                            <div class="form-group">
+                                <input type="text" id="lastname" name="lastname" placeholder="Enter last name"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-lastname"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="gender" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Gender</label>
+                            <div class="form-group">
+                                <select id="gender" name="gender" class="w-full text-xs px-3 py-2 border rounded">
+                                    <option value="">Select gender</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                                <span class="error text-xs text-red-500" id="error-gender"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="contactnumber" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Contact
+                                Number</label>
+                            <div class="form-group">
+                                <input type="text" id="contactnumber" name="contactnumber"
+                                    placeholder="Enter contact number" class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-contactnumber"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="email" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Email Address</label>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="Enter email address"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-email"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="date" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Date</label>
+                            <div class="form-group">
+                                <input type="date" id="date" name="date" class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-date"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="time" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Time</label>
+                            <div class="form-group">
+                                <input type="time" id="time" name="time" class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-time"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="nationalid" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">National ID</label>
+                            <div class="form-group">
+                                <input type="text" id="nationalid" name="nationalid" placeholder="Enter national ID"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-nationalid"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="photo" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Photo</label>
+                            <div class="form-group">
+                                <input type="file" id="photo" name="photo" accept="image/*" class="w-full text-xs"
+                                    onchange="previewImage(this, 'mainPreview')" />
+                                <span class="error text-xs text-red-500" id="error-photo"></span>
+                                <div class="sm:col-span-2">
+                                    <img id="mainPreview" class="w-44 h-24 rounded border hidden" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="visit" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Purpose of Visit</label>
+                            <div class="form-group">
+                                <input type="text" id="visit" name="visit" placeholder="Enter visit purpose"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-visit"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="personname" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Person Name</label>
+                            <div class="form-group">
+                                <input type="text" id="personname" name="personname"
+                                    placeholder="Enter name of person to meet"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-personname"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="department" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Department</label>
+                            <div class="form-group">
+                                <input type="text" id="department" name="department"
+                                    placeholder="Enter the visiting department"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-department"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="durationtime" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Expected
+                                Duration</label>
+                            <div class="form-group">
+                                <input type="text" id="durationtime" name="durationtime"
+                                    placeholder="Enter expected duration" class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-durationtime"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="visitortype" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Visitor
+                                Type</label>
+                            <div class="form-group">
+                                <select id="visitortype" name="visitortype" class="w-full text-xs px-3 py-2 border rounded">
+                                    <option value="">Select visitor type</option>
+                                    <option>Vendor</option>
+                                    <option>Client</option>
+                                    <option>Interview</option>
+                                    <option>Guest</option>
+                                </select>
+                                <span class="error text-xs text-red-500" id="error-visitortype"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="vehicletype" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Vehicle
+                                Type</label>
+                            <div class="form-group">
+                                <input type="text" id="vehicletype" name="vehicletype" placeholder="Enter vehicle type"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-vehicletype"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center">
+                            <label for="vehiclenumber" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Vehicle
+                                Number</label>
+                            <div class="form-group">
+                                <input type="text" id="vehiclenumber" name="vehiclenumber"
+                                    placeholder="Enter vehicle number" class="w-full text-xs px-3 py-2 border rounded" />
+                                <span class="error text-xs text-red-500" id="error-vehiclenumber"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col items-center sm:col-span-2">
+                            <label class="sm:mr-2 text-sm font-medium">Include Driver?</label>
+                            <input type="checkbox" id="driverToggle" onchange="toggleDriverDetails()" />
+                        </div>
+                    </div>
+
+                    <div id="driverDetails" class="hidden mt-4 space-y-4 border-t pt-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flex sm:flex-row flex-col items-center">
+                                <label for="drivername" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver
+                                    Name</label>
+                                <div class="form-group">
+                                    <input type="text" id="drivername" name="drivername" placeholder="Enter driver name"
+                                        class="w-full text-xs px-3 py-2 border rounded" />
+                                    <span class="error text-xs text-red-500" id="error-drivername"></span>
+                                </div>
+                            </div>
+                            <div class="flex sm:flex-row flex-col items-center">
+                                <label for="drivermobile" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver
+                                    Mobile</label>
+                                <div class="form-group">
+                                    <input type="text" id="drivermobile" name="drivermobile"
+                                        placeholder="Enter driver mobile" class="w-full text-xs px-3 py-2 border rounded" />
+                                    <span class="error text-xs text-red-500" id="error-drivermobile"></span>
+                                </div>
+                            </div>
+                            <div class="flex sm:flex-row flex-col items-center">
+                                <label for="drivernationalid" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver
+                                    National ID</label>
+                                <div class="form-group">
+                                    <input type="text" id="drivernationalid" name="drivernationalid"
+                                        placeholder="Enter driver national ID"
+                                        class="w-full text-xs px-3 py-2 border rounded" />
+                                    <span class="error text-xs text-red-500" id="error-drivernationalid"></span>
+                                </div>
+                            </div>
+                            <div class="flex sm:flex-row flex-col items-center">
+                                <label for="driverphoto" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver
+                                    Photo</label>
+                                <div class="form-group">
+                                    <input type="file" id="driverphoto" name="driverphoto" class="w-full text-xs"
+                                        onchange="previewImage(this, 'driverPreview')" />
+                                    <span class="error text-xs text-red-500" id="error-driverphoto"></span>
+                                    <div class="sm:col-span-2">
+                                        <img id="driverPreview" class="h-24 rounded border hidden" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex sm:flex-row flex-col items-center">
+                        <label for="notes" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Notes</label>
+                        <div class="form-group">
+                            <textarea id="notes" name="notes" rows="2" placeholder="Enter any notes..."
+                                class="w-full text-xs px-3 py-2 border rounded"></textarea>
+                            <span class="error text-xs text-red-500" id="error-notes"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end mt-6">
+                        <button type="submit" class="btn-outline-primary rounded-full text-sm">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function previewImage(input, id) {
+            const file = input.files[0];
+            const img = document.getElementById(id);
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    img.src = e.target.result;
+                    img.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                img.classList.add('hidden');
+            }
+        }
+
+        function toggleDriverDetails() {
+            document.getElementById('driverDetails').classList.toggle('hidden');
+        }
+
+        function showError(id, msg) {
+            document.getElementById(id).innerText = msg;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll(".error").forEach(el => el.innerText = '');
+        }
+
+        const validateField = (name, value, formData = {}) => {
+            let error = '';
+            switch (name) {
+                case 'firstname':
+                case 'lastname':
+                    if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
+                        error = `${name === 'firstname' ? 'First' : 'Last'} name must be at least 2 characters and contain only letters`;
+                    }
+                    break;
+                case 'personname':
+                    if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
+                        error = 'Person name must be at least 2 characters and contain only letters';
+                    }
+                    break;
+                case 'drivername':
+                    if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
+                        error = 'Driver name must be at least 2 characters and contain only letters';
+                    }
+                    break;
+                case 'contactnumber':
+                    if (value && !/^\d+$/.test(value)) {
+                        error = 'Phone number must contain only digits';
+                    }
+                    break;
+                case 'drivermobile':
+                    if (value && !/^\d+$/.test(value)) {
+                        error = 'Phone number must contain only digits';
+                    }
+                    break;
+                case 'nationalid':
+                    if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
+                        error = 'National ID must be at least 4 characters (letters and numbers allowed)';
+                    }
+                    break;
+                case 'drivernationalid':
+                    if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
+                        error = 'National ID must be at least 4 characters (letters and numbers allowed)';
+                    }
+                    break;
+                case 'email':
+                    if (value && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+                        error = 'Please enter a valid email address';
+                    }
+                    break;
+                case 'gender':
+                    if (!value) {
+                        error = 'Please select a gender';
+                    }
+                    break;
+                case 'visitortype':
+                    if (!value) {
+                        error = 'Please select a visitor type';
+                    }
+                    break;
+                case 'time':
+                    if (value && formData.date) {
+                        const selectedDate = new Date(formData.date);
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        selectedDate.setHours(0, 0, 0, 0);
+                        if (selectedDate.getTime() === today.getTime()) {
+                            const [hours, minutes] = value.split(':').map(Number);
+                            const now = new Date();
+                            if (hours < now.getHours() || (hours === now.getHours() && minutes <= now.getMinutes())) {
+                                error = 'Allocation time cannot be in the past for today';
+                            }
+                        }
+                    }
+                    break;
+                case 'durationtime':
+                    if (value && !/^(\d{1,3}|[0-9]{1,2}:[0-5][0-9])$/.test(value)) {
+                        error = 'Duration must be in minutes (e.g. 90) or HH:MM format (e.g. 01:30)';
+                    }
+                    break;
+                case 'date':
+                    if (value) {
+                        const selectedDate = new Date(value);
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        if (selectedDate < today) {
+                            error = 'Date must be today or later';
+                        }
+                    }
+                    break;
+            }
+            return error;
+        };
+
+        const attachLiveValidation = () => {
+            document.querySelectorAll("input, select, textarea").forEach(input => {
+                input.addEventListener("input", () => {
+                    const formData = {
+                        date: document.getElementById("date").value,
+                        time: document.getElementById("time").value
+                    };
+                    const error = validateField(input.id, input.value, formData);
+                    const errorId = "error-" + input.id;
+                    showError(errorId, error);
+                });
+            });
+        };
+
+        document.addEventListener("DOMContentLoaded", attachLiveValidation);
+
+        document.querySelector("form").addEventListener("submit", function (e) {
+            clearErrors();
+            let valid = true;
+
+            const get = id => document.getElementById(id).value.trim();
+
+            const fieldsToValidate = [
+                "firstname", "lastname", "gender", "contactnumber", "email",
+                "date", "time", "nationalid", "photo", "visit", "personname",
+                "department", "durationtime", "visitortype", "vehicletype",
+                "vehiclenumber", "drivername", "drivermobile", "drivernationalid", "driverphoto"
+            ];
+
+            const formData = {
+                date: get("date"),
+                time: get("time")
+            };
+
+            fieldsToValidate.forEach(id => {
+                const value = get(id);
+                const errorMsg = validateField(id, value, formData);
+                if (errorMsg) {
+                    showError("error-" + id, errorMsg);
+                    valid = false;
+                }
+            });
+
+            const photo = document.getElementById("photo").files[0];
+            if (!photo || !/\.(jpg|jpeg|png)$/i.test(photo.name)) {
+                showError("error-photo", "Upload .jpg/.png image");
+                valid = false;
+            }
+
+            const vehType = get("vehicletype");
+            const vehNum = get("vehiclenumber");
+            if (vehType && !/^.{2,20}$/.test(vehType)) {
+                showError("error-vehicletype", "Enter valid vehicle type");
+                valid = false;
+            }
+            if (vehType && !/^[A-Za-z0-9]{6,12}$/.test(vehNum)) {
+                showError("error-vehiclenumber", "Enter valid vehicle number");
+                valid = false;
+            }
+
+            if (document.getElementById("driverToggle").checked) {
+                const dName = get("drivername");
+                const dMob = get("drivermobile");
+                const dNid = get("drivernationalid");
+                const dPhoto = document.getElementById("driverphoto").files[0];
+
+                if (!/^[A-Za-z\s]{2,50}$/.test(dName)) {
+                    showError("error-drivername", "Enter valid driver name");
+                    valid = false;
+                }
+                if (!/^\d{5,15}$/.test(dMob)) {
+                    showError("error-drivermobile", "Enter valid mobile");
+                    valid = false;
+                }
+                if (!/^[a-zA-Z0-9]{4,}$/.test(dNid)) {
+                    showError("error-drivernationalid", "Enter valid ID");
+                    valid = false;
+                }
+                if (!dPhoto || !/\.(jpg|jpeg|png)$/i.test(dPhoto.name)) {
+                    showError("error-driverphoto", "Upload driver image");
+                    valid = false;
+                }
+            }
+
+            const notes = get("notes");
+            if (notes.length > 500 || /<script/i.test(notes)) {
+                showError("error-notes", "Invalid notes content");
+                valid = false;
+            }
+
+            if (!valid) e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>
