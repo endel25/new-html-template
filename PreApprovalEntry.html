@@ -14,453 +14,160 @@
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/perfect-scrollbar.min.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <link defer rel="stylesheet" type="text/css" media="screen" href="assets/css/animate.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nice-select/1.1.0/nice-select.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="assets/js/perfect-scrollbar.min.js"></script>
     <script defer src="assets/js/popper.min.js"></script>
     <script defer src="assets/js/tippy-bundle.umd.min.js"></script>
     <script defer src="assets/js/sweetalert.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <style>
-        /* ========================== */
-        /* GENERAL STYLES */
-        /* ========================== */
-        /* * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Nunito', sans-serif;
-            color: #333;
-        } */
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
 
         body {
-            background-color: #f5f7fa;
-            padding: 20px;
+            font-family: 'Nunito', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
+        .btn-sm {
+    padding: 0.375rem 0.625rem;
+    font-size: 0.75rem;
+    line-height: 1.3rem; /* fixed typo: '1.rem' → '1rem' */
+}
 
-        /* ========================== */
-        /* PANEL STYLES */
-        /* ========================== */
-        .panel {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .panel-header {
+        /* Navbar Styles */
+        .navbar {
+            background-color: #fff;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .panel-header h2 {
-            font-size: 2rem;
-            font-weight: 600;
-        }
-
-        /* ========================== */
-        /* BUTTON STYLES */
-        /* ========================== */
-        .btn {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: .375rem;
-            border-width: 1px;
-            padding: .5rem 1.25rem;
-            font-size: .875rem;
-            line-height: 1.25rem;
-            font-weight: 600;
-            --tw-shadow: 0 10px 20px -10px;
-            --tw-shadow-colored: 0 10px 20px -10px var(--tw-shadow-color);
-            outline: 2px solid #0000;
-            outline-offset: 2px;
-            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-            transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-            transition-duration: .3s
-        }
-
-
-        .btn-primary {
-            --tw-border-opacity: 1;
-            border-color: rgb(67 97 238/var(--tw-border-opacity));
-            --tw-bg-opacity: 1;
-            background-color: rgb(67 97 238/var(--tw-bg-opacity));
-            --tw-text-opacity: 1;
-            color: rgb(255 255 255/var(--tw-text-opacity));
-            --tw-shadow-color: #4361ee99;
-            --tw-shadow: var(--tw-shadow-colored)
-        }
-
-        .btn-primary:hover {
-            background-color: #4361ee;
-        }
-
-        .btn-outline-primary {
-            --tw-border-opacity: 1;
-            border-color: rgb(67 97 238/var(--tw-border-opacity));
-            --tw-text-opacity: 1;
-            color: rgb(67 97 238/var(--tw-text-opacity));
-            --tw-shadow: 0 0 #0000;
-            --tw-shadow-colored: 0 0 #0000;
-            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
-        }
-
-
-        .btn-outline-primary:hover {
-            --tw-bg-opacity: 1;
-            background-color: rgb(67 97 238/var(--tw-bg-opacity));
-            --tw-text-opacity: 1;
-            color: rgb(255 255 255/var(--tw-text-opacity))
-        }
-
-        /* ========================== */
-        /* TABLE STYLES */
-        /* ========================== */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 1rem;
-            margin-bottom: 30px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        th,
-        td {
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            background-color: #f8f9fa;
-            color: #666;
-            font-weight: 600;
-        }
-
-        /* ========================== */
-        /* MODAL STYLES */
-        /* ========================== */
-        .modal {
-            display: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            right: 0;
             z-index: 1000;
-            justify-content: center;
+        }
+
+        .navbar .left-icons, .navbar .right-icons {
+            display: flex;
             align-items: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: #fff;
-            border-radius: 12px;
-            padding: 30px;
-            width: 90%;
-            max-width: 900px;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        /* ========================== */
-        /* MODAL HEADER */
-        /* ========================== */
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h5 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .close-btn {
-            font-size: 2rem;
-            color: #666;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .close-btn:hover {
-            color: #333;
-        }
-
-        /* ========================== */
-        /* FORM LAYOUT & FIELDS */
-        /* ========================== */
-        .form-container {
-            margin-top: 10px;
-        }
-
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .form-column {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .form-group {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            font-size: 0.9rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            outline: none;
-            transition: border 0.3s ease-in-out;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-        }
-
-        /* ========================== */
-        /* TEXTAREA STYLES */
-        /* ========================== */
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* ========================== */
-        /* FORM SELECT DROPDOWN */
-        /* ========================== */
-        .form-select {
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            width: 100%;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-select:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-        }
-
-        #UserRoleId,
-        #editUserRoleId {
-            margin-bottom: 20px;
-        }
-
-        /* ========================== */
-        /* FORM ACTION BUTTONS */
-        /* ========================== */
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-        }
-
-        /* ========================== */
-        /* ADD USER BUTTON */
-        /* ========================== */
-        .add-user-btn {
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        /* ========================== */
-        /* RESPONSIVE DESIGN */
-        /* ========================== */
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-            }
-
-            .modal-content {
-                width: 95%;
-                max-height: 90vh;
-            }
-        }
-
-
-        /* ========================== */
-        /* ICON TOGGLE STYLES */
-        /* ========================== */
-        .toggle-icon {
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .toggle-icon .fa-toggle-on {
-            color: #007bff;
-            /* Active color (blue) */
-        }
-
-        .toggle-icon .fa-toggle-off {
-            color: #ccc;
-            /* Inactive color (gray) */
-        }
-
-        .toggle-icon:hover {
-            opacity: 0.8;
-        }
-
-
-        .action-icons {
-            display: flex;
-            /* Center horizontally */
-            align-items: center;
-            /* Center vertically */
             gap: 10px;
-            /* Space between icons */
         }
 
-        .action-icons i {
-            font-size: 18px;
-            cursor: pointer;
+        .navbar .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+
+        .navbar .search-bar input {
+            width: 100%;
             padding: 8px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.875rem;
         }
 
-        .edit-icon {
-            color: blue;
-            font-size: 18px;
-            cursor: pointer;
+        .navbar .right-icons img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
         }
 
-        .edit-icon:hover {
-            background-color: #e0f0ff;
+        /* Main Content */
+        .content {
+            margin-top: 60px;
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
-        .icon-wrapper {
-            margin: 8px 12px;
-            /* Adds top and horizontal spacing */
+        .table-container {
+            background-color: #fff;
+            width: 100%;
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+            margin: 0 auto; /* centers the container */
+ 
+        }
+        .table-header {
+    padding: 16px;
+    text-align: left;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px; /* Ensure table is wide enough for all columns */
         }
 
-        .delete-icon {
-            color: red;
-            font-size: 18px;
-            cursor: pointer;
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            font-size: 0.875rem;
+            border-bottom: 1px solid #e5e7eb;
+            white-space: nowrap;
         }
 
-        .delete-icon:hover {
-            background-color: #fde0e0;
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            color: #374151;
         }
 
-        /* Dark Theme Styles */
-        body.dark {
-            background-color: #121212;
-            color: #fff;
+        td {
+            color: #4b5563;
         }
 
-        .dark .panel {
-            background: #1e1e1e;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            color: #fff;
+        tr:hover {
+            background-color: #f3f4f6;
         }
 
-        .dark th {
-            background-color: #333;
-            color: #ddd;
+        .photo-img {
+            width: 40px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 4px;
         }
 
-        .dark td {
-            border-bottom: 1px solid #555;
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: #6b7280;
         }
 
-        .dark .modal-content {
-            background: #2a2a2a;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            color: #fff;
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 10px;
+            color: #6b7280;
+            margin-top: auto;
         }
 
-        .dark .modal-header {
-            border-bottom: 2px solid #555;
-        }
+        .table-scroll {
+    overflow-x: auto;
+}
 
-        .dark .close-btn {
-            color: #ccc;
-        }
-
-        .dark .close-btn:hover {
-            color: #fff;
-        }
-
-        .dark .form-group label {
-            color: #eee;
-        }
-
-        .dark .form-group input,
-        .dark .form-group select,
-        .dark .form-group textarea {
-            background-color: #333;
-            color: #fff;
-            border: 1px solid #555;
-        }
-
-        .dark .form-group input:focus,
-        .dark .form-group select:focus,
-        .dark .form-group textarea:focus {
-            border-color: #64b5f6;
-            box-shadow: 0 0 8px rgba(100, 181, 246, 0.2);
-        }
-
-        .error-message {
-            color: red;
-            font-size: 12px;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .error {
-            border-color: red;
-        }
-
-        .has-success input {
-            border-color: green;
-        }
+        
     </style>
+
+    
 </head>
 
 <body x-data="main" class="relative overflow-x-hidden font-nunito text-sm font-normal antialiased"
@@ -713,8 +420,9 @@
                     <div class="flex items-center justify-between px-4 py-3">
                         <a href="index.html" class="main-logo flex shrink-0 items-center">
                             <img class="ml-[5px] w-8 flex-none" src="assets/images/icon.png" alt="image" />
-                            <span class="align-middle text-xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">ENDEL DIGITAL</span>
-
+                            <span
+                                class="align-middle text-xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">ENDEL
+                                DIGITAL</span>
                         </a>
                         <a href="javascript:;"
                             class="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
@@ -729,35 +437,36 @@
                         </a>
                     </div>
                     <ul class="perfect-scrollbar relative h-[calc(100vh-80px)] space-y-0.5 overflow-y-auto overflow-x-hidden p-4 py-0 font-semibold"
-                        x-data="{ activeDropdown: 'users' }">
+                        x-data="{ activeDropdown: null }">
                         <li class="menu nav-item">
                             <a href="index.html">
-                            <button type="button" class="nav-link group"
-                                :class="{'active' : activeDropdown === 'dashboard'}"
-                                @click="activeDropdown === 'dashboard' ? activeDropdown = null : activeDropdown = 'dashboard'">
-                                <div class="flex items-center">
-                                    <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
-                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path opacity="0.5"
-                                            d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z"
-                                            fill="currentColor" />
-                                        <path
-                                            d="M9 17.25C8.58579 17.25 8.25 17.5858 8.25 18C8.25 18.4142 8.58579 18.75 9 18.75H15C15.4142 18.75 15.75 18.4142 15.75 18C15.75 17.5858 15.4142 17.25 15 17.25H9Z"
-                                            fill="currentColor" />
-                                    </svg>
+                                <button type="button" class="nav-link group"
+                                    :class="{'active' : activeDropdown === 'dashboard'}"
+                                    @click="activeDropdown === 'dashboard' ? activeDropdown = null : activeDropdown = 'dashboard'">
+                                    <div class="flex items-center">
+                                        <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.5"
+                                                d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z"
+                                                fill="currentColor" />
+                                            <path
+                                                d="M9 17.25C8.58579 17.25 8.25 17.5858 8.25 18C8.25 18.4142 8.58579 18.75 9 18.75H15C15.4142 18.75 15.75 18.4142 15.75 18C15.75 17.5858 15.4142 17.25 15 17.25H9Z"
+                                                fill="currentColor" />
+                                        </svg>
 
-                                    <span
-                                        class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Dashboard</span>
-                                </div>
-                                <div class="rtl:rotate-180" :class="{'!rotate-90' : activeDropdown === 'dashboard'}">
-                                    <!-- <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                        <span
+                                            class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Dashboard</span>
+                                    </div>
+                                    <div class="rtl:rotate-180"
+                                        :class="{'!rotate-90' : activeDropdown === 'dashboard'}">
+                                        <!-- <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg"> -->
                                         <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
                                             stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                            </button>
-                        </a>
+                                        </svg>
+                                    </div>
+                                </button>
+                            </a>
                             <ul x-cloak x-show="activeDropdown === 'dashboard'" x-collapse
                                 class="sub-menu text-gray-500">
                                 <!-- <li>
@@ -765,11 +474,11 @@
                                 </li>
                                 <li>
                                     <a href="analytics.html">Analytics</a>
-                                </li> -->
-                                <!-- <li>
+                                </li>
+                                <li>
                                     <a href="finance.html">Finance</a>
-                                </li> -->
-                                <!-- <li>
+                                </li>
+                                <li>
                                     <a href="crypto.html">Crypto</a>
                                 </li> -->
                             </ul>
@@ -787,15 +496,21 @@
                         <li class="nav-item">
                             <ul>
                                 <li class="nav-item">
-                                    <a href="PreApprovalEntry.html" class="group">
+                                    <a href="PreApprovalEntry.html" class="active group">
                                         <div class="flex items-center">
                                             <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M10.4036 22.4797L10.6787 22.015C11.1195 21.2703 11.3399 20.8979 11.691 20.6902C12.0422 20.4825 12.5001 20.4678 13.4161 20.4385C14.275 20.4111 14.8523 20.3361 15.3458 20.1317C16.385 19.7012 17.2106 18.8756 17.641 17.8365C17.9639 17.0571 17.9639 16.0691 17.9639 14.093V13.2448C17.9639 10.4683 17.9639 9.08006 17.3389 8.06023C16.9892 7.48958 16.5094 7.0098 15.9388 6.66011C14.919 6.03516 13.5307 6.03516 10.7542 6.03516H8.20964C5.43314 6.03516 4.04489 6.03516 3.02507 6.66011C2.45442 7.0098 1.97464 7.48958 1.62495 8.06023C1 9.08006 1 10.4683 1 13.2448V14.093C1 16.0691 1 17.0571 1.32282 17.8365C1.75326 18.8756 2.57886 19.7012 3.61802 20.1317C4.11158 20.3361 4.68882 20.4111 5.5477 20.4385C6.46368 20.4678 6.92167 20.4825 7.27278 20.6902C7.6239 20.8979 7.84431 21.2703 8.28514 22.015L8.5602 22.4797C8.97002 23.1721 9.9938 23.1721 10.4036 22.4797ZM13.1928 14.5171C13.7783 14.5171 14.253 14.0424 14.253 13.4568C14.253 12.8713 13.7783 12.3966 13.1928 12.3966C12.6072 12.3966 12.1325 12.8713 12.1325 13.4568C12.1325 14.0424 12.6072 14.5171 13.1928 14.5171ZM10.5422 13.4568C10.5422 14.0424 10.0675 14.5171 9.48193 14.5171C8.89637 14.5171 8.42169 14.0424 8.42169 13.4568C8.42169 12.8713 8.89637 12.3966 9.48193 12.3966C10.0675 12.3966 10.5422 12.8713 10.5422 13.4568ZM5.77108 14.5171C6.35664 14.5171 6.83133 14.0424 6.83133 13.4568C6.83133 12.8713 6.35664 12.3966 5.77108 12.3966C5.18553 12.3966 4.71084 12.8713 4.71084 13.4568C4.71084 14.0424 5.18553 14.5171 5.77108 14.5171Z"
-                                                    fill="currentColor" />
                                                 <path opacity="0.5"
-                                                    d="M15.486 1C16.7529 0.999992 17.7603 0.999986 18.5683 1.07681C19.3967 1.15558 20.0972 1.32069 20.7212 1.70307C21.3632 2.09648 21.9029 2.63623 22.2963 3.27821C22.6787 3.90219 22.8438 4.60265 22.9226 5.43112C22.9994 6.23907 22.9994 7.24658 22.9994 8.51343V9.37869C22.9994 10.2803 22.9994 10.9975 22.9597 11.579C22.9191 12.174 22.8344 12.6848 22.6362 13.1632C22.152 14.3323 21.2232 15.2611 20.0541 15.7453C20.0249 15.7574 19.9955 15.7691 19.966 15.7804C19.8249 15.8343 19.7039 15.8806 19.5978 15.915H17.9477C17.9639 15.416 17.9639 14.8217 17.9639 14.093V13.2448C17.9639 10.4683 17.9639 9.08006 17.3389 8.06023C16.9892 7.48958 16.5094 7.0098 15.9388 6.66011C14.919 6.03516 13.5307 6.03516 10.7542 6.03516H8.20964C7.22423 6.03516 6.41369 6.03516 5.73242 6.06309V4.4127C5.76513 4.29934 5.80995 4.16941 5.86255 4.0169C5.95202 3.75751 6.06509 3.51219 6.20848 3.27821C6.60188 2.63623 7.14163 2.09648 7.78361 1.70307C8.40759 1.32069 9.10805 1.15558 9.93651 1.07681C10.7445 0.999986 11.7519 0.999992 13.0188 1H15.486Z"
+                                                    d="M3 10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H13C16.7712 2 18.6569 2 19.8284 3.17157C21 4.34315 21 6.22876 21 10V14C21 17.7712 21 19.6569 19.8284 20.8284C18.6569 22 16.7712 22 13 22H11C7.22876 22 5.34315 22 4.17157 20.8284C3 19.6569 3 17.7712 3 14V10Z"
+                                                    fill="currentColor" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7.25 12C7.25 11.5858 7.58579 11.25 8 11.25H16C16.4142 11.25 16.75 11.5858 16.75 12C16.75 12.4142 16.4142 12.75 16 12.75H8C7.58579 12.75 7.25 12.4142 7.25 12Z"
+                                                    fill="currentColor" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7.25 8C7.25 7.58579 7.58579 7.25 8 7.25H16C16.4142 7.25 16.75 7.58579 16.75 8C16.75 8.41421 16.4142 8.75 16 8.75H8C7.58579 8.75 7.25 8.41421 7.25 8Z"
+                                                    fill="currentColor" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7.25 16C7.25 15.5858 7.58579 15.25 8 15.25H13C13.4142 15.25 13.75 15.5858 13.75 16C13.75 16.4142 13.4142 16.75 13 16.75H8C7.58579 16.75 7.25 16.4142 7.25 16Z"
                                                     fill="currentColor" />
                                             </svg>
                                             <span
@@ -803,39 +518,7 @@
                                         </div>
                                     </a>
                                 </li>
-                                <!-- <li class="nav-item">
-                                        <a href="visitorverify.html" class="group">
-                                            <div class="flex items-center">
-                                                <svg
-                                                    class="shrink-0 group-hover:!text-primary"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path
-                                                        d="M24 5C24 6.65685 22.6569 8 21 8C19.3431 8 18 6.65685 18 5C18 3.34315 19.3431 2 21 2C22.6569 2 24 3.34315 24 5Z"
-                                                        fill="currentColor"
-                                                    />
-                                                    <path
-                                                        d="M17.2339 7.46394L15.6973 8.74444C14.671 9.59966 13.9585 10.1915 13.357 10.5784C12.7747 10.9529 12.3798 11.0786 12.0002 11.0786C11.6206 11.0786 11.2258 10.9529 10.6435 10.5784C10.0419 10.1915 9.32941 9.59966 8.30315 8.74444L5.92837 6.76546C5.57834 6.47377 5.05812 6.52106 4.76643 6.87109C4.47474 7.22112 4.52204 7.74133 4.87206 8.03302L7.28821 10.0465C8.2632 10.859 9.05344 11.5176 9.75091 11.9661C10.4775 12.4334 11.185 12.7286 12.0002 12.7286C12.8154 12.7286 13.523 12.4334 14.2495 11.9661C14.947 11.5176 15.7372 10.859 16.7122 10.0465L18.3785 8.65795C17.9274 8.33414 17.5388 7.92898 17.2339 7.46394Z"
-                                                        fill="currentColor"
-                                                    />
-                                                    <path
-                                                        d="M18.4538 6.58719C18.7362 6.53653 19.0372 6.63487 19.234 6.87109C19.3965 7.06614 19.4538 7.31403 19.4121 7.54579C19.0244 7.30344 18.696 6.97499 18.4538 6.58719Z"
-                                                        fill="currentColor"
-                                                    />
-                                                    <path
-                                                        opacity="0.5"
-                                                        d="M16.9576 3.02099C16.156 3 15.2437 3 14.2 3H9.8C5.65164 3 3.57746 3 2.28873 4.31802C1 5.63604 1 7.75736 1 12C1 16.2426 1 18.364 2.28873 19.682C3.57746 21 5.65164 21 9.8 21H14.2C18.3484 21 20.4225 21 21.7113 19.682C23 18.364 23 16.2426 23 12C23 10.9326 23 9.99953 22.9795 9.1797C22.3821 9.47943 21.7103 9.64773 21 9.64773C18.5147 9.64773 16.5 7.58722 16.5 5.04545C16.5 4.31904 16.6646 3.63193 16.9576 3.02099Z"
-                                                        fill="currentColor"
-                                                    />
-                                                </svg>
-                                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Mailbox</span>
-                                            </div>
-                                        </a>
-                                    </li> -->
+
                                 <li class="nav-item">
                                     <a href="Spot.html" class="group">
                                         <div class="flex items-center">
@@ -854,7 +537,7 @@
                                     </a>
                                 </li>
                                 <!-- <li class="nav-item">
-                                    <a href="apps-notes.html" class="group">
+                                    <a href="apps-notes.html" class="active group">
                                         <div class="flex items-center">
                                             <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -982,7 +665,7 @@
                                 stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                             </svg>
-                            <span>ADMINISTRATOR</span>
+                            <span>USER INTERFACE</span>
                         </h2>
 
                         <li class="menu nav-item">
@@ -1457,10 +1140,10 @@
                             </button>
                             <ul x-cloak x-show="activeDropdown === 'users'" x-collapse class="sub-menu text-gray-500">
                                 <li>
-                                    <a href="UserManagement.html" class="active">User Management</a>
+                                    <a href="UserManagement.html">User Management</a>
                                 </li>
                                 <li>
-                                    <a href="UserRole.html" >User Role</a>
+                                    <a href="UserRole.html">User Role</a>
                                 </li>
                             </ul>
                         </li>
@@ -1653,8 +1336,9 @@
                     <div class="relative flex w-full items-center bg-white px-5 py-2.5 dark:bg-[#0e1726]">
                         <div class="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
                             <a href="index.html" class="main-logo flex shrink-0 items-center">
-                                <img class="ml-[5px] w-8 flex-none" src="assets/images/icon.png" alt="image" />
-                                <span class="align-middle text-xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">ENDEL DIGITAL</span>
+                                <img class="inline w-8 ltr:-ml-1 rtl:-mr-1" src="assets/images/logo.svg" alt="image" />
+                                <span
+                                    class="hidden align-middle text-2xl font-semibold transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">VRISTO</span>
                             </a>
 
                             <a href="javascript:;"
@@ -1708,7 +1392,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="PreApprovalEntry.html"
+                                    <a href="apps-chat.html"
                                         class="block rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -2155,22 +1839,22 @@
                                 </div>
                             </a>
                             <ul class="sub-menu">
-                                <!-- <li>
+                                <li>
                                     <a href="index.html">Sales</a>
                                 </li>
                                 <li>
                                     <a href="analytics.html">Analytics</a>
-                                </li> -->
+                                </li>
                                 <li>
                                     <a href="finance.html">Finance</a>
                                 </li>
-                                <!-- <li>
+                                <li>
                                     <a href="crypto.html">Crypto</a>
-                                </li> -->
+                                </li>
                             </ul>
                         </li>
                         <li class="menu nav-item relative">
-                            <a href="javascript:;" class="nav-link">
+                            <a href="javascript:;" class="nav-link active">
                                 <div class="flex items-center">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg" class="shrink-0">
@@ -2213,7 +1897,7 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="PreApprovalEntry.html">Chat</a>
+                                    <a href="apps-chat.html">Chat</a>
                                 </li>
                                 <!-- <li>
                                         <a href="visitorverify.html">Mailbox</a>
@@ -2574,7 +2258,7 @@
                             </ul>
                         </li>
                         <li class="menu nav-item relative">
-                            <a href="javascript:;" class="nav-link active">
+                            <a href="javascript:;" class="nav-link">
                                 <div class="flex items-center">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg" class="shrink-0">
@@ -2603,7 +2287,7 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="relative">
-                                    <a href="javascript:;" class="active">Users
+                                    <a href="javascript:;">Users
                                         <div class="ltr:ml-auto rtl:mr-auto rtl:rotate-180">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -2618,7 +2302,7 @@
                                             <a href="UserManagement.html">User Management</a>
                                         </li>
                                         <li>
-                                            <a href="UserRole.html">User ROle</a>
+                                            <a href="UserRole.html">User Role</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -2797,212 +2481,51 @@
 
             <div class="dvanimation animate__animated p-6" :class="[$store.app.animation]">
                 <!-- start main content section -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h2>User Management Stack</h2>
-                        <div>
-                            <button class="btn btn-primary" onclick="openAddUserModal()">Add User</button>
-                        </div>
+                <div class="table-container">
+                    <div class="px-6 py-4 border-b text-xl font-semibold flex items-center justify-between">
+                        <span>Visitor Registration Data</span>
+                        <div class="mb-2">
+                            <a href="PreApproval.html" class="btn btn-sm btn-l btn-primary rounded-full">
+                                Schedule Appointment
+                            </a>                        </div>
                     </div>
-                    <div class="panel-controls" id="paginationControls">
-                        <div class="entries-per-page">
-                            <select id="entriesPerPage" onchange="fetchUsers()">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            entries per page
-                        </div>
-                        <div class="search-bar">
-                            <input type="text" id="searchInput" placeholder="Search..." onkeyup="fetchUsers()">
-                        </div>
-                    </div>
-                    <table id="userTable">
-                        <thead>
-                            <tr>
-                                <th>Full Name</th>
-                                <th>User Name</th>
-                                <th>Active</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="userTableBody">
-                            <!-- Data will be populated dynamically -->
-                        </tbody>
-                    </table>
-                    <div class="panel-footer" id="panelFooter">
-                        Showing 0 to 0 of 0 entries
-                    </div>
-                </div>
-
-                <!-- Add User Modal -->
-                <div class="modal" id="addUserModal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5>Add User</h5>
-                            <span class="close-btn" onclick="closeAddUserModal()">×</span>
-                        </div>
-                        <div class="form-container">
-                            <form id="addUserForm" autocomplete="off">
-                                <div class="form-row">
-                                    <!-- Left Column -->
-                                    <div class="form-column">
-                                        <div class="form-group">
-                                            <label for="FirstName">First Name</label>
-                                            <input type="text" id="FirstName" placeholder="Enter First Name"
-                                                name="firstName">
-                                            <span class="error-message" id="error-firstName"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="LastName">Last Name</label>
-                                            <input type="text" id="LastName" placeholder="Enter Last Name"
-                                                name="lastName">
-                                            <span class="error-message" id="error-lastName"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">User Name</label>
-                                            <input type="text" id="email" placeholder="Enter User Name" name="userName">
-                                            <span class="error-message" id="error-userName"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" id="password" placeholder="Enter Password"
-                                                name="password">
-                                            <span class="error-message" id="error-password"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="ConfirmPassword">Confirm Password</label>
-                                            <input type="password" id="ConfirmPassword" placeholder="Confirm Password"
-                                                name="ConfirmPassword">
-                                            <span class="error-message" id="error-ConfirmPassword"></span>
-                                        </div>
-                                    </div>
-                                    <!-- Right Column -->
-                                    <div class="form-column">
-                                        <div class="form-group">
-                                            <label for="ContactNo">Contact No.</label>
-                                            <input type="text" id="ContactNo" placeholder="Enter Contact No."
-                                                name="contactNo">
-                                            <span class="error-message" id="error-contactNo"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="EmailId">Email Id</label>
-                                            <input type="email" id="EmailId" placeholder="Enter Email Id"
-                                                name="emailId">
-                                            <span class="error-message" id="error-emailId"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Address">Address</label>
-                                            <input type="text" id="Address" placeholder="Enter Address" name="address">
-                                            <span class="error-message" id="error-address"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>User Role</label>
-                                            <select id="UserRoleId" name="userRoleId">
-                                                <option value="">Select Userrole</option>
-                                                <option value="1">Admin</option>
-                                                <option value="2">User</option>
-                                            </select>
-                                            <span class="error-message" id="error-userRoleId"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Notes</label>
-                                            <textarea name="notes" placeholder="Enter Notes"></textarea>
-                                            <span class="error-message" id="error-notes"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-outline-primary">Create</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- Edit User Modal -->
-                <div class="modal" id="editUserModal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5>Edit User</h5>
-                            <span class="close-btn" onclick="closeEditUserModal()">×</span>
-                        </div>
-                        <div class="form-container">
-                            <form id="editUserForm" autocomplete="off">
-                                <input type="hidden" id="editUserId" name="userId">
-                                <div class="form-row">
-                                    <div class="form-column">
-                                        <div class="form-group" id="editFirstNameField">
-                                            <label for="editFirstName">First Name</label>
-                                            <input type="text" placeholder="Enter First Name" name="firstName"
-                                                id="editFirstName">
-                                            <span class="error-message" id="error-editfirstName"></span>
-                                        </div>
-                                        <div class="form-group" id="editLastNameField">
-                                            <label for="editLastName">Last Name</label>
-                                            <input type="text" placeholder="Enter Last Name" name="lastName"
-                                                id="editLastName">
-                                            <span class="error-message" id="error-editlastName"></span>
-                                        </div>
-                                        <div class="form-group" id="editUserNameField">
-                                            <label for="editUserName">User Name</label>
-                                            <input type="text" placeholder="Enter User Name" name="userName"
-                                                id="editUserName" autocomplete="off">
-                                            <span class="error-message" id="error-edituserName"></span>
-                                        </div>
-                                        <div class="form-group" id="editPasswordField">
-                                            <label for="editPassword">Password (Leave blank to keep unchanged)</label>
-                                            <input type="password" placeholder="Enter New Password" name="password"
-                                                id="editPassword" autocomplete="off">
-                                        </div>
-                                        <div class="form-group" id="editConfirmPasswordField">
-                                            <label for="editConfirmPassword">Confirm Password</label>
-                                            <input type="password" placeholder="Confirm New Password"
-                                                name="ConfirmPassword" id="editConfirmPassword" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="form-column">
-                                        <div class="form-group" id="editContactNoField">
-                                            <label for="editContactNo">Contact No.</label>
-                                            <input type="text" placeholder="Enter Contact No." name="contactNo"
-                                                id="editContactNo" autocomplete="off">
-                                            <span class="error-message" id="error-editcontactNo"></span>
-                                        </div>
-                                        <div class="form-group" id="editEmailIdField">
-                                            <label for="editEmailId">Email Id</label>
-                                            <input type="email" placeholder="Enter Email Id" name="emailId"
-                                                id="editEmailId">
-                                            <span class="error-message" id="error-editemailId"></span>
-                                        </div>
-                                        <div class="form-group" id="editAddressField">
-                                            <label for="editAddress">Address</label>
-                                            <input type="text" placeholder="Enter Address" name="address"
-                                                id="editAddress">
-                                            <span class="error-message" id="error-editaddress"></span>
-                                        </div>
-                                        <div class="form-group" id="editUserRoleField">
-                                            <label>User Role</label>
-                                            <select id="editUserRoleId" name="userRoleId" class="form-select">
-                                                <option value="">Select Userrole</option>
-                                                <option value="1">Admin</option>
-                                                <option value="2">User</option>
-                                            </select>
-                                            <span class="error-message" id="error-edituserRoleId"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Notes</label>
-                                            <textarea name="notes" placeholder="Enter Notes" id="editNotes"></textarea>
-                                            <span class="error-message" id="error-editnotes"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-outline-primary">Update</button>
-                            </form>
-                        </div>
+                    <div class="table-scroll">
+                        <table id="visitorTable">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Gender</th>
+                                    <th>Contact Number</th>
+                                    <th>Email</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>National ID</th>
+                                    <th>Photo</th>
+                                    <th>Purpose</th>
+                                    <th>Person Name</th>
+                                    <th>Department</th>
+                                    <th>Duration</th>
+                                    <th>Visitor Type</th>
+                                    <th>Vehicle Type</th>
+                                    <th>Vehicle Number</th>
+                                    <th>Driver Name</th>
+                                    <th>Driver Mobile</th>
+                                    <th>Driver National ID</th>
+                                    <th>Driver Photo</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="visitorTableBody">
+                                <!-- Rows will be populated dynamically -->
+                            </tbody>
+                        </table>
+                
                     </div>
                 </div>
                 <!-- end main content section -->
             </div>
 
-            
             <!-- start footer section -->
             <div class="mt-auto p-6 pt-0 text-center dark:text-white-dark ltr:sm:text-left rtl:sm:text-right">
                 © <span id="footer-year">2022</span>. Vristo All rights reserved.
@@ -3010,481 +2533,66 @@
             <!-- end footer section -->
         </div>
     </div>
+    <script>
+        // Function to fetch and display visitor data
+        async function loadVisitorData() {
+            try {
+                // Replace with your actual API endpoint
+                const response = await fetch('/api/visitors');
+                const visitors = await response.json();
 
+                const tableBody = document.getElementById('visitorTableBody');
+                tableBody.innerHTML = ''; // Clear existing rows
+
+                if (visitors.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="21" class="no-data">No visitor data available</td></tr>';
+                    return;
+                }
+
+                visitors.forEach(visitor => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${visitor.firstname || '-'}</td>
+                        <td>${visitor.lastname || '-'}</td>
+                        <td>${visitor.gender || '-'}</td>
+                        <td>${visitor.contactnumber || '-'}</td>
+                        <td>${visitor.email || '-'}</td>
+                        <td>${visitor.date || '-'}</td>
+                        <td>${visitor.time || '-'}</td>
+                        <td>${visitor.nationalid || '-'}</td>
+                        <td>${visitor.photo ? `<img src="${visitor.photo}" class="photo-img" alt="Visitor Photo">` : '-'}</td>
+                        <td>${visitor.visit || '-'}</td>
+                        <td>${visitor.personname || '-'}</td>
+                        <td>${visitor.department || '-'}</td>
+                        <td>${visitor.durationtime && visitor.durationUnit ? `${visitor.durationtime} ${visitor.durationUnit}` : '-'}</td>
+                        <td>${visitor.visitortype || '-'}</td>
+                        <td>${visitor.vehicletype || '-'}</td>
+                        <td>${visitor.vehiclenumber || '-'}</td>
+                        <td>${visitor.drivername || '-'}</td>
+                        <td>${visitor.drivermobile || '-'}</td>
+                        <td>${visitor.drivernationalid || '-'}</td>
+                        <td>${visitor.driverphoto ? `<img src="${visitor.driverphoto}" class="photo-img" alt="Driver Photo">` : '-'}</td>
+                        <td>${visitor.notes || '-'}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading visitor data:', error);
+                document.getElementById('visitorTableBody').innerHTML = 
+                    '<tr><td colspan="21" class="no-data">Error loading data</td></tr>';
+            }
+        }
+
+        // Load data when the page loads
+        document.addEventListener('DOMContentLoaded', loadVisitorData);
+    </script>
     <script src="assets/js/alpine-collaspe.min.js"></script>
     <script src="assets/js/alpine-persist.min.js"></script>
     <script defer src="assets/js/alpine-ui.min.js"></script>
     <script defer src="assets/js/alpine-focus.min.js"></script>
     <script defer src="assets/js/alpine.min.js"></script>
+    
     <script src="assets/js/custom.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-    <script>
-        let currentPage = 1;
-        let entriesPerPage = 10;
-        let isPaginatedView = false;
-        let currentEditUserId = null;
-
-        // Modal Functions
-        function openAddUserModal() {
-            document.getElementById('addUserModal').style.display = 'flex';
-        }
-
-        function closeAddUserModal() {
-            document.getElementById('addUserModal').style.display = 'none';
-            document.getElementById('addUserForm').reset();
-            $('.form-group').removeClass('has-error has-success');
-            $('.error-message').text('');
-        }
-
-        function openEditUserModal() {
-            document.getElementById('editUserModal').style.display = 'flex';
-        }
-
-        function closeEditUserModal() {
-            document.getElementById('editUserModal').style.display = 'none';
-            document.getElementById('editUserForm').reset();
-            $('.form-group').removeClass('has-error has-success');
-            $('.error-message').text('');
-        }
-
-        const showMessage = (msg = 'Example notification text.', type = 'success', position = 'top-right', showCloseButton = true, duration = 3000) => {
-            const toast = window.Swal.mixin({
-                toast: true,
-                position: position,
-                showConfirmButton: false,
-                timer: duration,
-                showCloseButton: showCloseButton,
-                padding: '10px 20px',
-            });
-
-            toast.fire({
-
-                icon: type,
-                title: msg,
-            });
-        };
-
-        // Fetch all users without pagination
-        async function fetchAllUsers() {
-            try {
-                const response = await fetch(`http://192.168.3.74:3001/users/all`);
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                const data = await response.json();
-
-                const tbody = document.getElementById('userTableBody');
-                tbody.innerHTML = '';
-
-                data.users.forEach(user => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${user.firstName} ${user.lastName}</td>
-                        <td>${user.userName}</td>
-                        <td>
-                            <span class="toggle-icon" id="toggleActive_${user.id}" onclick="toggleUserStatus(${user.id})">
-                                <i class="${user.isActive ? 'fas fa-toggle-on active' : 'fas fa-toggle-off inactive'}"></i>
-                            </span>
-                        </td>
-                        <td class="action-icons">
-                            <i class="fas fa-edit" onclick="editUser(${user.id})"></i>
-                            <i class="fas fa-trash" onclick="deleteUser(${user.id})"></i>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
-
-                document.getElementById('panelFooter').textContent = `Showing 1 to ${data.users.length} of ${data.users.length} entries`;
-                document.getElementById('paginationControls').style.display = 'none';
-                isPaginatedView = false;
-            } catch (error) {
-                console.error('Error fetching all users:', error);
-                showMessage('Error fetching all users: ' + error.message, 'error');
-            }
-        }
-
-        // Fetch users with pagination and search
-        async function fetchUsers() {
-            entriesPerPage = document.getElementById('entriesPerPage').value;
-            const searchQuery = document.getElementById('searchInput').value;
-
-            try {
-                const response = await fetch(`http://192.168.3.74:3001/users?page=${currentPage}&limit=${entriesPerPage}&search=${searchQuery}`);
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                const data = await response.json();
-
-                const tbody = document.getElementById('userTableBody');
-                tbody.innerHTML = '';
-
-                data.users.forEach(user => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${user.firstName} ${user.lastName}</td>
-                        <td>${user.userName}</td>
-                        <td>
-                            <span class="toggle-icon" id="toggleActive_${user.id}" onclick="toggleUserStatus(${user.id})">
-                                <i class="${user.isActive ? 'fas fa-toggle-on active' : 'fas fa-toggle-off inactive'}"></i>
-                            </span>
-                        </td>
-                        <td class="action-icons">
-                            <i class="fas fa-edit" onclick="editUser(${user.id})"></i>
-                            <i class="fas fa-trash" onclick="deleteUser(${user.id})"></i>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
-
-                document.getElementById('panelFooter').textContent = `Showing ${data.start} to ${data.end} of ${data.total} entries`;
-                document.getElementById('paginationControls').style.display = 'flex';
-                isPaginatedView = true;
-            } catch (error) {
-                console.error('Error fetching users:', error);
-                showMessage('Error fetching users: ' + error.message, 'error');
-            }
-        }
-
-        // Toggle user active status
-        async function toggleUserStatus(userId) {
-            try {
-                let toggleIcon = document.getElementById(`toggleActive_${userId}`);
-                let isActive = toggleIcon.querySelector("i").classList.contains("fa-toggle-on");
-
-                // Update the UI immediately
-                toggleIcon.innerHTML = isActive
-                    ? '<i class="fas fa-toggle-off inactive"></i>' // Change to OFF
-                    : '<i class="fas fa-toggle-on active"></i>'; // Change to ON
-
-                // Send API request to update status in backend
-                const response = await fetch(`http://192.168.3.74:3001/users/${userId}/toggle`, {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ isActive: !isActive }),
-                });
-
-                // Check if the response is OK (status in the range 200-299)
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                // Refresh the user list based on the view
-                if (isPaginatedView) fetchUsers();
-                else fetchAllUsers();
-            } catch (error) {
-                console.error("Error toggling user status:", error);
-                showMessage("Error toggling user status: " + error.message, "error");
-                // Revert UI or refresh data on error
-                if (isPaginatedView) fetchUsers();
-                else fetchAllUsers();
-            }
-        }
-
-
-        // Edit user
-        async function editUser(userId) {
-            try {
-                if (!userId || isNaN(Number(userId))) throw new Error('Invalid user ID');
-                const response = await fetch(`http://192.168.3.74:3001/users/${userId}`);
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                const user = await response.json();
-
-                document.getElementById('editFirstName').value = user.firstName || '';
-                document.getElementById('editLastName').value = user.lastName || '';
-                document.getElementById('editUserName').value = user.userName || '';
-                document.getElementById('editContactNo').value = user.contactNo || '';
-                document.getElementById('editEmailId').value = user.emailId || '';
-                document.getElementById('editAddress').value = user.address || '';
-                document.getElementById('editUserRoleId').value = user.userRoleId || '';
-                document.getElementById('editNotes').value = user.notes || '';
-
-                if (jQuery.fn.niceSelect) {
-                    $("#editUserRoleId").val(user.userRoleId || '').niceSelect('update');
-                } else {
-                    console.error('NiceSelect is not loaded');
-                }
-
-                document.getElementById('editUserId').value = userId;
-                document.getElementById('editUserForm').dataset.userId = userId;
-                currentEditUserId = userId;
-
-                openEditUserModal();
-            } catch (error) {
-                console.error('Error fetching user:', error);
-                showMessage('Error fetching user data: ' + error.message, 'error');
-            }
-        }
-
-        // Delete user
-        // Delete user
-        async function deleteUser(userId) {
-            if (confirm('Are you sure you want to delete this user?')) {
-                try {
-                    const response = await fetch(`http://192.168.3.74:3001/users/${userId}`, {
-                        method: 'DELETE',
-                    });
-
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-                    showMessage('User deleted successfully', 'success');
-
-                    if (isPaginatedView) fetchUsers();
-                    else fetchAllUsers();
-                } catch (error) {
-                    console.error('Error deleting user:', error);
-                    showMessage('Error deleting user: ' + error.message, 'error');
-                }
-            }
-        }
-
-        // Form Handling and Validation
-        $(document).ready(function () {
-            if (jQuery.fn.niceSelect) {
-                $("#UserRoleId").niceSelect({ searchable: true });
-                $("#editUserRoleId").niceSelect({ searchable: true });
-            } else {
-                console.error('NiceSelect library failed to load');
-            }
-
-            // Validation function
-            const validateField = (name, value) => {
-                let error = '';
-                switch (name) {
-                    case 'firstName':
-                    case 'lastName':
-                        if (!value || !value.match(/^[a-zA-Z\s]{2,}$/)) {
-                            error = `${name === 'firstName' ? 'First' : 'Last'} name must be at least 2 characters and contain only letters`;
-                        }
-                        break;
-                    case 'userName':
-                        if (!value || !value.match(/^[a-zA-Z0-9]{4,}$/)) {
-                            error = 'User Name must be at least 4 characters (letters and numbers allowed)';
-                        }
-                        break;
-                    case 'password':
-                        if (!value) {
-                            error = 'Password is required';
-                        }
-                        break;
-                    case 'ConfirmPassword':
-                        if (!value) {
-                            error = 'Confirm Password is required';
-                        }
-                        break;
-                    case 'contactNo':
-                        if (value && !value.match(/^\d+$/)) {
-                            error = 'Contact number must contain only digits';
-                        }
-                        break;
-                    case 'emailId':
-                        if (value && !value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-                            error = 'Please enter a valid email address';
-                        }
-                        break;
-                    case 'userRoleId':
-                        if (!value) {
-                            error = 'User Role is required';
-                        }
-                        break;
-                }
-                return error;
-            };
-
-            // Handle input change for real-time validation
-            const handleChange = (e, formPrefix = '') => {
-                const { name, value } = e.target;
-                const error = validateField(name, value);
-                const errorElement = document.getElementById(`error-${formPrefix}${name}`);
-                const inputElement = document.getElementById(`${formPrefix}${name}`);
-                if (error) {
-                    errorElement.textContent = error;
-                    inputElement.classList.add('error');
-                    inputElement.classList.remove('has-success');
-                } else {
-                    errorElement.textContent = '';
-                    inputElement.classList.remove('error');
-                    inputElement.classList.add('has-success');
-                }
-            };
-
-            // Validate entire form
-            const validateForm = (formData, formPrefix = '') => {
-                const errors = {};
-                Object.keys(formData).forEach(key => {
-                    // Skip password and ConfirmPassword validation for Edit form if they are empty
-                    if (formPrefix === 'edit' && (key === 'password' || key === 'ConfirmPassword') && !formData[key]) {
-                        return;
-                    }
-                    const error = validateField(key, formData[key]);
-                    if (error) errors[key] = error;
-                });
-                Object.keys(errors).forEach(key => {
-                    document.getElementById(`error-${formPrefix}${key}`).textContent = errors[key];
-                    document.getElementById(`${formPrefix}${key}`).classList.add('error');
-                });
-                return Object.keys(errors).length === 0;
-            };
-
-            // Add User Form Submission
-            $("#addUserForm").submit(async function (event) {
-                event.preventDefault();
-
-                const formData = {
-                    firstName: $("#FirstName").val(),
-                    lastName: $("#LastName").val(),
-                    userName: $("#email").val(),
-                    password: $("#password").val(),
-                    ConfirmPassword: $("#ConfirmPassword").val(),
-                    contactNo: $("#ContactNo").val() || null,
-                    emailId: $("#EmailId").val() || null,
-                    address: $("#Address").val() || null,
-                    userRoleId: $("#UserRoleId").val(),
-                    notes: $("textarea[name='notes']").val() || null,
-                };
-
-                if (!validateForm(formData, '')) {
-                    showMessage('Please fix the errors in the form', 'error');
-                    return;
-                }
-
-                const payload = {
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
-                    userName: formData.userName,
-                    password: formData.password,
-                    contactNo: formData.contactNo,
-                    emailId: formData.emailId,
-                    address: formData.address,
-                    userRoleId: parseInt(formData.userRoleId),
-                    notes: formData.notes,
-                };
-
-                console.log('Add User Payload:', payload); // Log payload for debugging
-
-                try {
-                    const response = await fetch('http://192.168.3.74:3001/users', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload),
-                    });
-
-                    console.log('Response Status:', response.status); // Log status
-                    const text = await response.text(); // Get raw response text
-                    console.log('Raw Response:', text); // Log raw response
-
-                    if (!response.ok) {
-                        let errorData;
-                        try {
-                            errorData = JSON.parse(text); // Try parsing as JSON
-                        } catch (e) {
-                            throw new Error(`Server error: ${response.status} - ${text}`);
-                        }
-                        throw new Error(errorData.message || `Failed to create user: ${response.status}`);
-                    }
-
-                    const data = JSON.parse(text); // Parse successful response
-                    showMessage(data.message || 'User created successfully', 'success');
-                    closeAddUserModal();
-                    if (isPaginatedView) fetchUsers();
-                    else fetchAllUsers();
-                } catch (error) {
-                    console.error('Error creating user:', error);
-                    showMessage(error.message || 'Error creating user', 'error');
-                }
-            });
-
-            // Edit User Form Submission
-            $("#editUserForm").submit(async function (event) {
-                event.preventDefault();
-
-                const userId = Number(document.getElementById('editUserId').value) || currentEditUserId;
-                if (isNaN(userId) || !userId) {
-                    showMessage('Invalid user ID', 'error');
-                    return;
-                }
-
-                const formData = {
-                    firstName: $("#editFirstName").val(),
-                    lastName: $("#editLastName").val(),
-                    userName: $("#editUserName").val(),
-                    password: $("#editPassword").val() || null,
-                    ConfirmPassword: $("#editConfirmPassword").val() || null,
-                    contactNo: $("#editContactNo").val() || null,
-                    emailId: $("#editEmailId").val() || null,
-                    address: $("#editAddress").val() || null,
-                    userRoleId: $("#editUserRoleId").val(),
-                    notes: $("#editNotes").val() || null,
-                };
-
-                if (!validateForm(formData, 'edit')) {
-                    showMessage('Please fix the errors in the form', 'error');
-                    return;
-                }
-
-                const payload = {
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
-                    userName: formData.userName,
-                    contactNo: formData.contactNo,
-                    emailId: formData.emailId,
-                    address: formData.address,
-                    userRoleId: parseInt(formData.userRoleId),
-                    notes: formData.notes,
-                };
-                if (formData.password) payload.password = formData.password;
-
-                console.log('Edit User Payload:', payload); // Log payload for debugging
-
-                try {
-                    const response = await fetch(`http://192.168.3.74:3001/users/${userId}`, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload),
-                    });
-
-                    console.log('Response Status:', response.status); // Log status
-                    const text = await response.text(); // Get raw response text
-                    console.log('Raw Response:', text); // Log raw response
-
-                    if (!response.ok) {
-                        let errorData;
-                        try {
-                            errorData = JSON.parse(text); // Try parsing as JSON
-                        } catch (e) {
-                            throw new Error(`Server error: ${response.status} - ${text}`);
-                        }
-                        throw new Error(errorData.message || `Failed to update user: ${response.status}`);
-                    }
-
-                    const data = JSON.parse(text); // Parse successful response
-                    showMessage(data.message || 'User updated successfully', 'success');
-                    closeEditUserModal();
-                    currentEditUserId = null;
-                    if (isPaginatedView) fetchUsers();
-                    else fetchAllUsers();
-                } catch (error) {
-                    console.error('Error updating user:', error);
-                    showMessage(error.message || 'Error updating user', 'error');
-                }
-            });
-
-            // Real-time validation for Add User form
-            $("#FirstName, #LastName, #email, #password, #ConfirmPassword, #ContactNo, #EmailId, #Address, #UserRoleId").on("input change", function (e) {
-                handleChange(e, '');
-            });
-
-            // Real-time validation for Edit User form
-            $("#editFirstName, #editLastName, #editUserName, #editPassword, #editConfirmPassword, #editContactNo, #editEmailId, #editAddress, #editUserRoleId").on("input change", function (e) {
-                handleChange(e, 'edit');
-            });
-
-            // Normalize username input
-            $("#email, #editUserName").on("input", function () {
-                this.value = this.value.replace(/\s+/g, "").toLowerCase();
-            });
-        });
-
-        // Initial fetch
-        fetchAllUsers();
-    </script>
-
     <script>
         document.addEventListener('alpine:init', () => {
             // main section
@@ -3697,8 +2805,408 @@
                     this.messages = this.messages.filter((d) => d.id !== value);
                 },
             }));
+            //notes
+            Alpine.data('notes', () => ({
+                defaultParams: {
+                    id: null,
+                    title: '',
+                    description: '',
+                    tag: '',
+                    user: '',
+                    thumb: '',
+                },
+                isAddNoteModal: false,
+                isDeleteNoteModal: false,
+                isViewNoteModal: false,
+                params: {
+                    id: null,
+                    title: '',
+                    description: '',
+                    tag: '',
+                    user: '',
+                    thumb: '',
+                },
+                isShowNoteMenu: false,
+                notesList: [
+                    {
+                        id: 1,
+                        user: 'Max Smith',
+                        thumb: 'profile-16.jpeg',
+                        title: 'Meeting with Kelly',
+                        description: 'Curabitur facilisis vel elit sed dapibus sodales purus rhoncus.',
+                        date: '11/01/2020',
+                        isFav: false,
+                        tag: 'personal',
+                    },
+                    {
+                        id: 2,
+                        user: 'John Doe',
+                        thumb: 'profile-14.jpeg',
+                        title: 'Receive Package',
+                        description: 'Facilisis curabitur facilisis vel elit sed dapibus sodales purus.',
+                        date: '11/02/2020',
+                        isFav: true,
+                        tag: '',
+                    },
+                    {
+                        id: 3,
+                        user: 'Kia Jain',
+                        thumb: 'profile-15.jpeg',
+                        title: 'Download Docs',
+                        description: 'Proin a dui malesuada, laoreet mi vel, imperdiet diam quam laoreet.',
+                        date: '11/04/2020',
+                        isFav: false,
+                        tag: 'work',
+                    },
+                    {
+                        id: 4,
+                        user: 'Max Smith',
+                        thumb: 'profile-16.jpeg',
+                        title: 'Meeting at 4:50pm',
+                        description: 'Excepteur sint occaecat cupidatat non proident, anim id est laborum.',
+                        date: '11/08/2020',
+                        isFav: false,
+                        tag: '',
+                    },
+                    {
+                        id: 5,
+                        user: 'Karena Courtliff',
+                        thumb: 'profile-17.jpeg',
+                        title: 'Backup Files EOD',
+                        description: 'Maecenas condimentum neque mollis, egestas leo ut, gravida.',
+                        date: '11/09/2020',
+                        isFav: false,
+                        tag: '',
+                    },
+                    {
+                        id: 6,
+                        user: 'Max Smith',
+                        thumb: 'profile-16.jpeg',
+                        title: 'Download Server Logs',
+                        description: 'Suspendisse efficitur diam quis gravida. Nunc molestie est eros.',
+                        date: '11/09/2020',
+                        isFav: false,
+                        tag: 'social',
+                    },
+                    {
+                        id: 7,
+                        user: 'Vladamir Koschek',
+                        thumb: '',
+                        title: 'Team meet at Starbucks',
+                        description: 'Etiam a odio eget enim aliquet laoreet lobortis sed ornare nibh.',
+                        date: '11/10/2020',
+                        isFav: false,
+                        tag: '',
+                    },
+                    {
+                        id: 8,
+                        user: 'Max Smith',
+                        thumb: 'profile-16.jpeg',
+                        title: 'Create new users Profile',
+                        description: 'Duis aute irure in nulla pariatur. Etiam a odio eget enim aliquet.',
+                        date: '11/11/2020',
+                        isFav: false,
+                        tag: 'important',
+                    },
+                    {
+                        id: 9,
+                        user: 'Robert Garcia',
+                        thumb: 'profile-21.jpeg',
+                        title: 'Create a compost pile',
+                        description: 'Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro.',
+                        date: '11/12/2020',
+                        isFav: true,
+                        tag: '',
+                    },
+                    {
+                        id: 10,
+                        user: 'Marie Hamilton',
+                        thumb: 'profile-2.jpeg',
+                        title: 'Take a hike at a local park',
+                        description: 'De carne lumbering animata corpora quaeritis. Summus brains sit',
+                        date: '11/13/2020',
+                        isFav: true,
+                        tag: '',
+                    },
+                    {
+                        id: 11,
+                        user: 'Megan Meyers',
+                        thumb: 'profile-1.jpeg',
+                        title: 'Take a class at local community center that interests you',
+                        description: 'Cupcake ipsum dolor. Sit amet marshmallow topping cheesecake muffin.',
+                        date: '11/13/2020',
+                        isFav: false,
+                        tag: '',
+                    },
+                    {
+                        id: 12,
+                        user: 'Angela Hull',
+                        thumb: 'profile-22.jpeg',
+                        title: 'Research a topic interested in',
+                        description: 'Lemon drops tootsie roll marshmallow halvah carrot cake.',
+                        date: '11/14/2020',
+                        isFav: false,
+                        tag: '',
+                    },
+                    {
+                        id: 13,
+                        user: 'Karen Wolf',
+                        thumb: 'profile-23.jpeg',
+                        title: 'Plan a trip to another country',
+                        description: 'Space, the final frontier. These are the voyages of the Starship Enterprise.',
+                        date: '11/16/2020',
+                        isFav: true,
+                        tag: '',
+                    },
+                    {
+                        id: 14,
+                        user: 'Jasmine Barnes',
+                        thumb: 'profile-1.jpeg',
+                        title: 'Improve touch typing',
+                        description: 'Well, the way they make shows is, they make one show.',
+                        date: '11/16/2020',
+                        isFav: false,
+                        tag: '',
+                    },
+                    {
+                        id: 15,
+                        user: 'Thomas Cox',
+                        thumb: 'profile-11.jpeg',
+                        title: 'Learn Express.js',
+                        description: 'Bulbasaur Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                        date: '11/17/2020',
+                        isFav: false,
+                        tag: 'work',
+                    },
+                    {
+                        id: 16,
+                        user: 'Marcus Jones',
+                        thumb: 'profile-12.jpeg',
+                        title: 'Learn calligraphy',
+                        description: 'Ivysaur Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                        date: '11/17/2020',
+                        isFav: false,
+                        tag: '',
+                    },
+                    {
+                        id: 17,
+                        user: 'Matthew Gray',
+                        thumb: 'profile-24.jpeg',
+                        title: 'Have a photo session with some friends',
+                        description: 'Venusaur Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                        date: '11/18/2020',
+                        isFav: false,
+                        tag: 'important',
+                    },
+                    {
+                        id: 18,
+                        user: 'Chad Davis',
+                        thumb: 'profile-31.jpeg',
+                        title: 'Go to the gym',
+                        description: 'Charmander Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                        date: '11/18/2020',
+                        isFav: false,
+                        tag: '',
+                    },
+                    {
+                        id: 19,
+                        user: 'Linda Drake',
+                        thumb: 'profile-23.jpeg',
+                        title: 'Make own LEGO creation',
+                        description: 'Charmeleon Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                        date: '11/18/2020',
+                        isFav: false,
+                        tag: 'social',
+                    },
+                    {
+                        id: 20,
+                        user: 'Kathleen Flores',
+                        thumb: 'profile-34.jpeg',
+                        title: 'Take cat on a walk',
+                        description: 'Baseball ipsum dolor sit amet cellar rubber win hack tossed. ',
+                        date: '11/18/2020',
+                        isFav: false,
+                        tag: 'personal',
+                    },
+                ],
+                filterdNotesList: '',
+                selectedTab: 'all',
+                deletedNote: null,
+                selectedNote: {
+                    id: null,
+                    title: '',
+                    description: '',
+                    tag: '',
+                    user: '',
+                    thumb: '',
+                },
 
+                init() {
+                    this.searchNotes();
+                },
+
+                searchNotes() {
+                    if (this.selectedTab != 'fav') {
+                        if (this.selectedTab != 'all' || this.selectedTab === 'delete') {
+                            this.filterdNotesList = this.notesList.filter((d) => d.tag === this.selectedTab);
+                        } else {
+                            this.filterdNotesList = this.notesList;
+                        }
+                    } else {
+                        this.filterdNotesList = this.notesList.filter((d) => d.isFav);
+                    }
+                },
+
+                saveNote() {
+                    if (!this.params.title) {
+                        this.showMessage('Title is required.', 'error');
+                        return false;
+                    }
+                    if (this.params.id) {
+                        //update task
+                        let note = this.notesList.find((d) => d.id === this.params.id);
+                        note.title = this.params.title;
+                        note.user = this.params.user;
+                        note.description = this.params.description;
+                        note.tag = this.params.tag;
+                    } else {
+                        //add note
+                        let maxNoteId = this.notesList.length
+                            ? this.notesList.reduce((max, character) => (character.id > max ? character.id : max), this.notesList[0].id)
+                            : 0;
+                        if (!maxNoteId) {
+                            maxNoteId = 0;
+                        }
+                        let dt = new Date();
+                        let note = {
+                            id: maxNoteId + 1,
+                            title: this.params.title,
+                            user: this.params.user,
+                            thumb: 'profile-21.jpeg',
+                            description: this.params.description,
+                            date: dt.getDate() + '/' + Number(dt.getMonth()) + 1 + '/' + dt.getFullYear(),
+                            isFav: false,
+                            tag: this.params.tag,
+                        };
+                        this.notesList.splice(0, 0, note);
+                        this.searchNotes();
+                    }
+
+                    this.showMessage('Note has been saved successfully.');
+                    this.isAddNoteModal = false;
+                    this.searchNotes();
+                },
+
+                tabChanged(type) {
+                    this.selectedTab = type;
+                    this.searchNotes();
+                    this.isShowNoteMenu = false;
+                },
+
+                setFav(note) {
+                    let item = this.filterdNotesList.find((d) => d.id === note.id);
+                    item.isFav = !item.isFav;
+                    this.searchNotes();
+                },
+
+                setTag(note, name) {
+                    let item = this.filterdNotesList.find((d) => d.id === note.id);
+                    item.tag = name;
+                    this.searchNotes();
+                },
+
+                deleteNoteConfirm(note) {
+                    setTimeout(() => {
+                        this.deletedNote = note;
+                        this.isDeleteNoteModal = true;
+                    });
+                },
+
+                viewNote(note) {
+                    setTimeout(() => {
+                        this.selectedNote = note;
+                        this.isViewNoteModal = true;
+                    });
+                },
+
+                editNote(note) {
+                    this.isShowNoteMenu = false;
+                    setTimeout(() => {
+                        this.params = JSON.parse(JSON.stringify(this.defaultParams));
+                        if (note) {
+                            this.params = JSON.parse(JSON.stringify(note));
+                        }
+                        this.isAddNoteModal = true;
+                    });
+                },
+
+                deleteNote() {
+                    this.notesList = this.notesList.filter((d) => d.id != this.deletedNote.id);
+                    this.searchNotes();
+                    this.showMessage('Note has been deleted successfully.');
+                    this.isDeleteNoteModal = false;
+                },
+
+                showMessage(msg = '', type = 'success') {
+                    const toast = window.Swal.mixin({
+                        toast: true,
+                        position: 'top',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+                    toast.fire({
+                        icon: type,
+                        title: msg,
+                        padding: '10px 20px',
+                    });
+                },
+            }));
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Target the Chat link
+            const chatLink = document.querySelector('a[href="apps-chat.html"]');
+            const notesLink = document.querySelector('a[href="apps-notes.html"]');
+
+            if (chatLink && notesLink) {
+                chatLink.addEventListener('click', (e) => {
+                    // Prevent default behavior and stop propagation to block Alpine.js interference
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Remove 'active' class from Notes and ensure it’s not focused
+                    notesLink.classList.remove('active');
+                    notesLink.blur(); // Explicitly remove focus from Notes
+
+                    // Set 'active' class on Chat and force focus
+                    chatLink.classList.add('active');
+                    chatLink.focus();
+
+                    // Prevent subsequent focus shifts by overriding focus events temporarily
+                    const preventFocusShift = (event) => {
+                        if (event.target === notesLink) {
+                            event.preventDefault();
+                            chatLink.focus();
+                        }
+                    };
+                    document.addEventListener('focusin', preventFocusShift);
+
+                    // Clean up the focus override after a short delay
+                    setTimeout(() => {
+                        document.removeEventListener('focusin', preventFocusShift);
+                    }, 1000); // 1 second should suffice for the click event cycle
+
+                    // Optional: Navigate to Chat page if intended
+                    // window.location.href = chatLink.getAttribute('href');
+                });
+
+                // Ensure initial state doesn’t favor Notes unnecessarily
+                if (window.location.pathname !== '/apps-notes.html') {
+                    notesLink.classList.remove('active');
+                }
+            }
+        });
+
     </script>
     <script src="assets/js/auth.js"></script>
 </body>

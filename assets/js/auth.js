@@ -9,7 +9,7 @@
     // List of pages that require authentication
     const protectedPages = [
         'index.html',
-        'PreApproval.html',
+        'PreApprovalEntry.html',
         'Spot.html',
         'UserManagement.html',
         'UserRole.html',

@@ -390,7 +390,7 @@
                         <li class="nav-item">
                             <ul>
                                 <li class="nav-item">
-                                    <a href="PreApproval.html" class="active group">
+                                    <a href="PreApprovalEntry.html" class="active group">
                                         <div class="flex items-center">
                                             <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2376,12 +2376,12 @@
 
             <div class="dvanimation animate__animated p-6" :class="[$store.app.animation]">
                 <!-- start main content section -->
-                <div class="ml-64 p-4">
-                    <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-6">
+                <div class="ml-64 p-0">
+                    <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-0">
                         <div class="px-6 py-4 border-b text-xl font-semibold flex items-center justify-between">
                             <span>Schedule Appointment</span>
                             <div class="mb-2">
-                                <a href="index.html" class="btn btn-sm btn-l btn-primary rounded-full">Back</a>
+                                <a href="PreApprovalEntry.html" class="btn btn-sm btn-l btn-primary rounded-full">Back</a>
                             </div>
                         </div>
                         <form class="space-y-4  p-6">
@@ -2651,7 +2651,7 @@
                 };
 
                 try {
-                    const response = await fetch('http://192.168.3.73:3001/appointment/create', {
+                    const response = await fetch('http://192.168.3.74:3001/appointment/create', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(formattedData)
