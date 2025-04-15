@@ -2901,8 +2901,12 @@
                                             <label>User Role</label>
                                             <select id="UserRoleId" name="userRoleId">
                                                 <option value="">Select Userrole</option>
+<<<<<<< HEAD
                                                 <!-- <option value="1">Admin</option>
                                                 <option value="2">User</option> -->
+=======
+                                               
+>>>>>>> 11f8087614b1e8c379f1031c863b0705c0dfd078
                                             </select>
                                             <span class="error-message" id="error-userRoleId"></span>
                                             <script>
@@ -3001,10 +3005,27 @@
                                             <label>User Role</label>
                                             <select id="editUserRoleId" name="userRoleId" class="form-select">
                                                 <option value="">Select Userrole</option>
-                                                <option value="1">Admin</option>
-                                                <option value="2">User</option>
+                                                
                                             </select>
                                             <span class="error-message" id="error-edituserRoleId"></span>
+                                            <script>
+                                                // Replace the URL below if needed based on your backend port
+                                                fetch('http://192.168.3.77:3001/userroles/active')
+                                                  .then(response => response.json())
+                                                  .then(data => {
+                                                    const select = document.getElementById('editUserRoleId');
+                                                    data.forEach(role => {
+                                                      const option = document.createElement('option');
+                                                      option.value = role.id;        // Ensure 'id' exists in response
+                                                      option.textContent = role.userRoleName;
+                                                      // Ensure 'name' or whatever label you use
+                                                      select.appendChild(option);
+                                                    });
+                                                  })
+                                                  .catch(error => {
+                                                    console.error('Error fetching user roles:', error);
+                                                  });
+                                              </script>
                                         </div>
                                         <div class="form-group">
                                             <label>Notes</label>
