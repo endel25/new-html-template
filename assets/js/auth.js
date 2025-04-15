@@ -10,7 +10,7 @@
     const protectedPages = [
         'index.html',
         'PreApprovalEntry.html',
-        'Spot.html',
+        'SpotEntry.html',
         'UserManagement.html',
         'UserRole.html',
         
