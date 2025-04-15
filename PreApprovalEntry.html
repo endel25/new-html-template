@@ -21,7 +21,7 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
-
+        
         body {
             font-family: 'Nunito', sans-serif;
             background-color: #f4f4f9;
@@ -31,63 +31,51 @@
             flex-direction: column;
             min-height: 100vh;
         }
-
+        
         .btn-sm {
-    padding: 0.375rem 0.625rem;
-    font-size: 0.75rem;
-    line-height: 1.3rem; /* fixed typo: '1.rem' → '1rem' */
-}
-
-        /* Navbar Styles */
-        .navbar {
-            background-color: #fff;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+            padding: 0.375rem 0.625rem;
+            font-size: 0.75rem;
+            line-height: 1.3rem;
         }
 
-        .navbar .left-icons, .navbar .right-icons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .btn-outline-primary {
+            border: 1px solid #4361ee;
+            color: #4361ee;
+            background-color: transparent;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
         }
 
-        .navbar .search-bar {
-            flex-grow: 1;
-            margin: 0 20px;
+        .btn-outline-primary:hover {
+            background-color: #4361ee;
+            color: white;
         }
-
-        .navbar .search-bar input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #e5e7eb;
+        
+        .btn-success {
+            background-color: #16a34a;
+            color: #fff;
+            border: none;
             border-radius: 4px;
-            font-size: 0.875rem;
+            cursor: pointer;
         }
-
-        .navbar .right-icons img {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
+        
+        .btn-success:hover {
+            background-color: #15803d;
         }
-
-        /* Main Content */
-        .content {
-            margin-top: 60px;
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+        
+        .btn-danger {
+            background-color: #dc2626;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
-
+        
+        .btn-danger:hover {
+            background-color: #b91c1c;
+        }
+        
+        /* Table Styles */
         .table-container {
             background-color: #fff;
             width: 100%;
@@ -95,28 +83,19 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow-x: auto;
-            margin: 0 auto; /* centers the container */
- 
+            margin: 0 auto;
         }
-        .table-header {
-    padding: 16px;
-    text-align: left;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1f2937;
-    border-bottom: 1px solid #e5e7eb;
-    background-color: #fff;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
+        
+        .table-scroll {
+            overflow-x: auto;
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1000px; /* Ensure table is wide enough for all columns */
+            min-width: 700px;
         }
-
+        
         th, td {
             padding: 12px 8px;
             text-align: left;
@@ -124,48 +103,190 @@
             border-bottom: 1px solid #e5e7eb;
             white-space: nowrap;
         }
-
+        
         th {
             background-color: #f9fafb;
             font-weight: 600;
             color: #374151;
         }
-
+        
         td {
             color: #4b5563;
         }
-
+        
         tr:hover {
             background-color: #f3f4f6;
         }
-
-        .photo-img {
-            width: 40px;
-            height: 32px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
+        
         .no-data {
             text-align: center;
             padding: 20px;
             color: #6b7280;
         }
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 10px;
-            color: #6b7280;
-            margin-top: auto;
-        }
+        .center-checkbox {
+    text-align: left;
+    vertical-align: middle;
+}
 
-        .table-scroll {
-    overflow-x: auto;
+.center-checkbox input[type="checkbox"] {
+    transform: scale(1.2); 
+    margin: 0 auto;
 }
 
         
-    </style>
+        /* Checkbox Styling for Gatepass Approve */
+        /* Checkbox Styling for Gatepass Approve */
+.gatepass-approve {
+    display: none;
+}
+
+.gatepass-approve + label {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 3px;
+    vertical-align: middle;
+    cursor: not-allowed;
+}
+
+.gatepass-approve.unset + label {
+    background-color: transparent;
+    content: '';
+}
+
+.gatepass-approve:checked + label {
+    background-color: #16a34a;
+    color: #fff;
+    text-align: center;
+    line-height: 16px;
+}
+
+.gatepass-approve:checked + label:before {
+    content: '✔';
+}
+
+.gatepass-approve:not(.unset):not(:checked) + label {
+    background-color: #dc2626;
+    color: #fff;
+    text-align: center;
+    line-height: 16px;
+}
+
+.gatepass-approve:not(.unset):not(:checked) + label:before {
+    content: '✖';
+}
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 8px;
+            max-height: 90vh;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Form Styles */
+        .form-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: nowrap;
+        }
+        
+        .form-column {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 10px;
+        }
+        
+        .form-group.full-width {
+            margin-top: 10px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .form-group select {
+            appearance: auto;
+        }
+        
+        .form-group textarea {
+            height: 60px;
+            resize: none;
+        }
+        
+        .duration-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .duration-group input {
+            flex: 1;
+        }
+        
+        .duration-group select {
+            flex: 1;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        button[type="submit"],
+        button[type="button"] {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+        </style>
 
     
 </head>
@@ -2485,44 +2606,144 @@
                     <div class="px-6 py-4 border-b text-xl font-semibold flex items-center justify-between">
                         <span>Visitor Registration Data</span>
                         <div class="mb-2">
-                            <a href="PreApproval.html" class="btn btn-sm btn-l btn-primary rounded-full">
+                            <a href="PreApproval.html" class="btn btn-sm btn-primary rounded-full">
                                 Schedule Appointment
-                            </a>                        </div>
+                            </a>
+                        </div>
                     </div>
                     <div class="table-scroll">
                         <table id="visitorTable">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
-                                    <th>Gender</th>
                                     <th>Contact Number</th>
-                                    <th>Email</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
                                     <th>National ID</th>
-                                    <th>Photo</th>
-                                    <th>Purpose</th>
-                                    <th>Person Name</th>
-                                    <th>Department</th>
-                                    <th>Duration</th>
-                                    <th>Visitor Type</th>
-                                    <th>Vehicle Type</th>
-                                    <th>Vehicle Number</th>
-                                    <th>Driver Name</th>
-                                    <th>Driver Mobile</th>
-                                    <th>Driver National ID</th>
-                                    <th>Driver Photo</th>
-                                    <th>Notes</th>
+                                    <th>NDA Approve</th>
+                                    <th>Safety Approve</th>
+                                    <th>Gatepass Approve</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="visitorTableBody">
                                 <!-- Rows will be populated dynamically -->
                             </tbody>
                         </table>
-                
                     </div>
                 </div>
+                
+                <!-- Modal for Visitor Details Form -->
+                <div id="visitorModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">×</span>
+                        <h2>Visitor Details</h2>
+                        <form id="visitorForm">
+                            <div class="form-container">
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <select id="gender" name="gender">
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" name="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date">Date</label>
+                                        <input type="date" id="date" name="date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="time">Time</label>
+                                        <input type="time" id="time" name="time">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nationalid">National ID</label>
+                                        <input type="text" id="nationalid" name="nationalid">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="photo">Photo URL</label>
+                                        <input type="text" id="photo" name="photo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="visit">Purpose</label>
+                                        <input type="text" id="visit" name="visit">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="personname">Person Name</label>
+                                        <input type="text" id="personname" name="personname">
+                                    </div>
+                                </div>
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="department">Department</label>
+                                        <input type="text" id="department" name="department">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="durationtime">Duration</label>
+                                        <div class="duration-group">
+                                            <input type="number" id="durationtime" name="durationtime">
+                                            
+
+                                            <select id="durationUnit" name="durationUnit">
+                                                
+                                            <option value=" ">Select unit</option>
+                                            <option value="Hours">Hours</option>
+                                            <option value="Minutes">Minutes</option>
+                                            <option value="Days">Days</option>
+                                        </select>
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="visitortype">Visitor Type</label>
+                                        <input type="text" id="visitortype" name="visitortype">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="vehicletype">Vehicle Type</label>
+                                        <input type="text" id="vehicletype" name="vehicletype">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="drivername">Driver Name</label>
+                                        <input type="text" id="drivername" name="drivername">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="drivermobile">Driver Mobile</label>
+                                        <input type="text" id="drivermobile" name="drivermobile">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="drivernationalid">Driver National ID</label>
+                                        <input type="text" id="drivernationalid" name="drivernationalid">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="driverphoto">Driver Photo URL</label>
+                                        <input type="text" id="driverphoto" name="driverphoto">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="notes">Notes</label>
+                                <textarea id="notes" name="notes"></textarea>
+                            </div>
+                            <div class="button-group">
+                                <button type="submit" class="btn btn-primary">Save Details</button>
+                                <button type="button" id="approveGatepass" class="btn btn-success">Approve Gatepass</button>
+                                <button type="button" id="disapproveGatepass" class="btn btn-danger">Disapprove Gatepass</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+                
                 <!-- end main content section -->
             </div>
 
@@ -2534,58 +2755,208 @@
         </div>
     </div>
     <script>
+        // Simulated visitor data fetching (replace with real API)
+        async function fetchVisitorData() {
+            try {
+                // Replace with your actual API endpoint
+                // const response = await fetch('/api/visitors');
+                // return await response.json();
+                
+                // Mock response for demonstration
+                return [
+                    {
+                        id: 1,
+                        firstname: "John",
+                        lastname: "Doe",
+                        contactnumber: "1234567890",
+                        vehiclenumber: "ABC123",
+                        gender: "Male",
+                        email: "john@example.com",
+                        date: "2025-04-15",
+                        time: "10:00",
+                        nationalid: "ID123456",
+                        photo: "https://via.placeholder.com/40",
+                        visit: "Meeting",
+                        personname: "Jane Smith",
+                        department: "HR",
+                        durationtime: 2,
+                        durationUnit: " ",
+                        visitortype: "Guest",
+                        vehicletype: "Car",
+                        drivername: "Mike Johnson",
+                        drivermobile: "0987654321",
+                        drivernationalid: "DID789",
+                        driverphoto: "https://via.placeholder.com/40",
+                        notes: "VIP visitor",
+                        ndaApproved: false,
+                        safetyApproved: false,
+                        gatepassApproved: null // Default to null for unset state
+                    }
+                    // In real app, this comes from API
+                ];
+            } catch (error) {
+                console.error('Error fetching visitor data:', error);
+                return [];
+            }
+        }
+        
         // Function to fetch and display visitor data
         async function loadVisitorData() {
             try {
-                // Replace with your actual API endpoint
-                const response = await fetch('/api/visitors');
-                const visitors = await response.json();
-
+                const visitors = await fetchVisitorData();
+        
                 const tableBody = document.getElementById('visitorTableBody');
                 tableBody.innerHTML = ''; // Clear existing rows
-
+        
                 if (visitors.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="21" class="no-data">No visitor data available</td></tr>';
+                    tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
                     return;
                 }
-
+        
                 visitors.forEach(visitor => {
                     const row = document.createElement('tr');
+                    row.setAttribute('data-id', visitor.id);
                     row.innerHTML = `
+                        <td>${visitor.id || '-'}</td>
                         <td>${visitor.firstname || '-'}</td>
                         <td>${visitor.lastname || '-'}</td>
-                        <td>${visitor.gender || '-'}</td>
                         <td>${visitor.contactnumber || '-'}</td>
-                        <td>${visitor.email || '-'}</td>
-                        <td>${visitor.date || '-'}</td>
-                        <td>${visitor.time || '-'}</td>
                         <td>${visitor.nationalid || '-'}</td>
-                        <td>${visitor.photo ? `<img src="${visitor.photo}" class="photo-img" alt="Visitor Photo">` : '-'}</td>
-                        <td>${visitor.visit || '-'}</td>
-                        <td>${visitor.personname || '-'}</td>
-                        <td>${visitor.department || '-'}</td>
-                        <td>${visitor.durationtime && visitor.durationUnit ? `${visitor.durationtime} ${visitor.durationUnit}` : '-'}</td>
-                        <td>${visitor.visitortype || '-'}</td>
-                        <td>${visitor.vehicletype || '-'}</td>
-                        <td>${visitor.vehiclenumber || '-'}</td>
-                        <td>${visitor.drivername || '-'}</td>
-                        <td>${visitor.drivermobile || '-'}</td>
-                        <td>${visitor.drivernationalid || '-'}</td>
-                        <td>${visitor.driverphoto ? `<img src="${visitor.driverphoto}" class="photo-img" alt="Driver Photo">` : '-'}</td>
-                        <td>${visitor.notes || '-'}</td>
+                        <td class="center-checkbox">
+  <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
+</td>
+<td class="center-checkbox">
+  <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
+</td>
+<td class="center-checkbox">
+  <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
+  <label for="gatepass-${visitor.id}"></label>
+</td>
+                        <td><button class="btn btn-sm btn-primary rounded-full">Details</button></td>
                     `;
                     tableBody.appendChild(row);
+                });
+        
+                // Attach event listeners to Details buttons
+                document.querySelectorAll('.details-btn').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const row = e.target.closest('tr');
+                        const visitorId = row.getAttribute('data-id');
+                        await openVisitorModal(visitorId);
+                    });
                 });
             } catch (error) {
                 console.error('Error loading visitor data:', error);
                 document.getElementById('visitorTableBody').innerHTML = 
-                    '<tr><td colspan="21" class="no-data">Error loading data</td></tr>';
+                    '<tr><td colspan="9" class="no-data">Error loading data</td></tr>';
             }
         }
-
+        
+        // Function to open the modal and populate the form
+        async function openVisitorModal(visitorId) {
+            const visitors = await fetchVisitorData();
+            const visitor = visitors.find(v => v.id == visitorId);
+            if (!visitor) return;
+        
+            // Populate form fields
+            document.getElementById('gender').value = visitor.gender || '';
+            document.getElementById('email').value = visitor.email || '';
+            document.getElementById('date').value = visitor.date || '';
+            document.getElementById('time').value = visitor.time || '';
+            document.getElementById('nationalid').value = visitor.nationalid || '';
+            document.getElementById('photo').value = visitor.photo || '';
+            document.getElementById('visit').value = visitor.visit || '';
+            document.getElementById('personname').value = visitor.personname || '';
+            document.getElementById('department').value = visitor.department || '';
+            document.getElementById('durationtime').value = visitor.durationtime || '';
+            document.getElementById('durationUnit').value = visitor.durationUnit || 'hours';
+            document.getElementById('visitortype').value = visitor.visitortype || '';
+            document.getElementById('vehicletype').value = visitor.vehicletype || '';
+            document.getElementById('drivername').value = visitor.drivername || '';
+            document.getElementById('drivermobile').value = visitor.drivermobile || '';
+            document.getElementById('drivernationalid').value = visitor.drivernationalid || '';
+            document.getElementById('driverphoto').value = visitor.driverphoto || '';
+            document.getElementById('notes').value = visitor.notes || '';
+        
+            // Store visitor ID in form for reference
+            document.getElementById('visitorForm').setAttribute('data-id', visitorId);
+        
+            // Show modal
+            document.getElementById('visitorModal').style.display = 'block';
+        }
+        
+        // Handle form submission
+        document.getElementById('visitorForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const visitorId = e.target.getAttribute('data-id');
+            // Collect form data
+            const formData = {
+                gender: document.getElementById('gender').value,
+                email: document.getElementById('email').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                nationalid: document.getElementById('nationalid').value,
+                photo: document.getElementById('photo').value,
+                visit: document.getElementById('visit').value,
+                personname: document.getElementById('personname').value,
+                department: document.getElementById('department').value,
+                durationtime: document.getElementById('durationtime').value,
+                durationUnit: document.getElementById('durationUnit').value,
+                visitortype: document.getElementById('visitortype').value,
+                vehicletype: document.getElementById('vehicletype').value,
+                drivername: document.getElementById('drivername').value,
+                drivermobile: document.getElementById('drivermobile').value,
+                drivernationalid: document.getElementById('drivernationalid').value,
+                driverphoto: document.getElementById('driverphoto').value,
+                notes: document.getElementById('notes').value
+            };
+            console.log('Submitting form data for visitor ID:', visitorId, formData);
+            // In a real app: await fetch('/api/visitors/' + visitorId, { method: 'PUT', body: JSON.stringify(formData) })
+            alert('Details saved (simulated).');
+            closeModal();
+        });
+        
+        // Handle Approve Gatepass button
+        document.getElementById('approveGatepass').addEventListener('click', async () => {
+            const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
+            // Simulate updating gatepass status
+            // In a real app: await fetch('/api/visitors/' + visitorId + '/gatepass', { method: 'PATCH', body: JSON.stringify({ gatepassApproved: true }) })
+            const row = document.querySelector(`tr[data-id="${visitorId}"]`);
+            if (row) {
+                const checkbox = row.querySelector('.gatepass-approve');
+                checkbox.checked = true;
+                checkbox.classList.remove('unset');
+            }
+            alert('Gatepass approved (simulated).');
+            closeModal();
+        });
+        
+        // Handle Disapprove Gatepass button
+        document.getElementById('disapproveGatepass').addEventListener('click', async () => {
+            const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
+            // Simulate updating gatepass status
+            // In a real app: await fetch('/api/visitors/' + visitorId + '/gatepass', { method: 'PATCH', body: JSON.stringify({ gatepassApproved: false }) })
+            const row = document.querySelector(`tr[data-id="${visitorId}"]`);
+            if (row) {
+                const checkbox = row.querySelector('.gatepass-approve');
+                checkbox.checked = false;
+                checkbox.classList.remove('unset');
+            }
+            alert('Gatepass disapproved (simulated).');
+            closeModal();
+        });
+        
+        // Modal close functionality
+        function closeModal() {
+            document.getElementById('visitorModal').style.display = 'none';
+        }
+        
+        document.querySelector('.modal .close').addEventListener('click', closeModal);
+        
         // Load data when the page loads
         document.addEventListener('DOMContentLoaded', loadVisitorData);
-    </script>
+        </script>
+        
     <script src="assets/js/alpine-collaspe.min.js"></script>
     <script src="assets/js/alpine-persist.min.js"></script>
     <script defer src="assets/js/alpine-ui.min.js"></script>
