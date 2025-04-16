@@ -2670,7 +2670,7 @@
                 <div class="ml-64 p-0">
                     <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-0">
                         <div class="px-6 py-4 border-b text-xl font-semibold flex justify-between items-center">
-                            <span>Visitor Registration Form</span>
+                            <span>Appointment Details Form</span>
                             <a href="SpotEntry.html" class="btn btn-sm btn-primary rounded-full">Back</a>
                         </div>
                         <form class="p-6 space-y-4">
@@ -3412,7 +3412,7 @@
                         console.log('Sending Data:', formattedData);
             
                         try {
-                            const response = await axios.post('http://192.168.3.74:3001/visitors', formattedData, {
+                            const response = await axios.post('http://192.168.3.73:3001/visitors', formattedData, {
                                 headers: { 'Content-Type': 'application/json' }
                             });
                             console.log('Response:', response.data);
