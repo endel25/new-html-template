@@ -27,22 +27,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <style>
-        /* ========================== */
-        /* GENERAL STYLES */
-        /* ========================== */
-        /* * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Nunito', sans-serif;
-            color: #333;
-        } */
-
-        body {
-            background-color: #f5f7fa;
-            padding: 20px;
-        }
-
 
         /* ========================== */
         /* PANEL STYLES */
@@ -52,7 +36,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             padding: 30px;
-            max-width: 1200px;
+            
             margin: 0 auto;
         }
 
@@ -64,7 +48,7 @@
         }
 
         .panel-header h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 600;
         }
 
@@ -76,7 +60,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: .375rem;
+            border-radius: 1.5rem;
             border-width: 1px;
             padding: .5rem 1.25rem;
             font-size: .875rem;
@@ -849,7 +833,7 @@
                                                     fill="currentColor" />
                                             </svg>
                                             <span
-                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Spot</span>
+                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Spot Entry</span>
                                         </div>
                                     </a>
                                 </li>
@@ -2801,7 +2785,7 @@
                     <div class="panel-header">
                         <h2>User Management Stack</h2>
                         <div>
-                            <button class="btn btn-primary" onclick="openAddUserModal()">Add User</button>
+                            <button class="btn btn-sm btn-primary rounded-full" onclick="openAddUserModal()">Add User</button>
                         </div>
                     </div>
                     <div class="panel-controls" id="paginationControls">
@@ -3101,81 +3085,82 @@
         };
 
         // Fetch all users without pagination
-        async function fetchAllUsers() {
-            try {
-                const response = await fetch(`http://192.168.3.74:3001/users/all`);
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                const data = await response.json();
+async function fetchAllUsers() {
+    try {
+        const response = await fetch(`http://192.168.3.74:3001/users/all`);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
 
-                const tbody = document.getElementById('userTableBody');
-                tbody.innerHTML = '';
+        const tbody = document.getElementById('userTableBody');
+        tbody.innerHTML = '';
 
-                data.users.forEach(user => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${user.firstName} ${user.lastName}</td>
-                        <td>${user.userName}</td>
-                        <td>
-                            <span class="toggle-icon" id="toggleActive_${user.id}" onclick="toggleUserStatus(${user.id})">
-                                <i class="${user.isActive ? 'fas fa-toggle-on active' : 'fas fa-toggle-off inactive'}"></i>
-                            </span>
-                        </td>
-                        <td class="action-icons">
-                            <i class="fas fa-edit" onclick="editUser(${user.id})"></i>
-                            <i class="fas fa-trash" onclick="deleteUser(${user.id})"></i>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
+        data.users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.firstName} ${user.lastName}</td>
+                <td>${user.userName}</td>
+                <td>
+                    <span class="toggle-icon" id="toggleActive_${user.id}" onclick="toggleUserStatus(${user.id})">
+                        <i class="${user.isActive ? 'fas fa-toggle-on active' : 'fas fa-toggle-off inactive'}"></i>
+                    </span>
+                </td>
+                <td class="action-icons">
+    <span style="cursor: pointer;" onclick="editUser(${user.id})">✏️</span>
+    <span style="cursor: pointer; margin-left: 8px;" onclick="deleteUser(${user.id})">🗑️</span>
+</td>
+            `;
+            tbody.appendChild(row);
+        });
 
-                document.getElementById('panelFooter').textContent = `Showing 1 to ${data.users.length} of ${data.users.length} entries`;
-                document.getElementById('paginationControls').style.display = 'none';
-                isPaginatedView = false;
-            } catch (error) {
-                console.error('Error fetching all users:', error);
-                showMessage('Error fetching all users: ' + error.message, 'error');
-            }
-        }
+        document.getElementById('panelFooter').textContent = `Showing 1 to ${data.users.length} of ${data.users.length} entries`;
+        document.getElementById('paginationControls').style.display = 'none';
+        isPaginatedView = false;
+    } catch (error) {
+        console.error('Error fetching all users:', error);
+        showMessage('Error fetching all users: ' + error.message, 'error');
+    }
+}
 
-        // Fetch users with pagination and search
-        async function fetchUsers() {
-            entriesPerPage = document.getElementById('entriesPerPage').value;
-            const searchQuery = document.getElementById('searchInput').value;
+// Fetch users with pagination and search
+async function fetchUsers() {
+    entriesPerPage = document.getElementById('entriesPerPage').value;
+    const searchQuery = document.getElementById('searchInput').value;
 
-            try {
-                const response = await fetch(`http://192.168.3.74:3001/users?page=${currentPage}&limit=${entriesPerPage}&search=${searchQuery}`);
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                const data = await response.json();
+    try {
+        const response = await fetch(`http://192.168.3.74:3001/users?page=${currentPage}&limit=${entriesPerPage}&search=${searchQuery}`);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
 
-                const tbody = document.getElementById('userTableBody');
-                tbody.innerHTML = '';
+        const tbody = document.getElementById('userTableBody');
+        tbody.innerHTML = '';
 
-                data.users.forEach(user => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${user.firstName} ${user.lastName}</td>
-                        <td>${user.userName}</td>
-                        <td>
-                            <span class="toggle-icon" id="toggleActive_${user.id}" onclick="toggleUserStatus(${user.id})">
-                                <i class="${user.isActive ? 'fas fa-toggle-on active' : 'fas fa-toggle-off inactive'}"></i>
-                            </span>
-                        </td>
-                        <td class="action-icons">
-                            <i class="fas fa-edit" onclick="editUser(${user.id})"></i>
-                            <i class="fas fa-trash" onclick="deleteUser(${user.id})"></i>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
+        data.users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.firstName} ${user.lastName}</td>
+                <td>${user.userName}</td>
+                <td>
+                    <span class="toggle-icon" id="toggleActive_${user.id}" onclick="toggleUserStatus(${user.id})">
+                        <i class="${user.isActive ? 'fas fa-toggle-on active' : 'fas fa-toggle-off inactive'}"></i>
+                    </span>
+                </td>
+                <td class="action-icons">
+    <span style="cursor: pointer;" onclick="editUser(${user.id})">✏️</span>
+    <span style="cursor: pointer; margin-left: 8px;" onclick="deleteUser(${user.id})">🗑️</span>
+</td>
+            `;
+            tbody.appendChild(row);
+        });
 
-                document.getElementById('panelFooter').textContent = `Showing ${data.start} to ${data.end} of ${data.total} entries`;
-                document.getElementById('paginationControls').style.display = 'flex';
-                isPaginatedView = true;
-            } catch (error) {
-                console.error('Error fetching users:', error);
-                showMessage('Error fetching users: ' + error.message, 'error');
-            }
-        }
+        document.getElementById('panelFooter').textContent = `Showing ${data.start} to ${data.end} of ${data.total} entries`;
+        document.getElementById('paginationControls').style.display = 'flex';
+        isPaginatedView = true;
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        showMessage('Error fetching users: ' + error.message, 'error');
+    }
+}
+
 
         // Toggle user active status
         async function toggleUserStatus(userId) {
