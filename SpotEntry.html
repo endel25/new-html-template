@@ -2881,145 +2881,146 @@ textarea.form-input {
                 </div>
             
                 <!-- Edit Modal -->
-                <div id="editModal" class="modal">
-                    <div class="modal-content">
-                        <button class="close-btn" onclick="closeEditModal()">×</button>
-                        <h2>Edit Visitor</h2>
-                        <form id="editForm" class="visitor-form">
-                            <!-- ID Field (Full Width) -->
-                            <div class="form-group-row">
-                                <label for="edit-id" class="form-label">ID</label>
-                                <input type="text" id="edit-id" name="id" class="form-input" readonly>
-                            </div>
-                            <!-- Two-Column Layout -->
-                            <div class="form-grid">
-                                <!-- First Name & Last Name -->
-                                <div class="form-group-row">
-                                    <label for="edit-firstname" class="form-label">First Name</label>
-                                    <input type="text" id="edit-firstname" name="firstname" class="form-input" placeholder="Enter first name">
-                                    <span class="error" id="error-edit-firstname"></span>
-                                </div>
-                                <div class="form-group-row">
-                                    <label for="edit-lastname" class="form-label">Last Name</label>
-                                    <input type="text" id="edit-lastname" name="lastname" class="form-input" placeholder="Enter last name">
-                                    <span class="error" id="error-edit-lastname"></span>
-                                </div>
-                                <!-- Gender & Contact Number -->
-                                <div class="form-group-row">
-                                    <label for="edit-gender" class="form-label">Gender</label>
-                                    <select id="edit-gender" name="gender" class="form-input">
-                                        <option value="">Select gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    <span class="error" id="error-edit-gender"></span>
-                                </div>
-                                <div class="form-group-row">
-                                    <label for="edit-contactnumber" class="form-label">Contact Number</label>
-                                    <input type="text" id="edit-contactnumber" name="contactnumber" class="form-input" placeholder="Enter contact number">
-                                    <span class="error" id="error-edit-contactnumber"></span>
-                                </div>
-                                <!-- Email & Date -->
-                                <div class="form-group-row">
-                                    <label for="edit-email" class="form-label">Email Address</label>
-                                    <input type="email" id="edit-email" name="email" class="form-input" placeholder="Enter email address">
-                                    <span class="error" id="error-edit-email"></span>
-                                </div>
-                                <div class="form-group-row">
-                                    <label for="edit-date" class="form-label">Date</label>
-                                    <input type="date" id="edit-date" name="date" class="form-input">
-                                    <span class="error" id="error-edit-date"></span>
-                                </div>
-                                <!-- Time & National ID -->
-                                <div class="form-group-row">
-                                    <label for="edit-time" class="form-label">Time</label>
-                                    <input type="time" id="edit-time" name="time" class="form-input">
-                                    <span class="error" id="error-edit-time"></span>
-                                </div>
-                                <div class="form-group-row">
-                                    <label for="edit-nationalid" class="form-label">National ID</label>
-                                    <input type="text" id="edit-nationalid" name="nationalid" class="form-input" placeholder="Enter national ID">
-                                    <span class="error" id="error-edit-nationalid"></span>
-                                </div>
-                                <!-- Purpose of Visit & Photo -->
-                                <div class="form-group-row">
-                                    <label for="edit-visit" class="form-label">Purpose of Visit</label>
-                                    <input type="text" id="edit-visit" name="visit" class="form-input" placeholder="Enter visit purpose">
-                                    <span class="error" id="error-edit-visit"></span>
-                                </div>
-                                <div class="form-group-row">
-                                    <label for="edit-photo" class="form-label">Photo</label>
-                                    <input type="file" id="edit-photo" name="photo" class="form-input" accept="image/*">
-                                    <span class="error" id="error-edit-photo"></span>
-                                </div>
-                                <!-- Person Name & Department -->
-                                <div class="form-group-row">
-                                    <label for="edit-personname" class="form-label">Person Name</label>
-                                    <input type="text" id="edit-personname" name="personname" class="form-input" placeholder="Enter name of person to meet">
-                                    <span class="error" id="error-edit-personname"></span>
-                                </div>
-                                <div class="form-group-row">
-                                    <label for="edit-department" class="form-label">Department</label>
-                                    <input type="text" id="edit-department" name="department" class="form-input" placeholder="Enter the visiting department">
-                                    <span class="error" id="error-edit-department"></span>
-                                </div>
-                                <!-- Duration Unit & Duration Time -->
-                                <div class="form-group-row">
-                                    <label for="edit-durationUnit" class="form-label">Duration Unit</label>
-                                    <select id="edit-durationUnit" name="durationUnit" class="form-input">
-                                        <option value="">Select unit</option>
-                                        <option value="Hours">Hours</option>
-                                        <option value="Minutes">Minutes</option>
-                                        <option value="Days">Days</option>
-                                    </select>
-                                    <span class="error" id="error-edit-durationUnit"></span>
-                                </div>
-                                <div class="form-group-row">
-                                    <label for="edit-durationtime" class="form-label">Duration Time</label>
-                                    <input type="number" id="edit-durationtime" name="durationtime" class="form-input" placeholder="Enter expected duration" min="1">
-                                    <span class="error" id="error-edit-durationtime"></span>
-                                </div>
-                                <!-- Visitor Type & Vehicle Type -->
-                                <div class="form-group-row">
-                                    <label for="edit-visitortype" class="form-label">Visitor Type</label>
-                                    <select id="edit-visitortype" name="visitortype" class="form-input">
-                                        <option value="">Select visitor type</option>
-                                        <option value="Vendor">Vendor</option>
-                                        <option value="Client">Client</option>
-                                        <option value="Interview">Interview</option>
-                                        <option value="Guest">Guest</option>
-                                    </select>
-                                    <span class="error" id="error-edit-visitortype"></span>
-                                </div>
-                                <div class="form-group-row">
-                                    <label for="edit-vehicletype" class="form-label">Vehicle Type</label>
-                                    <input type="text" id="edit-vehicletype" name="vehicletype" class="form-input" placeholder="Enter vehicle type">
-                                    <span class="error" id="error-edit-vehicletype"></span>
-                                </div>
-                                <!-- Vehicle Number & Include Driver -->
-                                <div class="form-group-row">
-                                    <label for="edit-vehiclenumber" class="form-label">Vehicle Number</label>
-                                    <input type="text" id="edit-vehiclenumber" name="vehiclenumber" class="form-input" placeholder="Enter vehicle number">
-                                    <span class="error" id="error-edit-vehiclenumber"></span>
-                                </div>
-                                <div class="form-group-row">
-                                    <label for="edit-includedriver" class="form-label">Include Driver?</label>
-                                    <input type="checkbox" id="edit-includedriver" name="includedriver" class="form-checkbox">
-                                    <span class="error" id="error-edit-includedriver"></span>
-                                </div>
-                            </div>
-                            <!-- Notes (Full Width) -->
-                            <div class="form-group-row">
-                                <label for="edit-notes" class="form-label">Notes</label>
-                                <textarea id="edit-notes" name="notes" class="form-input" rows="2" placeholder="Enter any notes..."></textarea>
-                                <span class="error" id="error-edit-notes"></span>
-                            </div>
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </form>
-                    </div>
+<!-- Edit Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeEditModal()">×</button>
+        <h2>Edit Visitor</h2>
+        <form id="editForm" class="visitor-form">
+            <!-- Two-Column Layout -->
+            <div class="form-grid">
+                <!-- ID Field -->
+                <div class="form-group-row full-width">
+                    <label for="edit-id" class="form-label">ID</label>
+                    <input type="text" id="edit-id" name="id" class="form-input" readonly>
                 </div>
+                <!-- First Name & Last Name -->
+                <div class="form-group-row">
+                    <label for="edit-firstname" class="form-label">First Name</label>
+                    <input type="text" id="edit-firstname" name="firstname" class="form-input" placeholder="Enter first name">
+                    <span class="error" id="error-edit-firstname"></span>
+                </div>
+                <div class="form-group-row">
+                    <label for="edit-lastname" class="form-label">Last Name</label>
+                    <input type="text" id="edit-lastname" name="lastname" class="form-input" placeholder="Enter last name">
+                    <span class="error" id="error-edit-lastname"></span>
+                </div>
+                <!-- Gender & Contact Number -->
+                <div class="form-group-row">
+                    <label for="edit-gender" class="form-label">Gender</label>
+                    <select id="edit-gender" name="gender" class="form-input">
+                        <option value="">Select gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span class="error" id="error-edit-gender"></span>
+                </div>
+                <div class="form-group-row">
+                    <label for="edit-contactnumber" class="form-label">Contact Number</label>
+                    <input type="text" id="edit-contactnumber" name="contactnumber" class="form-input" placeholder="Enter contact number">
+                    <span class="error" id="error-edit-contactnumber"></span>
+                </div>
+                <!-- Email & Date -->
+                <div class="form-group-row">
+                    <label for="edit-email" class="form-label">Email Address</label>
+                    <input type="email" id="edit-email" name="email" class="form-input" placeholder="Enter email address">
+                    <span class="error" id="error-edit-email"></span>
+                </div>
+                <div class="form-group-row">
+                    <label for="edit-date" class="form-label">Date</label>
+                    <input type="date" id="edit-date" name="date" class="form-input">
+                    <span class="error" id="error-edit-date"></span>
+                </div>
+                <!-- Time & National ID -->
+                <div class="form-group-row">
+                    <label for="edit-time" class="form-label">Time</label>
+                    <input type="time" id="edit-time" name="time" class="form-input">
+                    <span class="error" id="error-edit-time"></span>
+                </div>
+                <div class="form-group-row">
+                    <label for="edit-nationalid" class="form-label">National ID</label>
+                    <input type="text" id="edit-nationalid" name="nationalid" class="form-input" placeholder="Enter national ID">
+                    <span class="error" id="error-edit-nationalid"></span>
+                </div>
+                <!-- Purpose of Visit & Photo -->
+                <div class="form-group-row">
+                    <label for="edit-visit" class="form-label">Purpose of Visit</label>
+                    <input type="text" id="edit-visit" name="visit" class="form-input" placeholder="Enter visit purpose">
+                    <span class="error" id="error-edit-visit"></span>
+                </div>
+                <div class="form-group-row">
+                    <label for="edit-photo" class="form-label">Photo</label>
+                    <input type="file" id="edit-photo" name="photo" class="form-input" accept="image/*">
+                    <span class="error" id="error-edit-photo"></span>
+                </div>
+                <!-- Person Name & Department -->
+                <div class="form-group-row">
+                    <label for="edit-personname" class="form-label">Person Name</label>
+                    <input type="text" id="edit-personname" name="personname" class="form-input" placeholder="Enter name of person to meet">
+                    <span class="error" id="error-edit-personname"></span>
+                </div>
+                <div class="form-group-row">
+                    <label for="edit-department" class="form-label">Department</label>
+                    <input type="text" id="edit-department" name="department" class="form-input" placeholder="Enter the visiting department">
+                    <span class="error" id="error-edit-department"></span>
+                </div>
+                <!-- Duration Unit & Duration Time -->
+                <div class="form-group-row">
+                    <label for="edit-durationUnit" class="form-label">Duration Unit</label>
+                    <select id="edit-durationUnit" name="durationUnit" class="form-input">
+                        <option value="">Select unit</option>
+                        <option value="Hours">Hours</option>
+                        <option value="Minutes">Minutes</option>
+                        <option value="Days">Days</option>
+                    </select>
+                    <span class="error" id="error-edit-durationUnit"></span>
+                </div>
+                <div class="form-group-row">
+                    <label for="edit-durationtime" class="form-label">Duration Time</label>
+                    <input type="number" id="edit-durationtime" name="durationtime" class="form-input" placeholder="Enter expected duration" min="1">
+                    <span class="error" id="error-edit-durationtime"></span>
+                </div>
+                <!-- Visitor Type & Vehicle Type -->
+                <div class="form-group-row">
+                    <label for="edit-visitortype" class="form-label">Visitor Type</label>
+                    <select id="edit-visitortype" name="visitortype" class="form-input">
+                        <option value="">Select visitor type</option>
+                        <option value="Vendor">Vendor</option>
+                        <option value="Client">Client</option>
+                        <option value="Interview">Interview</option>
+                        <option value="Guest">Guest</option>
+                    </select>
+                    <span class="error" id="error-edit-visitortype"></span>
+                </div>
+                <div class="form-group-row">
+                    <label for="edit-vehicletype" class="form-label">Vehicle Type</label>
+                    <input type="text" id="edit-vehicletype" name="vehicletype" class="form-input" placeholder="Enter vehicle type">
+                    <span class="error" id="error-edit-vehicletype"></span>
+                </div>
+                <!-- Vehicle Number & Include Driver -->
+                <div class="form-group-row">
+                    <label for="edit-vehiclenumber" class="form-label">Vehicle Number</label>
+                    <input type="text" id="edit-vehiclenumber" name="vehiclenumber" class="form-input" placeholder="Enter vehicle number">
+                    <span class="error" id="error-edit-vehiclenumber"></span>
+                </div>
+                <div class="form-group-row">
+                    <label for="edit-includedriver" class="form-label">Include Driver?</label>
+                    <input type="checkbox" id="edit-includedriver" name="includedriver" class="form-checkbox">
+                    <span class="error" id="error-edit-includedriver"></span>
+                </div>
+            </div>
+            <!-- Notes (Full Width) -->
+            <div class="form-group-row">
+                <label for="edit-notes" class="form-label">Notes</label>
+                <textarea id="edit-notes" name="notes" class="form-input" rows="2" placeholder="Enter any notes..."></textarea>
+                <span class="error" id="error-edit-notes"></span>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
             
             
                 <!-- end main content section -->
