@@ -2792,7 +2792,7 @@
                     <div class="modal-content">
                         <span class="close">×</span>
                         <h2>Visitor Details</h2>
-                        <form id="visitorForm">
+                        <form id="visitorForm" enctype="multipart/form-data">
                             <div class="form-container">
                                 <div class="form-column">
                                     <div class="form-group">
@@ -2806,23 +2806,27 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" id="email" name="email">
+                                        <input type="email" id="email" name="email" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="date">Date</label>
-                                        <input type="date" id="date" name="date">
+                                        <input type="date" id="date" name="date" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="time">Time</label>
-                                        <input type="time" id="time" name="time">
+                                        <input type="time" id="time" name="time" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="nationalid">National ID</label>
                                         <input type="text" id="nationalid" name="nationalid">
                                     </div>
                                     <div class="form-group">
-                                        <label for="photo">Photo URL</label>
-                                        <input type="text" id="photo" name="photo">
+                                        <label for="photo">Photo</label>
+                                        <div class="photo-preview">
+                                            <img id="photoPreview" src="" alt="Visitor Photo" style="max-width: 100px; display: none;">
+                                            <input type="file" id="photo" name="photo" accept="image/*" onchange="previewImage(this, 'photoPreview')">
+                                            <button type="button" onclick="document.getElementById('photo').click()">Upload New Photo</button>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="visit">Purpose</label>
@@ -2842,16 +2846,12 @@
                                         <label for="durationtime">Duration</label>
                                         <div class="duration-group">
                                             <input type="number" id="durationtime" name="durationtime">
-
-
                                             <select id="durationUnit" name="durationUnit">
-
-                                                <option value=" ">Select unit</option>
+                                                <option value="">Select unit</option>
                                                 <option value="Hours">Hours</option>
                                                 <option value="Minutes">Minutes</option>
                                                 <option value="Days">Days</option>
                                             </select>
-
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -2875,8 +2875,12 @@
                                         <input type="text" id="drivernationalid" name="drivernationalid">
                                     </div>
                                     <div class="form-group">
-                                        <label for="driverphoto">Driver Photo URL</label>
-                                        <input type="text" id="driverphoto" name="driverphoto">
+                                        <label for="driverphoto">Driver Photo</label>
+                                        <div class="photo-preview">
+                                            <img id="driverPhotoPreview" src="" alt="Driver Photo" style="max-width: 100px; display: none;">
+                                            <input type="file" id="driverphoto" name="driverphoto" accept="image/*" onchange="previewImage(this, 'driverPhotoPreview')">
+                                            <button type="button" onclick="document.getElementById('driverphoto').click()">Upload New Driver Photo</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2886,12 +2890,8 @@
                             </div>
                             <div class="button-group">
                                 <button type="submit" class="btn btn-sm btn-primary rounded-full">Save Details</button>
-                                <button type="button" id="approveGatepass"
-                                    class="btn btn-sm btn-success rounded-full">Approve
-                                    Gatepass</button>
-                                <button type="button" id="disapproveGatepass"
-                                    class="btn btn-sm btn-danger rounded-full">Disapprove
-                                    Gatepass</button>
+                                <button type="button" id="approveGatepass" class="btn btn-sm btn-success rounded-full">Approve Gatepass</button>
+                                <button type="button" id="disapproveGatepass" class="btn btn-sm btn-danger rounded-full">Disapprove Gatepass</button>
                             </div>
                         </form>
                     </div>
@@ -2934,7 +2934,7 @@
                     }
     
                     const data = await response.json();
-                    console.log('📥 Raw API response:', data);
+                    console.log('📥 Raw API response:', JSON.stringify(data, null, 2));
     
                     return Array.isArray(data) ? data : data.data || [];
                 } catch (error) {
@@ -2946,7 +2946,7 @@
             // Function to fetch and display visitor data
             async function loadVisitorData() {
                 try {
-                    const visitors = await fetchVisitorData();
+                    visitors = await fetchVisitorData();
     
                     tableBody.innerHTML = ''; // Clear existing rows
     
@@ -2994,31 +2994,91 @@
                 }
             }
     
+            // Function to preview new photo uploads
+            function previewImage(input, previewId) {
+                const preview = document.getElementById(previewId);
+                const file = input.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        preview.src = reader.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = '';
+                    preview.style.display = 'none';
+                }
+            }
+    
             // Function to open the modal and populate the form
             async function openVisitorModal(visitorId) {
-                const visitors = await fetchVisitorData();
                 const visitor = visitors.find(v => v.id == visitorId);
-                if (!visitor) return;
+                if (!visitor) {
+                    alert('Visitor not found.');
+                    return;
+                }
     
-                // Populate form fields
-                document.getElementById('gender').value = visitor.gender || '';
-                document.getElementById('email').value = visitor.email || '';
-                document.getElementById('date').value = visitor.date || '';
-                document.getElementById('time').value = visitor.time || '';
-                document.getElementById('nationalid').value = visitor.nationalid || '';
-                document.getElementById('photo').value = visitor.photo || '';
-                document.getElementById('visit').value = visitor.visit || '';
-                document.getElementById('personname').value = visitor.personname || '';
-                document.getElementById('department').value = visitor.department || '';
-                document.getElementById('durationtime').value = visitor.durationtime || '';
-                document.getElementById('durationUnit').value = visitor.durationUnit || '';
-                document.getElementById('visitortype').value = visitor.visitortype || '';
-                document.getElementById('vehicletype').value = visitor.vehicletype || '';
-                document.getElementById('drivername').value = visitor.drivername || '';
-                document.getElementById('drivermobile').value = visitor.drivermobile || '';
-                document.getElementById('drivernationalid').value = visitor.drivernationalid || '';
-                document.getElementById('driverphoto').value = visitor.driverphoto || '';
-                document.getElementById('notes').value = visitor.notes || '';
+                // Log raw visitor data for debugging
+                console.log('📋 Visitor data for ID', visitorId, ':', JSON.stringify(visitor, null, 2));
+    
+                // Populate form fields with strict mapping and logging
+                const populateField = (id, value, defaultValue = '') => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        const finalValue = value || defaultValue;
+                        console.log(`📌 Populating ${id} with:`, finalValue);
+                        if (element.tagName === 'SELECT') {
+                            element.value = finalValue;
+                        } else {
+                            element.value = finalValue;
+                        }
+                    } else {
+                        console.warn(`⚠️ Element with ID ${id} not found`);
+                    }
+                };
+    
+                populateField('gender', visitor.gender || visitor.Gender || '');
+                populateField('email', visitor.email || visitor.Email || '');
+                populateField('date', visitor.date || visitor.Date || '');
+                populateField('time', visitor.time || visitor.Time || '');
+                populateField('nationalid', visitor.nationalid || visitor.NationalId || visitor.nationalId || '');
+                populateField('visit', visitor.visit || visitor.Purpose || visitor.purpose || '');
+                populateField('personname', visitor.personname || visitor.PersonName || visitor.personName || '');
+                populateField('department', visitor.department || visitor.Department || '');
+                populateField('durationtime', visitor.durationtime || visitor.DurationTime || visitor.durationTime || '');
+                populateField('durationUnit', visitor.durationUnit || visitor.DurationUnit || visitor.durationunit || '');
+                populateField('visitortype', visitor.visitortype || visitor.VisitorType || visitor.visitorType || '');
+                populateField('vehicletype', visitor.vehicletype || visitor.VehicleType || visitor.vehicleType || '');
+                populateField('drivername', visitor.drivername || visitor.DriverName || visitor.driverName || '');
+                populateField('drivermobile', visitor.drivermobile || visitor.DriverMobile || visitor.driverMobile || '');
+                populateField('drivernationalid', visitor.drivernationalid || visitor.DriverNationalId || visitor.driverNationalId || '');
+                populateField('notes', visitor.notes || visitor.Notes || '');
+    
+                // Handle photo and driverphoto (display as images)
+                const photoPreview = document.getElementById('photoPreview');
+                const driverPhotoPreview = document.getElementById('driverPhotoPreview');
+                const photoPath = visitor.photo || visitor.Photo || '';
+                const driverPhotoPath = visitor.driverphoto || visitor.DriverPhoto || visitor.driverPhoto || '';
+                if (photoPath) {
+                    photoPreview.src = `http://192.168.3.75:3001/uploads/${photoPath}`;
+                    photoPreview.style.display = 'block';
+                } else {
+                    photoPreview.src = '';
+                    photoPreview.style.display = 'none';
+                }
+                if (driverPhotoPath) {
+                    driverPhotoPreview.src = `http://192.168.3.75:3001/uploads/${driverPhotoPath}`;
+                    driverPhotoPreview.style.display = 'block';
+                } else {
+                    driverPhotoPreview.src = '';
+                    driverPhotoPreview.style.display = 'none';
+                }
+    
+                // Clear file inputs
+                document.getElementById('photo').value = '';
+                document.getElementById('driverphoto').value = '';
+    
                 document.getElementById('visitorForm').setAttribute('data-id', visitorId);
     
                 // Show modal
@@ -3029,36 +3089,56 @@
             document.getElementById('visitorForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const visitorId = e.target.getAttribute('data-id');
-                const formData = {
-                    gender: document.getElementById('gender').value,
-                    email: document.getElementById('email').value,
-                    date: document.getElementById('date').value,
-                    time: document.getElementById('time').value,
-                    nationalid: document.getElementById('nationalid').value,
-                    photo: document.getElementById('photo').value,
-                    visit: document.getElementById('visit').value,
-                    personname: document.getElementById('personname').value,
-                    department: document.getElementById('department').value,
-                    durationtime: document.getElementById('durationtime').value,
-                    durationUnit: document.getElementById('durationUnit').value,
-                    visitortype: document.getElementById('visitortype').value,
-                    vehicletype: document.getElementById('vehicletype').value,
-                    drivername: document.getElementById('drivername').value,
-                    drivermobile: document.getElementById('drivermobile').value,
-                    drivernationalid: document.getElementById('drivernationalid').value,
-                    driverphoto: document.getElementById('driverphoto').value,
-                    notes: document.getElementById('notes').value
-                };
-                console.log('Submitting form data for visitor ID:', visitorId, formData);
+    
+                // Create FormData for submission
+                const formData = new FormData();
+                formData.append('gender', document.getElementById('gender').value || '');
+                formData.append('email', document.getElementById('email').value || '');
+                formData.append('date', document.getElementById('date').value || '');
+                formData.append('time', document.getElementById('time').value || '');
+                formData.append('nationalid', document.getElementById('nationalid').value || '');
+                formData.append('visit', document.getElementById('visit').value || '');
+                formData.append('personname', document.getElementById('personname').value || '');
+                formData.append('department', document.getElementById('department').value || '');
+                formData.append('durationtime', document.getElementById('durationtime').value || '');
+                formData.append('durationUnit', document.getElementById('durationUnit').value || '');
+                formData.append('visitortype', document.getElementById('visitortype').value || '');
+                formData.append('vehicletype', document.getElementById('vehicletype').value || '');
+                formData.append('drivername', document.getElementById('drivername').value || '');
+                formData.append('drivermobile', document.getElementById('drivermobile').value || '');
+                formData.append('drivernationalid', document.getElementById('drivernationalid').value || '');
+                formData.append('notes', document.getElementById('notes').value || '');
+    
+                // Append file inputs if new files are selected
+                const photoFile = document.getElementById('photo').files[0];
+                const driverPhotoFile = document.getElementById('driverphoto').files[0];
+                if (photoFile) formData.append('photo', photoFile);
+                if (driverPhotoFile) formData.append('driverphoto', driverPhotoFile);
+    
+                // Validate driver photo requirement
+                const driverFields = ['drivername', 'drivermobile', 'drivernationalid'];
+                const hasDriverDetails = driverFields.some(field => formData.get(field)?.trim());
+                if (hasDriverDetails && !driverPhotoFile) {
+                    errorMessage.textContent = 'Driver photo is required when driver details are provided.';
+                    errorMessage.classList.remove('hidden');
+                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+                    return;
+                }
+    
+                console.log('📤 Submitting FormData for visitor ID:', visitorId);
+                for (const [key, value] of formData.entries()) {
+                    console.log(`  ${key}: ${value instanceof File ? value.name : value}`);
+                }
+    
                 try {
                     const response = await fetch(`http://192.168.3.75:3001/visitor-appointment-data/${visitorId}`, {
                         method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData)
+                        body: formData,
                     });
     
                     if (!response.ok) {
-                        throw new Error(`Failed to update visitor: ${response.statusText}`);
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || `Failed to update visitor: ${response.statusText}`);
                     }
     
                     alert('Details saved successfully.');
@@ -3066,7 +3146,9 @@
                     await loadVisitorData(); // Refresh table data
                 } catch (error) {
                     console.error('Error updating visitor:', error);
-                    alert('Failed to save details: ' + error.message);
+                    errorMessage.textContent = 'Failed to save details: ' + error.message;
+                    errorMessage.classList.remove('hidden');
+                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
                 }
             });
     
@@ -3077,7 +3159,7 @@
                     const response = await fetch(`http://192.168.3.75:3001/visitor-appointment-data/${visitorId}/gatepass`, {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ gatepassApproved: true })
+                        body: JSON.stringify({ gatepassApproved: true }),
                     });
     
                     if (!response.ok) {
@@ -3095,7 +3177,9 @@
                     await loadVisitorData(); // Refresh table data
                 } catch (error) {
                     console.error('Error approving gatepass:', error);
-                    alert('Failed to approve gatepass: ' + error.message);
+                    errorMessage.textContent = 'Failed to approve gatepass: ' + error.message;
+                    errorMessage.classList.remove('hidden');
+                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
                 }
             });
     
@@ -3106,7 +3190,7 @@
                     const response = await fetch(`http://192.168.3.75:3001/visitor-appointment-data/${visitorId}/gatepass`, {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ gatepassApproved: false })
+                        body: JSON.stringify({ gatepassApproved: false }),
                     });
     
                     if (!response.ok) {
@@ -3124,19 +3208,25 @@
                     await loadVisitorData(); // Refresh table data
                 } catch (error) {
                     console.error('Error disapproving gatepass:', error);
-                    alert('Failed to disapprove gatepass: ' + error.message);
+                    errorMessage.textContent = 'Failed to disapprove gatepass: ' + error.message;
+                    errorMessage.classList.remove('hidden');
+                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
                 }
             });
     
             // Modal close functionality
             function closeModal() {
                 document.getElementById('visitorModal').style.display = 'none';
+                errorMessage.classList.add('hidden');
             }
     
             document.querySelector('.modal .close').addEventListener('click', closeModal);
     
             // Load data when the page loads
             loadVisitorData();
+    
+            // Expose previewImage globally if needed elsewhere
+            window.previewImage = previewImage;
         });
     </script>
 
@@ -3147,6 +3237,7 @@
     <script defer src="assets/js/alpine.min.js"></script>
 
     <script src="assets/js/custom.js"></script>
+
     <script>
         document.addEventListener('alpine:init', () => {
             // main section
@@ -3762,7 +3853,9 @@
         });
 
     </script>
+
     <script src="assets/js/auth.js"></script>
 </body>
 
 </html>
+
