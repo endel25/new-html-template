@@ -3204,284 +3204,377 @@
 
             <script>
                 // Initialize visitor data from localStorage or empty array
-                let visitors = JSON.parse(localStorage.getItem('visitors')) || [
-                    {
-                        id: "_dummy123",
-                        firstname: "John",
-                        lastname: "Doe",
-                        contactnumber: "1234567890",
-                        nationalid: "ABC123456",
-                        gender: "Male",
-                        email: "john.doe@example.com",
-                        date: "2025-04-20",
-                        time: "10:00",
-                        visit: "Meeting",
-                        personname: "Jane Smith",
-                        department: "HR",
-                        durationUnit: "Hours",
-                        durationtime: "2",
-                        visitortype: "Guest",
-                        vehicletype: "Car",
-                        vehiclenumber: "XYZ789",
-                        notes: "First time visitor"
-                    }
-                ];
+                let visitors = [];
+let currentFileInputId = '';
+let currentPage = 1;
+let entriesPerPage = 10;
+let searchQuery = '';
 
-                let currentFileInputId = '';
+async function fetchVisitors() {
+  try {
+    console.log('Fetching visitors from http://192.168.3.75:3001/visitors');
+    const response = await fetch('http://192.168.3.75:3001/visitors', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-                function showModal(fileInputId) {
-                    currentFileInputId = fileInputId;
-                    document.getElementById('photoModal').style.display = 'flex';
-                }
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
 
-                function closeModal() {
-                    document.getElementById('photoModal').style.display = 'none';
-                    stopCamera();
-                }
+    const data = await response.json();
+    visitors = data.map(visitor => ({
+      ...visitor,
+      date: visitor.date ? visitor.date.split('-').reverse().join('-') : '',
+      durationunit: visitor.durationunit || '',
+    }));
 
-                function openGallery() {
-                    const fileInput = document.getElementById(currentFileInputId);
-                    fileInput.removeAttribute('capture');
-                    fileInput.click();
-                    closeModal();
-                }
+    localStorage.setItem('visitors', JSON.stringify(visitors));
+    populateTable();
+  } catch (error) {
+    console.error('Failed to fetch visitors:', error.message);
+    visitors = JSON.parse(localStorage.getItem('visitors')) || [];
+    populateTable();
+  }
+}
 
-                function openCamera() {
-                    startCamera(document.getElementById(currentFileInputId));
-                    closeModal();
-                }
+function showModal(fileInputId) {
+  currentFileInputId = fileInputId;
+  document.getElementById('photoModal').style.display = 'flex';
+}
 
-                function startCamera(fileInput) {
-                    const video = document.getElementById('cameraPreview');
-                    const canvas = document.getElementById('cameraCanvas');
-                    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-                        .then(stream => {
-                            video.srcObject = stream;
-                            video.style.display = 'block';
-                            video.play();
-                            // Create a capture button dynamically
-                            const captureBtn = document.createElement('button');
-                            captureBtn.textContent = 'Capture Photo';
-                            captureBtn.className = 'btn-outline-primary';
-                            captureBtn.onclick = () => {
-                                canvas.width = video.videoWidth;
-                                canvas.height = video.videoHeight;
-                                canvas.getContext('2d').drawImage(video, 0, 0);
-                                canvas.toBlob(blob => {
-                                    const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
-                                    const dataTransfer = new DataTransfer();
-                                    dataTransfer.items.add(file);
-                                    fileInput.files = dataTransfer.files;
-                                    fileInput.dispatchEvent(new Event('change'));
-                                    stopCamera();
-                                }, 'image/jpeg');
-                            };
-                            document.body.appendChild(captureBtn);
-                        })
-                        .catch(err => {
-                            console.error('Camera access denied:', err);
-                        });
-                }
+function closeModal() {
+  document.getElementById('photoModal').style.display = 'none';
+  stopCamera();
+}
 
-                function stopCamera() {
-                    const video = document.getElementById('cameraPreview');
-                    const stream = video.srcObject;
-                    if (stream) {
-                        stream.getTracks().forEach(track => track.stop());
-                    }
-                    video.style.display = 'none';
-                    const captureBtn = document.querySelector('button[onclick*="capture"]');
-                    if (captureBtn) captureBtn.remove();
-                }
+function openGallery() {
+  const fileInput = document.getElementById(currentFileInputId);
+  fileInput.removeAttribute('capture');
+  fileInput.click();
+  closeModal();
+}
 
-                function previewImage(input, id) {
-                    const file = input.files[0];
-                    const img = document.getElementById(id);
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = e => {
-                            img.src = e.target.result;
-                            img.classList.remove('hidden');
-                        };
-                        reader.readAsDataURL(file);
-                    } else {
-                        img.classList.add('hidden');
-                    }
-                }
+function openCamera() {
+  startCamera(document.getElementById(currentFileInputId));
+  closeModal();
+}
 
-                function toggleDriverDetails() {
-                    document.getElementById('driverDetails').classList.toggle('hidden');
-                }
-                // Function to generate a unique ID
-                function generateId() {
-                    return '_' + Math.random().toString(36).substr(2, 9);
-                }
+function startCamera(fileInput) {
+  const video = document.getElementById('cameraPreview');
+  const canvas = document.getElementById('cameraCanvas');
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+    .then(stream => {
+      video.srcObject = stream;
+      video.style.display = 'block';
+      video.play();
+      const captureBtn = document.createElement('button');
+      captureBtn.textContent = 'Capture Photo';
+      captureBtn.className = 'btn-outline-primary';
+      captureBtn.onclick = () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        canvas.toBlob(blob => {
+          const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(file);
+          fileInput.files = dataTransfer.files;
+          fileInput.dispatchEvent(new Event('change'));
+          stopCamera();
+        }, 'image/jpeg');
+      };
+      document.body.appendChild(captureBtn);
+    })
+    .catch(err => {
+      console.error('Camera access denied:', err);
+    });
+}
 
-                // Function to populate the table
-                function populateTable() {
-                    const tableBody = document.getElementById('visitorTableBody');
-                    tableBody.innerHTML = '';
+function stopCamera() {
+  const video = document.getElementById('cameraPreview');
+  const stream = video.srcObject;
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+  }
+  video.style.display = 'none';
+  const captureBtn = document.querySelector('button[onclick*="capture"]');
+  if (captureBtn) captureBtn.remove();
+}
 
-                    visitors.forEach(visitor => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${visitor.id}</td>
-                            <td>${visitor.firstname || ''}</td>
-                            <td>${visitor.lastname || ''}</td>
-                            <td>${visitor.contactnumber || ''}</td>
-                            <td>${visitor.date || ''}</td>
-                            <td>${visitor.time || ''}</td>
-                            <td>${visitor.nationalid || ''}</td>
-                            <td>
-                                <button class="action-btn" onclick="openEditModal('${visitor.id}')">✏️</button>
-                                <button class="action-btn" onclick="deleteVisitor('${visitor.id}')">🗑️</button>
-                            </td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-                }
+function previewImage(input, id) {
+  const file = input.files[0];
+  const img = document.getElementById(id);
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      img.src = e.target.result;
+      img.classList.remove('hidden');
+    };
+    reader.readAsDataURL(file);
+  } else {
+    img.classList.add('hidden');
+  }
+}
 
-                // Function to toggle driver details visibility
-                function toggleDriverDetails() {
-                    const driverDetails = document.getElementById('driverDetails');
-                    const driverToggle = document.getElementById('edit-driverToggle');
-                    driverDetails.classList.toggle('hidden', !driverToggle.checked);
-                }
+function toggleDriverDetails() {
+  const driverDetails = document.getElementById('edit-driverDetails');
+  const driverToggle = document.getElementById('edit-driverToggle');
+  if (driverDetails) driverDetails.classList.toggle('hidden', !driverToggle.checked);
+}
 
-                // Function to open edit modal with visitor data
-                function openEditModal(id) {
-                    const visitor = visitors.find(v => v.id === id);
-                    if (!visitor) return;
+function populateTable() {
+  const tableBody = document.getElementById('visitorTableBody');
+  tableBody.innerHTML = '';
 
-                    document.getElementById('edit-id').value = visitor.id || '';
-                    document.getElementById('edit-firstname').value = visitor.firstname || '';
-                    document.getElementById('edit-lastname').value = visitor.lastname || '';
-                    document.getElementById('edit-contactnumber').value = visitor.contactnumber || '';
-                    document.getElementById('edit-nationalid').value = visitor.nationalid || '';
-                    document.getElementById('edit-gender').value = visitor.gender || '';
-                    document.getElementById('edit-email').value = visitor.email || '';
-                    document.getElementById('edit-date').value = visitor.date || '';
-                    document.getElementById('edit-time').value = visitor.time || '';
-                    document.getElementById('edit-visit').value = visitor.visit || '';
-                    document.getElementById('edit-personname').value = visitor.personname || '';
-                    document.getElementById('edit-department').value = visitor.department || '';
-                    document.getElementById('edit-durationUnit').value = visitor.durationUnit || '';
-                    document.getElementById('edit-durationtime').value = visitor.durationtime || '';
-                    document.getElementById('edit-visitortype').value = visitor.visitortype || '';
-                    document.getElementById('edit-vehicletype').value = visitor.vehicletype || '';
-                    document.getElementById('edit-vehiclenumber').value = visitor.vehiclenumber || '';
-                    document.getElementById('edit-notes').value = visitor.notes || '';
-                    document.getElementById('edit-driverToggle').checked = !!visitor.drivername;
-                    document.getElementById('edit-drivername').value = visitor.drivername || '';
-                    document.getElementById('edit-drivermobile').value = visitor.drivermobile || '';
-                    document.getElementById('edit-drivernationalid').value = visitor.drivernationalid || '';
-                    toggleDriverDetails();
+  const filteredVisitors = visitors.filter(
+    visitor =>
+      visitor.firstname?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      visitor.lastname?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      visitor.contactnumber?.includes(searchQuery) ||
+      visitor.nationalid?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-                    // Reset photo previews
-                    document.getElementById('mainPreview').classList.add('hidden');
-                    document.getElementById('driverPreview').classList.add('hidden');
+  const start = (currentPage - 1) * entriesPerPage;
+  const end = start + entriesPerPage;
+  const paginatedVisitors = filteredVisitors.slice(start, end);
 
-                    document.getElementById('editModal').style.display = 'flex';
-                }
+  paginatedVisitors.forEach(visitor => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${visitor.id}</td>
+      <td>${visitor.firstname || ''}</td>
+      <td>${visitor.lastname || ''}</td>
+      <td>${visitor.contactnumber || ''}</td>
+      <td>${visitor.date || ''}</td>
+      <td>${visitor.time || ''}</td>
+      <td>${visitor.nationalid || ''}</td>
+      <td>
+        <button class="action-btn" onclick="openEditModal('${visitor.id}')">✏️</button>
+        <button class="action-btn" onclick="deleteVisitor('${visitor.id}')">🗑️</button>
+      </td>
+    `;
+    tableBody.appendChild(row);
+  });
 
-                // Function to close edit modal
-                function closeEditModal() {
-                    document.getElementById('editModal').style.display = 'none';
-                    document.getElementById('editForm').reset();
-                    clearErrors();
-                    toggleDriverDetails();
-                }
+  const totalEntries = filteredVisitors.length;
+  const showingStart = totalEntries === 0 ? 0 : start + 1;
+  const showingEnd = Math.min(end, totalEntries);
+  document.getElementById('panelFooter').textContent = `Showing ${showingStart} to ${showingEnd} of ${totalEntries} entries`;
+}
 
-                // Function to clear error messages
-                function clearErrors() {
-                    document.querySelectorAll('.error').forEach(error => error.textContent = '');
-                }
+function openEditModal(id) {
+  const visitor = visitors.find(v => v.id == id);
+  if (!visitor) return;
 
+  document.getElementById('edit-id').value = visitor.id || '';
+  document.getElementById('edit-firstname').value = visitor.firstname || '';
+  document.getElementById('edit-lastname').value = visitor.lastname || '';
+  document.getElementById('edit-contactnumber').value = visitor.contactnumber || '';
+  document.getElementById('edit-nationalid').value = visitor.nationalid || '';
+  document.getElementById('edit-gender').value = visitor.gender || '';
+  document.getElementById('edit-email').value = visitor.email || '';
+  document.getElementById('edit-date').value = visitor.date ? visitor.date.split('-').reverse().join('-') : '';
+  document.getElementById('edit-time').value = visitor.time || '';
+  document.getElementById('edit-visit').value = visitor.visit || '';
+  document.getElementById('edit-personname').value = visitor.personname || '';
+  document.getElementById('edit-department').value = visitor.department || '';
+  document.getElementById('edit-durationunit').value = visitor.durationunit || '';
+  document.getElementById('edit-durationtime').value = visitor.durationtime || '';
+  document.getElementById('edit-visitortype').value = visitor.visitortype || '';
+  document.getElementById('edit-vehicletype').value = visitor.vehicletype || '';
+  document.getElementById('edit-vehiclenumber').value = visitor.vehiclenumber || '';
+  document.getElementById('edit-notes').value = visitor.notes || '';
+  document.getElementById('edit-driverToggle').checked = !!visitor.drivername;
+  document.getElementById('edit-drivername').value = visitor.drivername || '';
+  document.getElementById('edit-drivermobile').value = visitor.drivermobile || '';
+  document.getElementById('edit-drivernationalid').value = visitor.drivernationalid || '';
+  toggleDriverDetails();
 
+  const mainPreview = document.getElementById('mainPreview');
+  const driverPreview = document.getElementById('driverPreview');
+  if (visitor.photo) {
+    mainPreview.src = `http://192.168.3.75:3001/Uploads/${visitor.photo}`;
+    mainPreview.classList.remove('hidden');
+  } else {
+    mainPreview.classList.add('hidden');
+  }
+  if (visitor.driverphoto) {
+    driverPreview.src = `http://192.168.3.75:3001/Uploads/${visitor.driverphoto}`;
+    driverPreview.classList.remove('hidden');
+  } else {
+    driverPreview.classList.add('hidden');
+  }
 
-                // Function to validate form
-                function validateForm(formData) {
-                    let isValid = true;
-                    clearErrors();
+  document.getElementById('editModal').style.display = 'flex';
+}
 
-                    if (!formData.firstname) {
-                        document.getElementById('error-firstname').textContent = 'First name is required';
-                        isValid = false;
-                    }
-                    if (!formData.lastname) {
-                        document.getElementById('error-lastname').textContent = 'Last name is required';
-                        isValid = false;
-                    }
-                    if (!formData.contactnumber) {
-                        document.getElementById('error-contactnumber').textContent = 'Contact number is required';
-                        isValid = false;
-                    }
-                    if (!formData.nationalid) {
-                        document.getElementById('error-nationalid').textContent = 'National ID is required';
-                        isValid = false;
-                    }
-                    if (formData.driverToggle && !formData.drivername) {
-                        document.getElementById('error-drivername').textContent = 'Driver name is required';
-                        isValid = false;
-                    }
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+  document.getElementById('editForm').reset();
+  clearErrors();
+  toggleDriverDetails();
+}
 
-                    return isValid;
-                }
+function clearErrors() {
+  document.querySelectorAll('.error').forEach(error => error.textContent = '');
+}
 
-                // Handle edit form submission
-                document.getElementById('editForm').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const formData = new FormData(this);
-                    const updatedVisitor = {
-                        id: formData.get('id'),
-                        firstname: formData.get('firstname'),
-                        lastname: formData.get('lastname'),
-                        contactnumber: formData.get('contactnumber'),
-                        nationalid: formData.get('nationalid'),
-                        gender: formData.get('gender'),
-                        email: formData.get('email'),
-                        date: formData.get('date'),
-                        time: formData.get('time'),
-                        visit: formData.get('visit'),
-                        personname: formData.get('personname'),
-                        department: formData.get('department'),
-                        durationUnit: formData.get('durationUnit'),
-                        durationtime: formData.get('durationtime'),
-                        visitortype: formData.get('visitortype'),
-                        vehicletype: formData.get('vehicletype'),
-                        vehiclenumber: formData.get('vehiclenumber'),
-                        drivername: formData.get('drivername'),
-                        drivermobile: formData.get('drivermobile'),
-                        drivernationalid: formData.get('drivernationalid'),
-                        notes: formData.get('notes'),
-                        driverToggle: document.getElementById('edit-driverToggle').checked
-                    };
+function validateForm(formData) {
+  let isValid = true;
+  clearErrors();
 
-                    if (validateForm(updatedVisitor)) {
-                        const index = visitors.findIndex(v => v.id === updatedVisitor.id);
-                        if (index !== -1) {
-                            visitors[index] = updatedVisitor;
-                            localStorage.setItem('visitors', JSON.stringify(visitors));
-                            populateTable();
-                            closeEditModal();
-                        }
-                    }
-                });
+  if (!formData.firstname) {
+    document.getElementById('error-firstname').textContent = 'First name is required';
+    isValid = false;
+  }
+  if (!formData.email) {
+    document.getElementById('error-email').textContent = 'Email is required';
+    isValid = false;
+  }
+  if (!formData.contactnumber) {
+    document.getElementById('error-contactnumber').textContent = 'Contact number is required';
+    isValid = false;
+  }
+  if (!formData.nationalid) {
+    document.getElementById('error-nationalid').textContent = 'National ID is required';
+    isValid = false;
+  }
+  if (formData.driverToggle && !formData.drivername) {
+    document.getElementById('error-drivername').textContent = 'Driver name is required';
+    isValid = false;
+  }
+  if (formData.durationunit && !['Hours', 'Minutes', 'Days'].includes(formData.durationunit)) {
+    document.getElementById('error-durationunit').textContent = 'Duration unit must be Hours, Minutes, or Days';
+    isValid = false;
+  }
 
-                // Function to delete a visitor
-                function deleteVisitor(id) {
-                    if (confirm('Are you sure you want to delete this visitor?')) {
-                        visitors = visitors.filter(v => v.id !== id);
-                        localStorage.setItem('visitors', JSON.stringify(visitors));
-                        populateTable();
-                    }
-                }
+  return isValid;
+}
 
+document.getElementById('editForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  clearErrors();
 
+  const formData = new FormData(this);
+  const updatedVisitor = {
+    id: formData.get('id'),
+    firstname: formData.get('firstname'),
+    lastname: formData.get('lastname'),
+    contactnumber: formData.get('contactnumber'),
+    nationalid: formData.get('nationalid'),
+    gender: formData.get('gender'),
+    email: formData.get('email'),
+    date: formData.get('date'),
+    time: formData.get('time'),
+    visit: formData.get('visit'),
+    personname: formData.get('personname'),
+    department: formData.get('department'),
+    durationunit: formData.get('durationunit'),
+    durationtime: formData.get('durationtime'),
+    visitortype: formData.get('visitortype'),
+    vehicletype: formData.get('vehicletype'),
+    vehiclenumber: formData.get('vehiclenumber'),
+    drivername: formData.get('drivername'),
+    drivermobile: formData.get('drivermobile'),
+    drivernationalid: formData.get('drivernationalid'),
+    notes: formData.get('notes'),
+    driverToggle: document.getElementById('edit-driverToggle').checked,
+    photo: formData.get('photo'),
+    driverphoto: formData.get('driverphoto'),
+  };
 
+  if (validateForm(updatedVisitor)) {
+    try {
+      const apiFormData = new FormData();
+      Object.keys(updatedVisitor).forEach(key => {
+        if (key === 'photo' || key === 'driverphoto') {
+          if (updatedVisitor[key]) apiFormData.append('files', updatedVisitor[key]);
+        } else if (key !== 'driverToggle' && key !== 'id' && updatedVisitor[key] !== undefined) {
+          apiFormData.append(key, updatedVisitor[key] || '');
+        }
+      });
 
-                // Initialize table on page load
-                populateTable();
+      if (updatedVisitor.date) {
+        const [year, month, day] = updatedVisitor.date.split('-');
+        apiFormData.set('date', `${day}-${month}-${year}`);
+      }
+
+      const existingVisitor = visitors.find(v => v.id == updatedVisitor.id);
+      if (!apiFormData.get('photo') && existingVisitor?.photo) {
+        apiFormData.append('photo', existingVisitor.photo);
+      }
+      if (!apiFormData.get('driverphoto') && existingVisitor?.driverphoto) {
+        apiFormData.append('driverphoto', existingVisitor.driverphoto);
+      }
+
+      const response = await fetch(`http://192.168.3.75:3001/visitors/${updatedVisitor.id}`, {
+        method: 'PATCH',
+        body: apiFormData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP ${response.status}`);
+      }
+
+      const result = await response.json();
+      const index = visitors.findIndex(v => v.id == updatedVisitor.id);
+      if (index !== -1) {
+        visitors[index] = { ...result, date: result.date ? result.date.split('-').reverse().join('-') : '' };
+        localStorage.setItem('visitors', JSON.stringify(visitors));
+        populateTable();
+        closeEditModal();
+      }
+    } catch (error) {
+      console.error('Failed to update visitor:', error.message);
+      document.getElementById('error-notes').textContent = error.message || 'Failed to update visitor';
+    }
+  }
+});
+
+async function deleteVisitor(id) {
+  if (confirm('Are you sure you want to delete this visitor?')) {
+    try {
+      const response = await fetch(`http://192.168.3.75:3001/visitors/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP ${response.status}`);
+      }
+
+      visitors = visitors.filter(v => v.id != id);
+      localStorage.setItem('visitors', JSON.stringify(visitors));
+      populateTable();
+    } catch (error) {
+      console.error('Failed to delete visitor:', error.message);
+      document.getElementById('error-notes').textContent = error.message || 'Failed to delete visitor';
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const selector = document.querySelector('.dataTable-selector');
+  if (selector) selector.id = 'entriesPerPage';
+  const input = document.querySelector('.dataTable-input');
+  if (input) input.id = 'searchInput';
+
+  document.getElementById('entriesPerPage')?.addEventListener('change', function () {
+    entriesPerPage = parseInt(this.value);
+    currentPage = 1;
+    populateTable();
+  });
+
+  document.getElementById('searchInput')?.addEventListener('input', function () {
+    searchQuery = this.value;
+    currentPage = 1;
+    populateTable();
+  });
+
+  fetchVisitors();
+});
             </script>
 
 
@@ -3670,7 +3763,7 @@
                         console.log('Sending Data:', formattedData);
             
                         try {
-                            const response = await axios.post('http://192.168.3.73:3001/visitors', formattedData, {
+                            const response = await axios.post('http://192.168.3.75:3001/visitors', formattedData, {
                                 headers: { 'Content-Type': 'application/json' }
                             });
                             console.log('Response:', response.data);

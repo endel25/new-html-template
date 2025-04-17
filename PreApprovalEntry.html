@@ -2965,6 +2965,10 @@
                                                                 <input type="text" id="vehicletype" name="vehicletype">
                                                             </div>
                                                             <div class="form-group">
+                                                                <label for="vehiclenumber">Vehicle Number</label>
+                                                                <input type="text" id="vehiclenumber" name="vehiclenumber">
+                                                            </div>
+                                                            <div class="form-group">
                                                                 <label for="drivername">Driver Name</label>
                                                                 <input type="text" id="drivername" name="drivername">
                                                             </div>
@@ -2991,7 +2995,7 @@
                                                         <textarea id="notes" name="notes"></textarea>
                                                     </div>
                                                     <div class="button-group">
-                                                        <button type="submit" class="btn btn-sm btn-primary rounded-full">Save Details</button>
+                                                        <button type="submit" class="btn btn-sm btn-primary rounded-full">Update Details</button>
                                                         <button type="button" id="approveGatepass" class="btn btn-sm btn-success rounded-full">Approve Gatepass</button>
                                                         <button type="button" id="disapproveGatepass" class="btn btn-sm btn-danger rounded-full">Disapprove Gatepass</button>
                                                     </div>
@@ -3015,330 +3019,332 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const tableBody = document.getElementById('visitorTableBody');
-            const errorMessage = document.createElement('div');
-            errorMessage.className = 'text-red-500 text-sm mt-2 text-center hidden';
-            document.querySelector('.table-container').appendChild(errorMessage);
+    document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.getElementById('visitorTableBody');
+    const errorMessage = document.createElement('div');
+    errorMessage.className = 'text-red-500 text-sm mt-2 text-center hidden';
+    document.querySelector('.table-container').appendChild(errorMessage);
 
-            // Fetch visitor data from the backend API
-            async function fetchVisitorData() {
-                try {
-                    const response = await fetch('http://192.168.3.75:3001/appointment', {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/json' },
-                    });
+    // Fetch visitor data from the backend API
+    async function fetchVisitorData() {
+        try {
+            const response = await fetch('http://192.168.3.75:3001/appointment', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
-                    }
-
-                    const data = await response.json();
-                    console.log('📥 Raw API response:', JSON.stringify(data, null, 2));
-                    return Array.isArray(data) ? data : data.data || [];
-                } catch (error) {
-                    console.error('Error fetching visitor data:', error);
-                    errorMessage.textContent = 'Failed to load visitor data.';
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
-                    return [];
-                }
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
             }
 
-            // Function to fetch and display visitor data
-            async function loadVisitorData() {
-                try {
-                    const visitors = await fetchVisitorData();
-                    tableBody.innerHTML = ''; // Clear existing rows
+            const data = await response.json();
+            console.log('📥 Raw API response:', JSON.stringify(data, null, 2));
+            return Array.isArray(data) ? data : data.data || [];
+        } catch (error) {
+            console.error('Error fetching visitor data:', error);
+            errorMessage.textContent = 'Failed to load visitor data.';
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+            return [];
+        }
+    }
 
-                    if (visitors.length === 0) {
-                        tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
-                        return;
-                    }
+    // Function to fetch and display visitor data
+    async function loadVisitorData() {
+        try {
+            const visitors = await fetchVisitorData();
+            tableBody.innerHTML = ''; // Clear existing rows
 
-                    visitors.forEach(visitor => {
-                        const row = document.createElement('tr');
-                        row.setAttribute('data-id', visitor.id);
-                        row.innerHTML = `
-                            <td>${visitor.id || '-'}</td>
-                            <td>${visitor.firstname || '-'}</td>
-                            <td>${visitor.lastname || '-'}</td>
-                            <td>${visitor.contactnumber || '-'}</td>
-                            <td>${visitor.nationalid || '-'}</td>
-                            <td class="center-checkbox">
-                                <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
-                            </td>
-                            <td class="center-checkbox">
-                                <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
-                            </td>
-                            <td class="center-checkbox">
-                                <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
-                                <label for="gatepass-${visitor.id}"></label>
-                            </td>
-                            <td><button class="btn btn-sm btn-primary rounded-full details-btn">Details</button></td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-
-                    // Attach event listeners to Details buttons
-                    document.querySelectorAll('.details-btn').forEach(button => {
-                        button.addEventListener('click', async (e) => {
-                            const row = e.target.closest('tr');
-                            const visitorId = row.getAttribute('data-id');
-                            await openVisitorModal(visitorId);
-                        });
-                    });
-                } catch (error) {
-                    console.error('Error loading visitor data:', error);
-                    tableBody.innerHTML = '<tr><td colspan="9" class="no-data">Error loading data</td></tr>';
-                }
+            if (visitors.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
+                return;
             }
 
-            // Function to fetch visitor data by ID
-            async function fetchVisitorById(visitorId) {
-                try {
-                    const response = await fetch(`http://192.168.3.75:3001/appointment/${visitorId}`, {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/json' },
-                    });
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch visitor: ${response.statusText}`);
-                    }
-                    const visitor = await response.json();
-                    console.log('📋 Fetched visitor data for ID', visitorId, ':', JSON.stringify(visitor, null, 2));
-                    return visitor;
-                } catch (error) {
-                    console.error('Error fetching visitor:', error);
-                    errorMessage.textContent = 'Failed to load visitor details.';
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
-                    return null;
-                }
-            }
+            visitors.forEach(visitor => {
+                const row = document.createElement('tr');
+                row.setAttribute('data-id', visitor.id);
+                row.innerHTML = `
+                    <td>${visitor.id || '-'}</td>
+                    <td>${visitor.firstname || '-'}</td>
+                    <td>${visitor.lastname || '-'}</td>
+                    <td>${visitor.contactnumber || '-'}</td>
+                    <td>${visitor.nationalid || '-'}</td>
+                    <td class="center-checkbox">
+                        <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
+                    </td>
+                    <td class="center-checkbox">
+                        <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
+                    </td>
+                    <td class="center-checkbox">
+                        <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
+                        <label for="gatepass-${visitor.id}"></label>
+                    </td>
+                    <td><button class="btn btn-sm btn-primary rounded-full details-btn">Details</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
 
-            // Function to preview new photo uploads
-            function previewImage(input, previewId) {
-                const preview = document.getElementById(previewId);
-                const file = input.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        preview.src = reader.result;
-                        preview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
+            // Attach event listeners to Details buttons
+            document.querySelectorAll('.details-btn').forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    const row = e.target.closest('tr');
+                    const visitorId = row.getAttribute('data-id');
+                    await openVisitorModal(visitorId);
+                });
+            });
+        } catch (error) {
+            console.error('Error loading visitor data:', error);
+            tableBody.innerHTML = '<tr><td colspan="9" class="no-data">Error loading data</td></tr>';
+        }
+    }
+
+    // Function to fetch visitor data by ID
+    async function fetchVisitorById(visitorId) {
+        try {
+            const response = await fetch(`http://192.168.3.75:3001/appointment/${visitorId}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (!response.ok) {
+                throw new Error(`Failed to fetch visitor: ${response.statusText}`);
+            }
+            const visitor = await response.json();
+            console.log('📋 Fetched visitor data for ID', visitorId, ':', JSON.stringify(visitor, null, 2));
+            return visitor;
+        } catch (error) {
+            console.error('Error fetching visitor:', error);
+            errorMessage.textContent = 'Failed to load visitor details.';
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+            return null;
+        }
+    }
+
+    // Function to preview new photo uploads
+    function previewImage(input, previewId) {
+        const preview = document.getElementById(previewId);
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    }
+
+    // Function to open the modal and populate the form
+    async function openVisitorModal(visitorId) {
+        const visitor = await fetchVisitorById(visitorId);
+        if (!visitor) return;
+
+        const populateField = (id, value, defaultValue = '') => {
+            const element = document.getElementById(id);
+            if (element) {
+                const finalValue = value ?? defaultValue;
+                if (element.tagName === 'SELECT') {
+                    element.value = finalValue;
                 } else {
+                    element.value = finalValue;
+                }
+            } else {
+                console.warn(`⚠️ Element with ID ${id} not found`);
+            }
+        };
+
+        populateField('gender', visitor.gender);
+        populateField('email', visitor.email);
+        populateField('date', visitor.date);
+        populateField('time', visitor.time);
+        populateField('nationalid', visitor.nationalid);
+        populateField('visit', visitor.visit);
+        populateField('personname', visitor.personname);
+        populateField('department', visitor.department);
+        populateField('durationtime', visitor.durationtime);
+        populateField('durationUnit', visitor.durationunit);
+        populateField('visitortype', visitor.visitortype);
+        populateField('vehicletype', visitor.vehicletype);
+        populateField('vehiclenumber', visitor.vehiclenumber);
+        populateField('drivername', visitor.drivername);
+        populateField('drivermobile', visitor.drivermobile);
+        populateField('drivernationalid', visitor.drivernationalid);
+        populateField('notes', visitor.notes);
+
+        const setPhotoPreview = (preview, path) => {
+            if (path) {
+                preview.src = `http://192.168.3.75:3001/uploads/${path}`;
+                preview.style.display = 'block';
+                preview.onerror = () => {
                     preview.src = '';
                     preview.style.display = 'none';
-                }
-            }
-
-            // Function to open the modal and populate the form
-            async function openVisitorModal(visitorId) {
-                const visitor = await fetchVisitorById(visitorId);
-                if (!visitor) {
-                    return;
-                }
-
-                // Populate form fields
-                const populateField = (id, value, defaultValue = '') => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        const finalValue = value ?? defaultValue;
-                        console.log(`📌 Populating ${id} with:`, finalValue);
-                        if (element.tagName === 'SELECT') {
-                            element.value = finalValue;
-                        } else {
-                            element.value = finalValue;
-                        }
-                    } else {
-                        console.warn(`⚠️ Element with ID ${id} not found`);
-                    }
+                    console.warn(`⚠️ Failed to load image: ${path}`);
                 };
-
-                populateField('gender', visitor.gender);
-                populateField('email', visitor.email);
-                populateField('date', visitor.date);
-                populateField('time', visitor.time);
-                populateField('nationalid', visitor.nationalid);
-                populateField('visit', visitor.visit);
-                populateField('personname', visitor.personname);
-                populateField('department', visitor.department);
-                populateField('durationtime', visitor.durationtime);
-                populateField('durationUnit', visitor.durationunit);
-                populateField('visitortype', visitor.visitortype);
-                populateField('vehicletype', visitor.vehicletype);
-                populateField('drivername', visitor.drivername);
-                populateField('drivermobile', visitor.drivermobile);
-                populateField('drivernationalid', visitor.drivernationalid);
-                populateField('notes', visitor.notes);
-
-                // Handle photos with error handling
-                const setPhotoPreview = (preview, path) => {
-                    if (path) {
-                        preview.src = `http://192.168.3.75:3001/uploads/${path}`;
-                        preview.style.display = 'block';
-                        preview.onerror = () => {
-                            preview.src = '';
-                            preview.style.display = 'none';
-                            console.warn(`⚠️ Failed to load image: ${path}`);
-                        };
-                    } else {
-                        preview.src = '';
-                        preview.style.display = 'none';
-                    }
-                };
-
-                const photoPreview = document.getElementById('photoPreview');
-                const driverPhotoPreview = document.getElementById('driverPhotoPreview');
-                setPhotoPreview(photoPreview, visitor.photo);
-                setPhotoPreview(driverPhotoPreview, visitor.driverphoto);
-
-                // Clear file inputs
-                document.getElementById('photo').value = '';
-                document.getElementById('driverphoto').value = '';
-
-                document.getElementById('visitorForm').setAttribute('data-id', visitorId);
-
-                // Show modal
-                document.getElementById('visitorModal').style.display = 'block';
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
             }
+        };
 
-            // Handle form submission
-            document.getElementById('visitorForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const visitorId = e.target.getAttribute('data-id');
+        const photoPreview = document.getElementById('photoPreview');
+        const driverPhotoPreview = document.getElementById('driverPhotoPreview');
+        setPhotoPreview(photoPreview, visitor.photo);
+        setPhotoPreview(driverPhotoPreview, visitor.driverphoto);
 
-                const formData = new FormData();
-                formData.append('gender', document.getElementById('gender').value || '');
-                formData.append('email', document.getElementById('email').value || '');
-                formData.append('date', document.getElementById('date').value || '');
-                formData.append('time', document.getElementById('time').value || '');
-                formData.append('nationalid', document.getElementById('nationalid').value || '');
-                formData.append('visit', document.getElementById('visit').value || '');
-                formData.append('personname', document.getElementById('personname').value || '');
-                formData.append('department', document.getElementById('department').value || '');
-                formData.append('durationtime', document.getElementById('durationtime').value || '');
-                formData.append('durationunit', document.getElementById('durationUnit').value || '');
-                formData.append('visitortype', document.getElementById('visitortype').value || '');
-                formData.append('vehicletype', document.getElementById('vehicletype').value || '');
-                formData.append('drivername', document.getElementById('drivername').value || '');
-                formData.append('drivermobile', document.getElementById('drivermobile').value || '');
-                formData.append('drivernationalid', document.getElementById('drivernationalid').value || '');
-                formData.append('notes', document.getElementById('notes').value || '');
+        document.getElementById('photo').value = '';
+        document.getElementById('driverphoto').value = '';
+        document.getElementById('visitorForm').setAttribute('data-id', visitorId);
+        document.getElementById('visitorModal').style.display = 'block';
+    }
 
-                const photoFile = document.getElementById('photo').files[0];
-                const driverPhotoFile = document.getElementById('driverphoto').files[0];
-                if (photoFile) formData.append('photo', photoFile);
-                if (driverPhotoFile) formData.append('driverphoto', driverPhotoFile);
+    // Handle form submission for updating details
+    document.getElementById('visitorForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const visitorId = e.target.getAttribute('data-id');
+        const errorMessage = document.querySelector('.text-red-500.text-sm.mt-2.text-center');
 
-                const driverFields = ['drivername', 'drivermobile', 'drivernationalid'];
-                const hasDriverDetails = driverFields.some(field => formData.get(field)?.trim());
-                if (hasDriverDetails && !driverPhotoFile) {
-                    errorMessage.textContent = 'Driver photo is required when driver details are provided.';
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
-                    return;
-                }
+        // Validate required fields
+        const requiredFields = ['gender', 'email', 'date', 'time', 'nationalid', 'visit', 'personname', 'department', 'durationtime', 'visitortype', 'vehicletype'];
+        const missingFields = requiredFields.filter(field => !document.getElementById(field).value.trim());
+        if (missingFields.length > 0) {
+            errorMessage.textContent = `Please fill in the following required fields: ${missingFields.join(', ')}`;
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+            return;
+        }
 
-                try {
-                    const response = await fetch(`http://192.168.3.75:3001/appointment/${visitorId}`, {
-                        method: 'PUT',
-                        body: formData,
-                    });
+        const formData = new FormData();
+        const fields = [
+            'gender', 'email', 'date', 'time', 'nationalid', 'visit', 'personname',
+            'department', 'durationtime', 'durationUnit', 'visitortype', 'vehicletype',
+            'vehiclenumber', 'drivername', 'drivermobile', 'drivernationalid', 'notes'
+        ];
 
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.message || `Failed to update visitor: ${response.statusText}`);
-                    }
-
-                    alert('Details saved successfully.');
-                    closeModal();
-                    await loadVisitorData();
-                } catch (error) {
-                    console.error('Error updating visitor:', error);
-                    errorMessage.textContent = 'Failed to save details: ' + error.message;
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
-                }
-            });
-
-            // Handle Approve Gatepass button
-            document.getElementById('approveGatepass').addEventListener('click', async () => {
-                const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
-                try {
-                    const response = await fetch(`http://192.168.3.75:3001/appointment/${visitorId}/gatepass`, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ gatepassApproved: true }),
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Failed to approve gatepass: ${response.statusText}`);
-                    }
-
-                    const row = document.querySelector(`tr[data-id="${visitorId}"]`);
-                    if (row) {
-                        const checkbox = row.querySelector('.gatepass-approve');
-                        checkbox.checked = true;
-                        checkbox.classList.remove('unset');
-                    }
-                    alert('Gatepass approved successfully.');
-                    closeModal();
-                    await loadVisitorData();
-                } catch (error) {
-                    console.error('Error approving gatepass:', error);
-                    errorMessage.textContent = 'Failed to approve gatepass: ' + error.message;
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
-                }
-            });
-
-            // Handle Disapprove Gatepass button
-            document.getElementById('disapproveGatepass').addEventListener('click', async () => {
-                const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
-                try {
-                    const response = await fetch(`http://192.168.3.75:3001/appointment/${visitorId}/gatepass`, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ gatepassApproved: false }),
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Failed to disapprove gatepass: ${response.statusText}`);
-                    }
-
-                    const row = document.querySelector(`tr[data-id="${visitorId}"]`);
-                    if (row) {
-                        const checkbox = row.querySelector('.gatepass-approve');
-                        checkbox.checked = false;
-                        checkbox.classList.remove('unset');
-                    }
-                    alert('Gatepass disapproved successfully.');
-                    closeModal();
-                    await loadVisitorData();
-                } catch (error) {
-                    console.error('Error disapproving gatepass:', error);
-                    errorMessage.textContent = 'Failed to disapprove gatepass: ' + error.message;
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 3000);
-                }
-            });
-
-            // Modal close functionality
-            function closeModal() {
-                document.getElementById('visitorModal').style.display = 'none';
-                errorMessage.classList.add('hidden');
-            }
-
-            document.querySelector('.modal .close').addEventListener('click', closeModal);
-
-            // Load data when the page loads
-            loadVisitorData();
-
-            // Expose previewImage globally
-            window.previewImage = previewImage;
+        // Log all form field values for debugging
+        fields.forEach(field => {
+            const value = document.getElementById(field).value || '';
+            console.log(`📝 Field ${field}: ${value}`);
+            formData.append(field, value);
         });
+
+        const photoFile = document.getElementById('photo').files[0];
+        const driverPhotoFile = document.getElementById('driverphoto').files[0];
+        if (photoFile) formData.append('photo', photoFile);
+        if (driverPhotoFile) formData.append('driverphoto', driverPhotoFile);
+
+        const driverFields = ['drivername', 'drivermobile', 'drivernationalid'];
+        const hasDriverDetails = driverFields.some(field => formData.get(field)?.trim());
+        if (hasDriverDetails && !driverPhotoFile) {
+            errorMessage.textContent = 'Driver photo is required when driver details are provided.';
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://192.168.3.75:3001/appointment/${visitorId}`, {
+                method: 'PUT',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || `Failed to update visitor: ${response.statusText}`);
+            }
+
+            const updatedData = await response.json();
+            console.log('✅ Updated data from server:', JSON.stringify(updatedData, null, 2));
+            alert('Details updated successfully.');
+            closeModal();
+            await loadVisitorData(); // Refresh table data
+        } catch (error) {
+            console.error('Error updating visitor:', error);
+            errorMessage.textContent = 'Failed to update details: ' + (error.message || 'Unknown error');
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+        }
+    });
+
+    // Handle Approve Gatepass button
+    document.getElementById('approveGatepass').addEventListener('click', async () => {
+        const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
+        try {
+            const response = await fetch(`http://192.168.3.75:3001/appointment/${visitorId}/gatepass`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ gatepassApproved: true }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to approve gatepass: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            const row = document.querySelector(`tr[data-id="${visitorId}"]`);
+            if (row) {
+                const checkbox = row.querySelector('.gatepass-approve');
+                checkbox.checked = data.gatepassApproved;
+                checkbox.classList.remove('unset');
+            }
+            alert('Gatepass approved successfully.');
+            closeModal();
+            await loadVisitorData();
+        } catch (error) {
+            console.error('Error approving gatepass:', error);
+            errorMessage.textContent = 'Failed to approve gatepass: ' + error.message;
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+        }
+    });
+
+    document.getElementById('disapproveGatepass').addEventListener('click', async () => {
+        const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
+        try {
+            const response = await fetch(`http://192.168.3.75:3001/appointment/${visitorId}/gatepass`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ gatepassApproved: false }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to disapprove gatepass: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            const row = document.querySelector(`tr[data-id="${visitorId}"]`);
+            if (row) {
+                const checkbox = row.querySelector('.gatepass-approve');
+                checkbox.checked = data.gatepassApproved;
+                checkbox.classList.remove('unset');
+            }
+            alert('Gatepass disapproved successfully.');
+            closeModal();
+            await loadVisitorData();
+        } catch (error) {
+            console.error('Error disapproving gatepass:', error);
+            errorMessage.textContent = 'Failed to disapprove gatepass: ' + error.message;
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 3000);
+        }
+    });
+
+    // Modal close functionality
+    function closeModal() {
+        document.getElementById('visitorModal').style.display = 'none';
+        errorMessage.classList.add('hidden');
+    }
+
+    document.querySelector('.modal .close').addEventListener('click', closeModal);
+
+    // Load data when the page loads
+    loadVisitorData();
+
+    // Expose previewImage globally
+    window.previewImage = previewImage;
+});
     </script>
 
     <script src="assets/js/alpine-collaspe.min.js"></script>

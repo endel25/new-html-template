@@ -28,522 +28,479 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <style>
 
-        /* ========================== */
-        /* PANEL STYLES */
-        /* ========================== */
-        .panel {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 30px;
-            
-            margin: 0 auto;
-        }
+       /* ========================== */
+/* PANEL STYLES */
+/* ========================== */
+.panel {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    padding-bottom: 2px;
+    margin: 0 auto;
+}
 
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+.border-b {
+    border-bottom-width: 1px;
+}
 
-        .panel-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
-        /* ========================== */
-        /* BUTTON STYLES */
-        /* ========================== */
-        .btn {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 1.5rem;
-            border-width: 1px;
-            padding: .5rem 1.25rem;
-            font-size: .875rem;
-            line-height: 1.25rem;
-            font-weight: 600;
-            --tw-shadow: 0 10px 20px -10px;
-            --tw-shadow-colored: 0 10px 20px -10px var(--tw-shadow-color);
-            outline: 2px solid #0000;
-            outline-offset: 2px;
-            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-            transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-            transition-duration: .3s
-        }
+.panel-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
 
+/* ========================== */
+/* BUTTON STYLES */
+/* ========================== */
+.btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.5rem;
+    border-width: 1px;
+    padding: .5rem 1.25rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    --tw-shadow: 0 10px 20px -10px;
+    --tw-shadow-colored: 0 10px 20px -10px var(--tw-shadow-color);
+    outline: 2px solid #0000;
+    outline-offset: 2px;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .3s
+}
 
-        .btn-primary {
-            --tw-border-opacity: 1;
-            border-color: rgb(67 97 238/var(--tw-border-opacity));
-            --tw-bg-opacity: 1;
-            background-color: rgb(67 97 238/var(--tw-bg-opacity));
-            --tw-text-opacity: 1;
-            color: rgb(255 255 255/var(--tw-text-opacity));
-            --tw-shadow-color: #4361ee99;
-            --tw-shadow: var(--tw-shadow-colored)
-        }
+.btn-primary {
+    --tw-border-opacity: 1;
+    border-color: rgb(67 97 238/var(--tw-border-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgb(67 97 238/var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255/var(--tw-text-opacity));
+    --tw-shadow-color: #4361ee99;
+    --tw-shadow: var(--tw-shadow-colored)
+}
 
-        .btn-primary:hover {
-            background-color: #4361ee;
-        }
+.btn-primary:hover {
+    background-color: #4361ee;
+}
 
-        .btn-outline-primary {
-            --tw-border-opacity: 1;
-            border-color: rgb(67 97 238/var(--tw-border-opacity));
-            --tw-text-opacity: 1;
-            color: rgb(67 97 238/var(--tw-text-opacity));
-            --tw-shadow: 0 0 #0000;
-            --tw-shadow-colored: 0 0 #0000;
-            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
-        }
+.btn-outline-primary {
+    --tw-border-opacity: 1;
+    border-color: rgb(67 97 238/var(--tw-border-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(67 97 238/var(--tw-text-opacity));
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
 
+.btn-outline-primary:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(67 97 238/var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255/var(--tw-text-opacity))
+}
 
-        .btn-outline-primary:hover {
-            --tw-bg-opacity: 1;
-            background-color: rgb(67 97 238/var(--tw-bg-opacity));
-            --tw-text-opacity: 1;
-            color: rgb(255 255 255/var(--tw-text-opacity))
-        }
+/* ========================== */
+/* TABLE STYLES */
+/* ========================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
 
-        /* ========================== */
-        /* TABLE STYLES */
-        /* ========================== */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 1rem;
-            margin-bottom: 30px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
+th, td {
+    padding: 12px;
+    text-align: left;
+   
+}
 
-        th,
-        td {
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
+th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
 
-        th {
-            background-color: #f8f9fa;
-            color: #666;
-            font-weight: 600;
-        }
+/* ========================== */
+/* MODAL STYLES */
+/* ========================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
 
-        /* ========================== */
-        /* MODAL STYLES */
-        /* ========================== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-        .modal-content {
-            background: #fff;
-            border-radius: 12px;
-            padding: 30px;
-            width: 90%;
-            max-width: 900px;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+/* ========================== */
+/* MODAL HEADER */
+/* ========================== */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
 
-        /* ========================== */
-        /* MODAL HEADER */
-        /* ========================== */
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
+.modal-header h5 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
 
-        .modal-header h5 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
+.close-btn {
+    font-size: 2rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
 
-        .close-btn {
-            font-size: 2rem;
-            color: #666;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
+.close-btn:hover {
+    color: #333;
+}
 
-        .close-btn:hover {
-            color: #333;
-        }
+/* ========================== */
+/* FORM LAYOUT & FIELDS */
+/* ========================== */
+.form-container {
+    margin-top: 10px;
+}
 
-        /* ========================== */
-        /* FORM LAYOUT & FIELDS */
-        /* ========================== */
-        .form-container {
-            margin-top: 10px;
-        }
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+.form-column {
+    flex: 1;
+    min-width: 300px;
+}
 
-        .form-column {
-            flex: 1;
-            min-width: 300px;
-        }
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
 
-        .form-group {
-            width: 100%;
-            margin-bottom: 15px;
-        }
+.form-group label {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
 
-        .form-group label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-        }
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            font-size: 0.9rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            outline: none;
-            transition: border 0.3s ease-in-out;
-        }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-        }
+/* ========================== */
+/* TEXTAREA STYLES */
+/* ========================== */
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
 
-        /* ========================== */
-        /* TEXTAREA STYLES */
-        /* ========================== */
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
+/* ========================== */
+/* FORM SELECT DROPDOWN */
+/* ========================== */
+.form-select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
 
-        /* ========================== */
-        /* FORM SELECT DROPDOWN */
-        /* ========================== */
-        .form-select {
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            width: 100%;
-            transition: border-color 0.3s ease;
-        }
+.form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
 
-        .form-select:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-        }
+#UserRoleId,
+#editUserRoleId {
+    margin-bottom: 20px;
+}
 
-        #UserRoleId,
-        #editUserRoleId {
-            margin-bottom: 20px;
-        }
+/* ========================== */
+/* FORM ACTION BUTTONS */
+/* ========================== */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
 
-        /* ========================== */
-        /* FORM ACTION BUTTONS */
-        /* ========================== */
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-        }
+/* ========================== */
+/* ADD USER BUTTON */
+/* ========================== */
+.add-user-btn {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
 
-        /* ========================== */
-        /* ADD USER BUTTON */
-        /* ========================== */
-        .add-user-btn {
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: flex-end;
-        }
+/* ========================== */
+/* RESPONSIVE DESIGN */
+/* ========================== */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+    }
 
-        /* ========================== */
-        /* RESPONSIVE DESIGN */
-        /* ========================== */
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-            }
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+}
 
-            .modal-content {
-                width: 95%;
-                max-height: 90vh;
-            }
-        }
+/* ========================== */
+/* ICON TOGGLE STYLES */
+/* ========================== */
+.toggle-icon {
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
 
+.toggle-icon .fa-toggle-on {
+    color: #007bff;
+}
 
-        /* ========================== */
-        /* ICON TOGGLE STYLES */
-        /* ========================== */
-        .toggle-icon {
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
+.toggle-icon .fa-toggle-off {
+    color: #ccc;
+}
 
-        .toggle-icon .fa-toggle-on {
-            color: #007bff;
-            /* Active color (blue) */
-        }
+.toggle-icon:hover {
+    opacity: 0.8;
+}
 
-        .toggle-icon .fa-toggle-off {
-            color: #ccc;
-            /* Inactive color (gray) */
-        }
+.action-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .toggle-icon:hover {
-            opacity: 0.8;
-        }
+.action-icons i {
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
 
+.edit-icon {
+    color: blue;
+    font-size: 18px;
+    cursor: pointer;
+}
 
-        .action-icons {
-            display: flex;
-            /* Center horizontally */
-            align-items: center;
-            /* Center vertically */
-            gap: 10px;
-            /* Space between icons */
-        }
+.edit-icon:hover {
+    background-color: #e0f0ff;
+}
 
-        .action-icons i {
-            font-size: 18px;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
+.icon-wrapper {
+    margin: 8px 12px;
+}
 
-        .edit-icon {
-            color: blue;
-            font-size: 18px;
-            cursor: pointer;
-        }
+.delete-icon {
+    color: red;
+    font-size: 18px;
+    cursor: pointer;
+}
 
-        .edit-icon:hover {
-            background-color: #e0f0ff;
-        }
+.delete-icon:hover {
+    background-color: #fde0e0;
+}
 
-        .icon-wrapper {
-            margin: 8px 12px;
-            /* Adds top and horizontal spacing */
-        }
+/* Dark Theme Styles */
+body.dark {
+    background-color: #121212;
+    color: #fff;
+}
 
-        .delete-icon {
-            color: red;
-            font-size: 18px;
-            cursor: pointer;
-        }
+.dark .panel {
+    background: #1e1e1e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
 
-        .delete-icon:hover {
-            background-color: #fde0e0;
-        }
+.dark th {
+    background-color: #333;
+    color: #ddd;
+}
 
-        /* Dark Theme Styles */
-        body.dark {
-            background-color: #121212;
-            color: #fff;
-        }
+.dark td {
+    border-bottom: 1px solid #555;
+}
 
-        .dark .panel {
-            background: #1e1e1e;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            color: #fff;
-        }
+.dark .modal-content {
+    background: #2a2a2a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
 
-        .dark th {
-            background-color: #333;
-            color: #ddd;
-        }
+.dark .modal-header {
+    border-bottom: 2px solid #555;
+}
 
-        .dark td {
-            border-bottom: 1px solid #555;
-        }
+.dark .close-btn {
+    color: #ccc;
+}
 
-        .dark .modal-content {
-            background: #2a2a2a;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            color: #fff;
-        }
+.dark .close-btn:hover {
+    color: #fff;
+}
 
-        .dark .modal-header {
-            border-bottom: 2px solid #555;
-        }
+.dark .form-group label {
+    color: #eee;
+}
 
-        .dark .close-btn {
-            color: #ccc;
-        }
+.dark .form-group input,
+.dark .form-group select,
+.dark .form-group textarea {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
 
-        .dark .close-btn:hover {
-            color: #fff;
-        }
+.dark .form-group input:focus,
+.dark .form-group select:focus,
+.dark .form-group textarea:focus {
+    border-color: #64b5f6;
+    box-shadow: 0 0 8px rgba(100, 181, 246, 0.2);
+}
 
-        .dark .form-group label {
-            color: #eee;
-        }
+.error-message {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+}
 
-        .dark .form-group input,
-        .dark .form-group select,
-        .dark .form-group textarea {
-            background-color: #333;
-            color: #fff;
-            border: 1px solid #555;
-        }
+.error {
+    border-color: red;
+}
 
-        .dark .form-group input:focus,
-        .dark .form-group select:focus,
-        .dark .form-group textarea:focus {
-            border-color: #64b5f6;
-            box-shadow: 0 0 8px rgba(100, 181, 246, 0.2);
-        }
+.has-success input {
+    border-color: green;
+}
 
-        .error-message {
-            color: red;
-            font-size: 12px;
-            display: block;
-            margin-top: 5px;
-        }
+.dataTable-dropdown .dataTable-selector,
+.dataTable-search .dataTable-input {
+    width: auto;
+    background-color: #fff;
+    color: #0e1726;
+    border-color: #e0e6ed;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    border-width: 1px;
+    outline: none !important;
+}
 
-        .error {
-            border-color: red;
-        }
+.dataTable-dropdown .dataTable-selector:focus,
+.dataTable-search .dataTable-input:focus {
+    border-color: #4361ee;
+}
 
-        .has-success input {
-            border-color: green;
-        }
+.dataTable-search .dataTable-input {
+    box-shadow: none !important;
+}
 
+.dataTable-dropdown .dataTable-selector {
+    padding-top: .375rem;
+    padding-bottom: .375rem;
+}
 
-        .dataTable-dropdown .dataTable-selector,
-        .dataTable-search .dataTable-input {
-            width: auto;
-            background-color: #fff;
-            color: #0e1726;
-            border-color: #e0e6ed;
-            border-radius: 6px;
-            padding: 8px 16px;
-            font-size: 14px;
-            line-height: 20px;
-            font-weight: 600;
-            border-width: 1px;
-            outline: none !important;
-        }
- 
-        .dataTable-dropdown .dataTable-selector:focus,
-        .dataTable-search .dataTable-input:focus {
-            border-color: #4361ee;
-        }
- 
-        .dataTable-search .dataTable-input {
-            box-shadow: none !important;
-        }
- 
-        .dataTable-dropdown .dataTable-selector {
-            padding-top: .375rem;
-            padding-bottom: .375rem;
-        }
- 
-        .dataTable-dropdown .dataTable-selector:where([dir=ltr], [dir=ltr] *) {
-            padding-left: .5rem;
-            padding-right: 1rem;
-        }
- 
-        .dark .dataTable-dropdown .dataTable-selector,
-        .dark .dataTable-search .dataTable-input {
-            background-color: #121e32;
-            color: #888ea8;
-            border-color: #17263c;
-        }
- 
-        .dataTable-dropdown label {
-            margin-bottom: 0;
-        }
- 
-        .panel-footer {
-            padding: 8px 16px;
-            background-color: #f8f9fa;
-            color: #0e1726;
-            font-size: 14px;
-            line-height: 20px;
-            border-top: 1px solid #e0e6ed;
-            text-align: left;
-        }
- 
-        .dark .panel-footer {
-            background-color: #121e32;
-            color: #888ea8;
-            border-top: 1px solid #17263c;
-        }
- 
-        .ltr .dataTable-search {
-            margin-left: auto
-        }
- 
-        .rtl .dataTable-search {
-            margin-right: auto
-        }
- 
-        .dataTable-dropdown .dataTable-selector,
-        .dataTable-search .dataTable-input {
-            width: auto;
-            background-color: #fff;
-            color: #0e1726;
-            border-color: #e0e6ed;
-            border-radius: 6px;
-            padding: 8px 16px;
-            font-size: 14px;
-            line-height: 20px;
-            font-weight: 600;
-            border-width: 1px;
-            outline: none !important
-        }
- 
-        .dataTable-dropdown .dataTable-selector:focus,
-        .dataTable-search .dataTable-input:focus {
-            border-color: #4361ee
-        }
- 
-        .dataTable-search .dataTable-input {
-            box-shadow: none !important
-        }
- 
-        .dark .dataTable-search .dataTable-input {
-            background-color: #121e32;
-            color: #888ea8;
-            border-color: #17263c
-        }
+.dataTable-dropdown .dataTable-selector:where([dir=ltr], [dir=ltr] *) {
+    padding-left: .5rem;
+    padding-right: 1rem;
+}
+
+.dark .dataTable-dropdown .dataTable-selector,
+.dark .dataTable-search .dataTable-input {
+    background-color: #121e32;
+    color: #888ea8;
+    border-color: #17263c;
+}
+
+.dataTable-dropdown label {
+    margin-bottom: 0;
+}
+
+.panel-footer {
+    padding: 8px 16px;
+    background-color: #fff;
+    color: #0e1726;
+    font-size: 14px;
+    line-height: 20px;
+    border-top: 1px solid #e0e6ed;
+    text-align: left;
+}
+
+.dark .panel-footer {
+    background-color: #121e32;
+    color: #888ea8;
+    border-top: 1px solid #17263c;
+}
+
+.ltr .dataTable-search {
+    margin-left: auto
+}
+
+.rtl .dataTable-search {
+    margin-right: auto
+}
  
     </style>
 </head>
@@ -2883,7 +2840,7 @@
             <div class="dvanimation animate__animated p-6" :class="[$store.app.animation]">
                 <!-- start main content section -->
                 <div class="panel">
-                    <div class="panel-header">
+                    <div class="px-4 py-2 border-b text-xl font-semibold flex items-center justify-between">
                         <h2>User Management Stack</h2>
                         <div>
                             <button class="btn btn-sm btn-primary rounded-full" onclick="openAddUserModal()">Add User</button>
@@ -2923,7 +2880,7 @@
                         Showing 0 to 0 of 0 entries
                     </div>
                 </div>
-
+            
                 <!-- Add User Modal -->
                 <div class="modal" id="addUserModal">
                     <div class="modal-content">
@@ -2938,14 +2895,12 @@
                                     <div class="form-column">
                                         <div class="form-group">
                                             <label for="FirstName">First Name</label>
-                                            <input type="text" id="FirstName" placeholder="Enter First Name"
-                                                name="firstName">
+                                            <input type="text" id="FirstName" placeholder="Enter First Name" name="firstName">
                                             <span class="error-message" id="error-firstName"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="LastName">Last Name</label>
-                                            <input type="text" id="LastName" placeholder="Enter Last Name"
-                                                name="lastName">
+                                            <input type="text" id="LastName" placeholder="Enter Last Name" name="lastName">
                                             <span class="error-message" id="error-lastName"></span>
                                         </div>
                                         <div class="form-group">
@@ -2955,8 +2910,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="password" id="password" placeholder="Enter Password"
-                                                name="password">
+                                            <input type="password" id="password" placeholder="Enter Password" name="password">
                                             <span class="error-message" id="error-password"></span>
                                         </div>
                                         <div class="form-group">
@@ -2970,14 +2924,12 @@
                                     <div class="form-column">
                                         <div class="form-group">
                                             <label for="ContactNo">Contact No.</label>
-                                            <input type="text" id="ContactNo" placeholder="Enter Contact No."
-                                                name="contactNo">
+                                            <input type="text" id="ContactNo" placeholder="Enter Contact No." name="contactNo">
                                             <span class="error-message" id="error-contactNo"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="EmailId">Email Id</label>
-                                            <input type="email" id="EmailId" placeholder="Enter Email Id"
-                                                name="emailId">
+                                            <input type="email" id="EmailId" placeholder="Enter Email Id" name="emailId">
                                             <span class="error-message" id="error-emailId"></span>
                                         </div>
                                         <div class="form-group">
@@ -2989,28 +2941,24 @@
                                             <label>User Role</label>
                                             <select id="UserRoleId" name="userRoleId">
                                                 <option value="">Select Userrole</option>
-                                               
                                             </select>
                                             <span class="error-message" id="error-userRoleId"></span>
                                             <script>
-                                                // Replace the URL below if needed based on your backend port
                                                 fetch('http://192.168.3.75:3001/userroles/active')
-                                                  .then(response => response.json())
-                                                  .then(data => {
-                                                    const select = document.getElementById('UserRoleId');
-                                                    data.forEach(role => {
-                                                      const option = document.createElement('option');
-                                                      option.value = role.id;        // Ensure 'id' exists in response
-                                                      option.textContent = role.userRoleName;
-                                                      // Ensure 'name' or whatever label you use
-                                                      select.appendChild(option);
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        const select = document.getElementById('UserRoleId');
+                                                        data.forEach(role => {
+                                                            const option = document.createElement('option');
+                                                            option.value = role.id;
+                                                            option.textContent = role.userRoleName;
+                                                            select.appendChild(option);
+                                                        });
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error fetching user roles:', error);
                                                     });
-                                                  })
-                                                  .catch(error => {
-                                                    console.error('Error fetching user roles:', error);
-                                                  });
-                                              </script>
-   
+                                            </script>
                                         </div>
                                         <div class="form-group">
                                             <label>Notes</label>
@@ -3038,20 +2986,18 @@
                                     <div class="form-column">
                                         <div class="form-group" id="editFirstNameField">
                                             <label for="editFirstName">First Name</label>
-                                            <input type="text" placeholder="Enter First Name" name="firstName"
-                                                id="editFirstName">
+                                            <input type="text" placeholder="Enter First Name" name="firstName" id="editFirstName">
                                             <span class="error-message" id="error-editfirstName"></span>
                                         </div>
                                         <div class="form-group" id="editLastNameField">
                                             <label for="editLastName">Last Name</label>
-                                            <input type="text" placeholder="Enter Last Name" name="lastName"
-                                                id="editLastName">
+                                            <input type="text" placeholder="Enter Last Name" name="lastName" id="editLastName">
                                             <span class="error-message" id="error-editlastName"></span>
                                         </div>
                                         <div class="form-group" id="editUserNameField">
                                             <label for="editUserName">User Name</label>
-                                            <input type="text" placeholder="Enter User Name" name="userName"
-                                                id="editUserName" autocomplete="off">
+                                            <input type="text" placeholder="Enter User Name" name="userName" id="editUserName"
+                                                autocomplete="off">
                                             <span class="error-message" id="error-edituserName"></span>
                                         </div>
                                         <div class="form-group" id="editPasswordField">
@@ -3061,54 +3007,49 @@
                                         </div>
                                         <div class="form-group" id="editConfirmPasswordField">
                                             <label for="editConfirmPassword">Confirm Password</label>
-                                            <input type="password" placeholder="Confirm New Password"
-                                                name="ConfirmPassword" id="editConfirmPassword" autocomplete="off">
+                                            <input type="password" placeholder="Confirm New Password" name="ConfirmPassword"
+                                                id="editConfirmPassword" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-column">
                                         <div class="form-group" id="editContactNoField">
                                             <label for="editContactNo">Contact No.</label>
-                                            <input type="text" placeholder="Enter Contact No." name="contactNo"
-                                                id="editContactNo" autocomplete="off">
+                                            <input type="text" placeholder="Enter Contact No." name="contactNo" id="editContactNo"
+                                                autocomplete="off">
                                             <span class="error-message" id="error-editcontactNo"></span>
                                         </div>
                                         <div class="form-group" id="editEmailIdField">
                                             <label for="editEmailId">Email Id</label>
-                                            <input type="email" placeholder="Enter Email Id" name="emailId"
-                                                id="editEmailId">
+                                            <input type="email" placeholder="Enter Email Id" name="emailId" id="editEmailId">
                                             <span class="error-message" id="error-editemailId"></span>
                                         </div>
                                         <div class="form-group" id="editAddressField">
                                             <label for="editAddress">Address</label>
-                                            <input type="text" placeholder="Enter Address" name="address"
-                                                id="editAddress">
+                                            <input type="text" placeholder="Enter Address" name="address" id="editAddress">
                                             <span class="error-message" id="error-editaddress"></span>
                                         </div>
                                         <div class="form-group" id="editUserRoleField">
                                             <label>User Role</label>
                                             <select id="editUserRoleId" name="userRoleId" class="form-select">
                                                 <option value="">Select Userrole</option>
-                                                
                                             </select>
                                             <span class="error-message" id="error-edituserRoleId"></span>
                                             <script>
-                                                // Replace the URL below if needed based on your backend port
                                                 fetch('http://192.168.3.75:3001/userroles/active')
-                                                  .then(response => response.json())
-                                                  .then(data => {
-                                                    const select = document.getElementById('editUserRoleId');
-                                                    data.forEach(role => {
-                                                      const option = document.createElement('option');
-                                                      option.value = role.id;        // Ensure 'id' exists in response
-                                                      option.textContent = role.userRoleName;
-                                                      // Ensure 'name' or whatever label you use
-                                                      select.appendChild(option);
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        const select = document.getElementById('editUserRoleId');
+                                                        data.forEach(role => {
+                                                            const option = document.createElement('option');
+                                                            option.value = role.id;
+                                                            option.textContent = role.userRoleName;
+                                                            select.appendChild(option);
+                                                        });
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error fetching user roles:', error);
                                                     });
-                                                  })
-                                                  .catch(error => {
-                                                    console.error('Error fetching user roles:', error);
-                                                  });
-                                              </script>
+                                            </script>
                                         </div>
                                         <div class="form-group">
                                             <label>Notes</label>
