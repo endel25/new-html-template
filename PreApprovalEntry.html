@@ -38,7 +38,6 @@
             line-height: 1.3rem;
         }
 
-
         .btn-outline-primary {
             border: 1px solid #4361ee;
             color: #4361ee;
@@ -50,6 +49,18 @@
         .btn-outline-primary:hover {
             background-color: #4361ee;
             color: white;
+        }
+
+        .btn-primary {
+            background-color: #4361ee;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #3b55e6;
         }
 
         .btn-success {
@@ -74,6 +85,10 @@
 
         .btn-danger:hover {
             background-color: #b91c1c;
+        }
+
+        .ml-2 {
+            margin-left: 70px;
         }
 
         /* Table Styles */
@@ -136,8 +151,6 @@
             margin: 0 auto;
         }
 
-
-        /* Checkbox Styling for Gatepass Approve */
         /* Checkbox Styling for Gatepass Approve */
         .gatepass-approve {
             display: none;
@@ -180,6 +193,29 @@
             content: '✖';
         }
 
+        /* Action Buttons Container */
+        .action-buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-items: center;
+        }
+
+        /* Action Buttons */
+        .action-btn {
+            padding: 3px;
+            margin-left: 0px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: #0d0d0e;
+        }
+
+        .action-btn:hover {
+            color: #4361ee;
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -190,6 +226,8 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
@@ -201,6 +239,39 @@
             max-width: 900px;
             border-radius: 8px;
             max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Modal styles for photo selection */
+        .modal-content1 {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .modal-content1 button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal-content1 .gallery-btn {
+            background-color: #4361ee;
+            color: white;
+        }
+
+        .modal-content1 .camera-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .modal-content1 .close-btn {
+            background-color: #dc3545;
+            color: white;
         }
 
         .close {
@@ -232,6 +303,9 @@
 
         .form-group {
             margin-bottom: 10px;
+            display: flex;
+            flex-direction: center;
+            width: 100%;
         }
 
         .form-group.full-width {
@@ -243,6 +317,7 @@
             margin-bottom: 3px;
             font-weight: 600;
             font-size: 0.8rem;
+            min-width: 160px;
         }
 
         .form-group input,
@@ -262,11 +337,13 @@
         .form-group textarea {
             height: 60px;
             resize: none;
+
         }
 
         .duration-group {
-            display: flex;
-            gap: 10px;
+            display: FLEX;
+            GAP: 10px;
+            width: 100%;
         }
 
         .duration-group input {
@@ -274,7 +351,7 @@
         }
 
         .duration-group select {
-            flex: 1;
+            flex: 2;
         }
 
         .button-group {
@@ -287,6 +364,25 @@
         button[type="button"] {
             padding: 8px 16px;
             font-size: 0.8rem;
+        }
+
+        .error {
+            margin-top: 4px;
+            color: #dc3545;
+            font-size: 12px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 1px #4361ee;
+            border-color: #4361ee;
+        }
+
+        /* Hide default file input */
+        input[type="file"] {
+            display: none;
         }
 
         .dataTable-dropdown .dataTable-selector,
@@ -303,37 +399,37 @@
             border-width: 1px;
             outline: none !important;
         }
- 
+
         .dataTable-dropdown .dataTable-selector:focus,
         .dataTable-search .dataTable-input:focus {
             border-color: #4361ee;
         }
- 
+
         .dataTable-search .dataTable-input {
             box-shadow: none !important;
         }
- 
+
         .dataTable-dropdown .dataTable-selector {
             padding-top: .375rem;
             padding-bottom: .375rem;
         }
- 
+
         .dataTable-dropdown .dataTable-selector:where([dir=ltr], [dir=ltr] *) {
             padding-left: .5rem;
             padding-right: 1rem;
         }
- 
+
         .dark .dataTable-dropdown .dataTable-selector,
         .dark .dataTable-search .dataTable-input {
             background-color: #121e32;
             color: #888ea8;
             border-color: #17263c;
         }
- 
+
         .dataTable-dropdown label {
             margin-bottom: 0;
         }
- 
+
         .panel-footer {
             padding: 8px 16px;
             background-color: #f8f9fa;
@@ -343,53 +439,63 @@
             border-top: 1px solid #e0e6ed;
             text-align: left;
         }
- 
+
         .dark .panel-footer {
             background-color: #121e32;
             color: #888ea8;
             border-top: 1px solid #17263c;
         }
- 
+
         .ltr .dataTable-search {
-            margin-left: auto
+            margin-left: auto;
         }
- 
+
         .rtl .dataTable-search {
-            margin-right: auto
+            margin-right: auto;
         }
- 
-        .dataTable-dropdown .dataTable-selector,
-        .dataTable-search .dataTable-input {
-            width: auto;
-            background-color: #fff;
-            color: #0e1726;
-            border-color: #e0e6ed;
-            border-radius: 6px;
-            padding: 8px 16px;
-            font-size: 14px;
-            line-height: 20px;
-            font-weight: 600;
-            border-width: 1px;
-            outline: none !important
-        }
- 
-        .dataTable-dropdown .dataTable-selector:focus,
-        .dataTable-search .dataTable-input:focus {
-            border-color: #4361ee
-        }
- 
-        .dataTable-search .dataTable-input {
-            box-shadow: none !important
-        }
- 
-        .dark .dataTable-search .dataTable-input {
-            background-color: #121e32;
-            color: #888ea8;
-            border-color: #17263c
-        }
- 
 
+        .cancel-icon {
+            font-size: 2rem;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
 
+        .cancel-icon:hover {
+            color: #333;
+        }
+
+        /* Modal styles */
+        .modal-content1 {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .modal-content1 button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal-content1 .gallery-btn {
+            background-color: #4361ee;
+            color: white;
+        }
+
+        .modal-content1 .camera-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .modal-content1 .close-btn {
+            background-color: #dc3545;
+            color: white;
+        }
     </style>
 
 
@@ -738,7 +844,8 @@
                                                     fill="currentColor" />
                                             </svg>
                                             <span
-                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Spot Entry</span>
+                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Spot
+                                                Entry</span>
                                         </div>
                                     </a>
                                 </li>
@@ -2845,20 +2952,21 @@
                         </div>
                     </div>
 
-                    <!-- Add the dropdown here -->
+                    <!-- Dropdown and Search -->
                     <div class="px-4 py-2 flex items-center justify-between">
                         <div class="dataTable-dropdown">
                             <label>
-                                <select class="dataTable-selector">
+                                <select class="dataTable-selector" id="entriesPerPage">
                                     <option value="5">5</option>
-                                    <option value="10" selected="">10</option>
+                                    <option value="10" selected>10</option>
                                     <option value="15">15</option>
                                     <option value="20">20</option>
                                     <option value="25">25</option>
                                 </select> entries per page
                             </label>
                         </div>
-                        <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..." type="text">
+                        <div class="dataTable-search">
+                            <input class="dataTable-input" id="searchInput" placeholder="Search..." type="text">
                         </div>
                     </div>
 
@@ -2882,109 +2990,297 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- Add the panel footer here -->
+                    <!-- Panel Footer -->
                     <div class="panel-footer" id="panelFooter">
                         Showing 0 to 0 of 0 entries
                     </div>
-
                 </div>
 
                 <!-- Modal for Visitor Details Form -->
-                <div id="visitorModal" class="modal">
+                <div id="visitorModal" class="modal" style="display: none;">
                     <div class="modal-content">
-                        <span class="close">×</span>
-                        <h2>Visitor Details</h2>
-                        <form id="visitorForm">
-                            <div class="form-container">
-                                <div class="form-column">
-                                    <div class="form-group">
-                                        <label for="gender">Gender</label>
-                                        <select id="gender" name="gender">
-                                            <option value="">Select Gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" id="email" name="email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="date">Date</label>
-                                        <input type="date" id="date" name="date">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="time">Time</label>
-                                        <input type="time" id="time" name="time">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nationalid">National ID</label>
-                                        <input type="text" id="nationalid" name="nationalid">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="photo">Photo URL</label>
-                                        <input type="text" id="photo" name="photo">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="visit">Purpose</label>
-                                        <input type="text" id="visit" name="visit">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="personname">Person Name</label>
-                                        <input type="text" id="personname" name="personname">
+                        <div class="px-2 py-2 border-b text-xl font-semibold text-center"
+                            style="font-family: 'Nunito', sans-serif; position: relative;">
+                            Visitor Appointment Details
+                            <span class="close"
+                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"
+                                onclick="closevisitorModal()">×</span>
+                        </div>
+
+                        <form id="visitorForm" class="p-3 space-y-4">
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="hidden" id="edit-id" name="id">
+                                <!-- First Name -->
+                                <div class="form-group">
+                                    <label for="edit-firstname" class="w-40 text-sm font-medium">First Name</label>
+                                    <div class="flex-1">
+                                        <input type="text" id="edit-firstname" name="firstname"
+                                            placeholder="Enter first name"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-firstname"></span>
                                     </div>
                                 </div>
-                                <div class="form-column">
-                                    <div class="form-group">
-                                        <label for="department">Department</label>
-                                        <input type="text" id="department" name="department">
+
+                                <!-- Last Name -->
+                                <div class="form-group">
+                                    <label for="edit-lastname" class="w-40 text-sm font-medium">Last Name</label>
+                                    <div class="flex-1">
+                                        <input type="text" id="edit-lastname" name="lastname"
+                                            placeholder="Enter last name"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-lastname"></span>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="durationtime">Duration</label>
+                                </div>
+
+                                <!-- Gender -->
+                                <div class="form-group">
+                                    <label for="edit-gender" class="w-40 text-sm font-medium">Gender</label>
+                                    <div class="flex-1">
+                                        <select id="edit-gender" name="gender"
+                                            class="w-full text-xs px-3 py-2 border rounded">
+                                            <option value="">Select gender</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                            <option>Other</option>
+                                        </select>
+                                        <span class="error text-red-500 text-xs" id="error-gender"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Contact Number -->
+                                <div class="form-group">
+                                    <label for="edit-contactnumber" class="w-40 text-sm font-medium">Contact
+                                        Number</label>
+                                    <div class="flex-1">
+                                        <input type="text" id="edit-contactnumber" name="contactnumber"
+                                            placeholder="Enter contact number"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-contactnumber"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group">
+                                    <label for="edit-email" class="w-40 text-sm font-medium">Email Address</label>
+                                    <div class="flex-1">
+                                        <input type="email" id="edit-email" name="email"
+                                            placeholder="Enter email address"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-email"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Date -->
+                                <div class="form-group">
+                                    <label for="edit-date" class="w-40 text-sm font-medium">Date</label>
+                                    <div class="flex-1">
+                                        <input type="date" id="edit-date" name="date"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-date"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Time -->
+                                <div class="form-group">
+                                    <label for="edit-time" class="w-40 text-sm font-medium">Time</label>
+                                    <div class="flex-1">
+                                        <input type="time" id="edit-time" name="time"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-time"></span>
+                                    </div>
+                                </div>
+
+                                <!-- National ID -->
+                                <div class="form-group">
+                                    <label for="edit-nationalid" class="w-40 text-sm font-medium">National ID</label>
+                                    <div class="flex-1">
+                                        <input type="text" id="edit-nationalid" name="nationalid"
+                                            placeholder="Enter national ID"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-nationalid"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Photo Upload -->
+                                <div class="form-group">
+                                    <label for="edit-photo" class="w-40 text-sm font-medium">Photo</label>
+                                    <div class="flex-1">
+                                        <input type="file" id="edit-photo" name="photo" accept="image/*"
+                                            onchange="previewImage(this, 'mainPreview')" class="hidden" />
+                                        <button type="button" class="w-full text-xs px-3 py-2 border rounded"
+                                            onclick="showModal('edit-photo')">Choose Photo</button>
+                                        <span class="error text-red-500 text-xs block mt-1" id="error-photo"></span>
+                                        <img id="mainPreview" class="w-24 h-16 rounded border hidden mt-2" />
+                                    </div>
+                                </div>
+
+                                <!-- Visit Purpose -->
+                                <div class="form-group">
+                                    <label for="edit-visit" class="w-40 text-sm font-medium">Purpose of Visit</label>
+                                    <div class="flex-1">
+                                        <input type="text" id="edit-visit" name="visit"
+                                            placeholder="Enter visit purpose"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-visit"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Person Name -->
+                                <div class="form-group">
+                                    <label for="edit-personname" class="w-40 text-sm font-medium">Person Name</label>
+                                    <div class="flex-1">
+                                        <input type="text" id="edit-personname" name="personname"
+                                            placeholder="Enter person to meet"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-personname"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Department -->
+                                <div class="form-group">
+                                    <label for="edit-department" class="w-40 text-sm font-medium">Department</label>
+                                    <div class="flex-1">
+                                        <input type="text" id="edit-department" name="department"
+                                            placeholder="Enter department"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-department"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Expected Duration -->
+                                <div class="form-group">
+                                    <label for="edit-durationtime" class="w-40 text-sm font-medium">Expected
+                                        Duration</label>
+                                    <div class="flex-1">
                                         <div class="duration-group">
-                                            <input type="number" id="durationtime" name="durationtime">
-
-
-                                            <select id="durationUnit" name="durationUnit">
-
-                                                <option value=" ">Select unit</option>
+                                            <select id="edit-durationUnit" name="durationUnit"
+                                                class="text-xs px-3 py-2 border rounded">
+                                                <option value="">Select unit</option>
                                                 <option value="Hours">Hours</option>
                                                 <option value="Minutes">Minutes</option>
                                                 <option value="Days">Days</option>
                                             </select>
+                                            <input type="number" id="edit-durationtime" name="durationtime"
+                                                placeholder="Enter duration" class="text-xs px-3 py-2 border rounded"
+                                                min="1" />
+                                        </div>
+                                        <span class="error text-red-500 text-xs" id="error-durationtime"></span>
+                                    </div>
+                                </div>
 
+                                <!-- Visitor Type -->
+                                <div class="form-group">
+                                    <label for="edit-visitortype" class="w-40 text-sm font-medium">Visitor Type</label>
+                                    <div class="flex-1">
+                                        <select id="edit-visitortype" name="visitortype"
+                                            class="w-full text-xs px-3 py-2 border rounded">
+                                            <option value="">Select visitor type</option>
+                                            <option>Vendor</option>
+                                            <option>Client</option>
+                                            <option>Interview</option>
+                                            <option>Guest</option>
+                                        </select>
+                                        <span class="error text-red-500 text-xs" id="error-visitortype"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Vehicle Type -->
+                                <div class="form-group">
+                                    <label for="edit-vehicletype" class="w-40 text-sm font-medium">Vehicle Type</label>
+                                    <div class="flex-1">
+                                        <input type="text" id="edit-vehicletype" name="vehicletype"
+                                            placeholder="Enter vehicle type"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-vehicletype"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Vehicle Number -->
+                                <div class="form-group">
+                                    <label for="edit-vehiclenumber" class="w-40 text-sm font-medium">Vehicle
+                                        Number</label>
+                                    <div class="flex-1">
+                                        <input type="text" id="edit-vehiclenumber" name="vehiclenumber"
+                                            placeholder="Enter vehicle number"
+                                            class="w-full text-xs px-3 py-2 border rounded" />
+                                        <span class="error text-red-500 text-xs" id="error-vehiclenumber"></span>
+                                    </div>
+                                </div>
+                                <!-- Driver Toggle -->
+                                <div class="flex items-center justify-left">
+                                    <label for="edit-driverToggle" class="w-40 text-sm font-medium">Include
+                                        Driver?</label>
+                                    <input type="checkbox" id="edit-driverToggle" onchange="toggleDriverDetails()"
+                                        class="ml-2" />
+                                </div>
+
+
+                            </div>
+
+                            <!-- Driver Details -->
+                            <div id="driverDetails" class="hidden border-t pt-4 space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <!-- Driver Name -->
+                                    <div class="form-group">
+                                        <label for="edit-drivername" class="w-40 text-sm font-medium">Driver
+                                            Name</label>
+                                        <div class="flex-1">
+                                            <input type="text" id="edit-drivername" name="drivername"
+                                                placeholder="Enter driver name"
+                                                class="w-full text-xs px-3 py-2 border rounded" />
+                                            <span class="error text-red-500 text-xs" id="error-drivername"></span>
                                         </div>
                                     </div>
+
+                                    <!-- Driver Mobile -->
                                     <div class="form-group">
-                                        <label for="visitortype">Visitor Type</label>
-                                        <input type="text" id="visitortype" name="visitortype">
+                                        <label for="edit-drivermobile" class="w-40 text-sm font-medium">Driver
+                                            Mobile</label>
+                                        <div class="flex-1">
+                                            <input type="text" id="edit-drivermobile" name="drivermobile"
+                                                placeholder="Enter driver mobile"
+                                                class="w-full text-xs px-3 py-2 border rounded" />
+                                            <span class="error text-red-500 text-xs" id="error-drivermobile"></span>
+                                        </div>
                                     </div>
+
+                                    <!-- Driver National ID -->
                                     <div class="form-group">
-                                        <label for="vehicletype">Vehicle Type</label>
-                                        <input type="text" id="vehicletype" name="vehicletype">
+                                        <label for="edit-drivernationalid" class="w-40 text-sm font-medium">Driver
+                                            National ID</label>
+                                        <div class="flex-1">
+                                            <input type="text" id="edit-drivernationalid" name="drivernationalid"
+                                                placeholder="Enter driver national ID"
+                                                class="w-full text-xs px-3 py-2 border rounded" />
+                                            <span class="error text-red-500 text-xs" id="error-drivernationalid"></span>
+                                        </div>
                                     </div>
+
+                                    <!-- Driver Photo -->
                                     <div class="form-group">
-                                        <label for="drivername">Driver Name</label>
-                                        <input type="text" id="drivername" name="drivername">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="drivermobile">Driver Mobile</label>
-                                        <input type="text" id="drivermobile" name="drivermobile">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="drivernationalid">Driver National ID</label>
-                                        <input type="text" id="drivernationalid" name="drivernationalid">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="driverphoto">Driver Photo URL</label>
-                                        <input type="text" id="driverphoto" name="driverphoto">
+                                        <label for="edit-driverphoto" class="w-40 text-sm font-medium">Driver
+                                            Photo</label>
+                                        <div class="flex-1">
+                                            <input type="file" id="edit-driverphoto" name="driverphoto" accept="image/*"
+                                                onchange="previewImage(this, 'driverPreview')" class="hidden" />
+                                            <button type="button" class="w-full text-xs px-3 py-2 border rounded"
+                                                onclick="showModal('edit-driverphoto')">Choose Photo</button>
+                                            <span class="error text-red-500 text-xs block mt-1"
+                                                id="error-driverphoto"></span>
+                                            <img id="driverPreview" class="w-24 h-16 rounded border hidden mt-2" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group full-width">
-                                <label for="notes">Notes</label>
-                                <textarea id="notes" name="notes"></textarea>
+
+                            <!-- Notes -->
+                            <div class="form-group">
+                                <label for="edit-notes" class="w-40 text-sm font-medium pt-2">Notes</label>
+                                <div class="flex-1">
+                                    <textarea id="edit-notes" name="notes" rows="2" placeholder="Enter any notes..."
+                                        class="w-full text-xs px-3 py-2 border rounded"></textarea>
+                                    <span class="error text-red-500 text-xs" id="error-notes"></span>
+                                </div>
                             </div>
                             <div class="button-group">
                                 <button type="submit" class="btn btn-sm btn-primary rounded-full">Save Details</button>
@@ -2998,11 +3294,19 @@
                         </form>
                     </div>
                 </div>
+                <!-- Modal for Gallery/Camera selection -->
+                <div id="photoModal" class="modal">
+                    <div class="modal-content1">
+                        <h3>Select Photo Source</h3>
+                        <button class="gallery-btn" onclick="openGallery()">Gallery</button>
+                        <button class="camera-btn" onclick="openCamera()">Camera</button>
+                        <button class="close-btn" onclick="closeModal1()">Close</button>
+                    </div>
+                </div>
 
-
-
-
-
+                <!-- Hidden video element for camera preview -->
+                <video id="cameraPreview" style="display: none;"></video>
+                <canvas id="cameraCanvas" style="display: none;"></canvas>
 
                 <!-- end main content section -->
             </div>
@@ -3014,7 +3318,96 @@
             <!-- end footer section -->
         </div>
     </div>
+
     <script>
+        let currentFileInputId = '';
+
+        function showModal(fileInputId) {
+            currentFileInputId = fileInputId;
+            document.getElementById('photoModal').style.display = 'flex';
+        }
+
+        function closeModal1() {
+            document.getElementById('photoModal').style.display = 'none';
+            stopCamera();
+        }
+
+        function openGallery() {
+            const fileInput = document.getElementById(currentFileInputId);
+            fileInput.removeAttribute('capture');
+            fileInput.click();
+            closeModal1();
+        }
+
+        function openCamera() {
+            startCamera(document.getElementById(currentFileInputId));
+            closeModal1();
+        }
+
+        function startCamera(fileInput) {
+            const video = document.getElementById('cameraPreview');
+            const canvas = document.getElementById('cameraCanvas');
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.style.display = 'block';
+                    video.play();
+                    const captureBtn = document.createElement('button');
+                    captureBtn.textContent = 'Capture Photo';
+                    captureBtn.className = 'btn-outline-primary';
+                    captureBtn.onclick = () => {
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        canvas.getContext('2d').drawImage(video, 0, 0);
+                        canvas.toBlob(blob => {
+                            const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
+                            const dataTransfer = new DataTransfer();
+                            dataTransfer.items.add(file);
+                            fileInput.files = dataTransfer.files;
+                            fileInput.dispatchEvent(new Event('change'));
+                            stopCamera();
+                        }, 'image/jpeg');
+                    };
+                    document.body.appendChild(captureBtn);
+                })
+                .catch(err => {
+                    console.error('Camera access denied:', err);
+                });
+        }
+
+        function stopCamera() {
+            const video = document.getElementById('cameraPreview');
+            const stream = video.srcObject;
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            video.style.display = 'none';
+            const captureBtn = document.querySelector('button[onclick*="capture"]');
+            if (captureBtn) captureBtn.remove();
+        }
+
+        function previewImage(input, id) {
+            const file = input.files[0];
+            const img = document.getElementById(id);
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    img.src = e.target.result;
+                    img.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                img.classList.add('hidden');
+            }
+        }
+
+
+
+        function closeModal() {
+            document.getElementById('visitorModal').style.display = 'none';
+        }
+
+        document.querySelector('.modal .close').addEventListener('click', closeModal);
         // Simulated visitor data fetching (replace with real API)
         async function fetchVisitorData() {
             try {
@@ -3040,7 +3433,7 @@
                         personname: "Jane Smith",
                         department: "HR",
                         durationtime: 2,
-                        durationUnit: " ",
+                        durationUnit: "Hours",
                         visitortype: "Guest",
                         vehicletype: "Car",
                         drivername: "Mike Johnson",
@@ -3052,7 +3445,6 @@
                         safetyApproved: false,
                         gatepassApproved: null // Default to null for unset state
                     }
-                    // In real app, this comes from API
                 ];
             } catch (error) {
                 console.error('Error fetching visitor data:', error);
@@ -3060,42 +3452,61 @@
             }
         }
 
-        // Function to fetch and display visitor data
-        async function loadVisitorData() {
+        // Function to render table with pagination and search
+        async function loadVisitorData(page = 1, searchQuery = '') {
             try {
                 const visitors = await fetchVisitorData();
-
+                const entriesPerPage = parseInt(document.getElementById('entriesPerPage').value) || 10;
                 const tableBody = document.getElementById('visitorTableBody');
+                const panelFooter = document.getElementById('panelFooter');
+
+                // Filter visitors based on search query
+                const filteredVisitors = visitors.filter(visitor =>
+                    `${visitor.firstname} ${visitor.lastname} ${visitor.nationalid} ${visitor.contactnumber}`
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase())
+                );
+
+                // Calculate pagination
+                const totalEntries = filteredVisitors.length;
+                const startIndex = (page - 1) * entriesPerPage;
+                const endIndex = startIndex + entriesPerPage;
+                const paginatedVisitors = filteredVisitors.slice(startIndex, endIndex);
+
                 tableBody.innerHTML = ''; // Clear existing rows
 
-                if (visitors.length === 0) {
+                if (paginatedVisitors.length === 0) {
                     tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
+                    panelFooter.textContent = `Showing 0 to 0 of ${totalEntries} entries`;
                     return;
                 }
 
-                visitors.forEach(visitor => {
+                paginatedVisitors.forEach(visitor => {
                     const row = document.createElement('tr');
                     row.setAttribute('data-id', visitor.id);
                     row.innerHTML = `
-                        <td>${visitor.id || '-'}</td>
-                        <td>${visitor.firstname || '-'}</td>
-                        <td>${visitor.lastname || '-'}</td>
-                        <td>${visitor.contactnumber || '-'}</td>
-                        <td>${visitor.nationalid || '-'}</td>
-                        <td class="center-checkbox">
-  <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
-</td>
-<td class="center-checkbox">
-  <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
-</td>
-<td class="center-checkbox">
-  <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
-  <label for="gatepass-${visitor.id}"></label>
-</td>
-                        <td><button class="btn btn-sm btn-primary rounded-full details-btn">Details</button></td>
-                    `;
+                <td>${visitor.id || '-'}</td>
+                <td>${visitor.firstname || '-'}</td>
+                <td>${visitor.lastname || '-'}</td>
+                <td>${visitor.contactnumber || '-'}</td>
+                <td>${visitor.nationalid || '-'}</td>
+                <td class="center-checkbox">
+                    <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
+                </td>
+                <td class="center-checkbox">
+                    <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
+                </td>
+                <td class="center-checkbox">
+                    <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
+                    <label for="gatepass-${visitor.id}"></label>
+                </td>
+                <td><button class="btn btn-sm btn-primary rounded-full details-btn">Details</button></td>
+            `;
                     tableBody.appendChild(row);
                 });
+
+                // Update panel footer
+                panelFooter.textContent = `Showing ${startIndex + 1} to ${Math.min(endIndex, totalEntries)} of ${totalEntries} entries`;
 
                 // Attach event listeners to Details buttons
                 document.querySelectorAll('.details-btn').forEach(button => {
@@ -3109,78 +3520,95 @@
                 console.error('Error loading visitor data:', error);
                 document.getElementById('visitorTableBody').innerHTML =
                     '<tr><td colspan="9" class="no-data">Error loading data</td></tr>';
+                document.getElementById('panelFooter').textContent = 'Error loading data';
             }
         }
 
         // Function to open the modal and populate the form
         async function openVisitorModal(visitorId) {
-            const visitors = await fetchVisitorData();
-            const visitor = visitors.find(v => v.id == visitorId);
-            if (!visitor) return;
+            try {
+                const visitors = await fetchVisitorData();
+                const visitor = visitors.find(v => v.id == visitorId);
+                if (!visitor) {
+                    alert('Visitor not found.');
+                    return;
+                }
 
-            // Populate form fields
-            document.getElementById('gender').value = visitor.gender || '';
-            document.getElementById('email').value = visitor.email || '';
-            document.getElementById('date').value = visitor.date || '';
-            document.getElementById('time').value = visitor.time || '';
-            document.getElementById('nationalid').value = visitor.nationalid || '';
-            document.getElementById('photo').value = visitor.photo || '';
-            document.getElementById('visit').value = visitor.visit || '';
-            document.getElementById('personname').value = visitor.personname || '';
-            document.getElementById('department').value = visitor.department || '';
-            document.getElementById('durationtime').value = visitor.durationtime || '';
-            document.getElementById('durationUnit').value = visitor.durationUnit || 'hours';
-            document.getElementById('visitortype').value = visitor.visitortype || '';
-            document.getElementById('vehicletype').value = visitor.vehicletype || '';
-            document.getElementById('drivername').value = visitor.drivername || '';
-            document.getElementById('drivermobile').value = visitor.drivermobile || '';
-            document.getElementById('drivernationalid').value = visitor.drivernationalid || '';
-            document.getElementById('driverphoto').value = visitor.driverphoto || '';
-            document.getElementById('notes').value = visitor.notes || '';
+                // Populate form fields
+                document.getElementById('edit-id').value = visitor.id || '';
+                document.getElementById('edit-firstname').value = visitor.firstname || '';
+                document.getElementById('edit-lastname').value = visitor.lastname || '';
+                document.getElementById('edit-gender').value = visitor.gender || '';
+                document.getElementById('edit-contactnumber').value = visitor.contactnumber || '';
+                document.getElementById('edit-email').value = visitor.email || '';
+                document.getElementById('edit-date').value = visitor.date || '';
+                document.getElementById('edit-time').value = visitor.time || '';
+                document.getElementById('edit-nationalid').value = visitor.nationalid || '';
+                document.getElementById('edit-visit').value = visitor.visit || '';
+                document.getElementById('edit-personname').value = visitor.personname || '';
+                document.getElementById('edit-department').value = visitor.department || '';
+                document.getElementById('edit-durationtime').value = visitor.durationtime || '';
+                document.getElementById('edit-durationUnit').value = visitor.durationUnit || '';
+                document.getElementById('edit-visitortype').value = visitor.visitortype || '';
+                document.getElementById('edit-vehicletype').value = visitor.vehicletype || '';
+                document.getElementById('edit-vehiclenumber').value = visitor.vehiclenumber || '';
+                document.getElementById('edit-drivername').value = visitor.drivername || '';
+                document.getElementById('edit-drivermobile').value = visitor.drivermobile || '';
+                document.getElementById('edit-drivernationalid').value = visitor.drivernationalid || '';
+                document.getElementById('edit-notes').value = visitor.notes || '';
 
-            // Store visitor ID in form for reference
-            document.getElementById('visitorForm').setAttribute('data-id', visitorId);
+                // Set driver toggle and details visibility
+                const driverToggle = document.getElementById('edit-driverToggle');
+                driverToggle.checked = !!visitor.drivername || !!visitor.drivermobile || !!visitor.drivernationalid;
+                document.getElementById('driverDetails').classList.toggle('hidden', !driverToggle.checked);
 
-            // Show modal
-            document.getElementById('visitorModal').style.display = 'block';
+                // Store visitor ID in form for reference
+                document.getElementById('visitorForm').setAttribute('data-id', visitorId);
+
+                // Show modal
+                document.getElementById('visitorModal').style.display = 'block';
+            } catch (error) {
+                console.error('Error opening visitor modal:', error);
+                alert('Error loading visitor details.');
+            }
         }
 
         // Handle form submission
         document.getElementById('visitorForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const visitorId = e.target.getAttribute('data-id');
-            // Collect form data
             const formData = {
-                gender: document.getElementById('gender').value,
-                email: document.getElementById('email').value,
-                date: document.getElementById('date').value,
-                time: document.getElementById('time').value,
-                nationalid: document.getElementById('nationalid').value,
-                photo: document.getElementById('photo').value,
-                visit: document.getElementById('visit').value,
-                personname: document.getElementById('personname').value,
-                department: document.getElementById('department').value,
-                durationtime: document.getElementById('durationtime').value,
-                durationUnit: document.getElementById('durationUnit').value,
-                visitortype: document.getElementById('visitortype').value,
-                vehicletype: document.getElementById('vehicletype').value,
-                drivername: document.getElementById('drivername').value,
-                drivermobile: document.getElementById('drivermobile').value,
-                drivernationalid: document.getElementById('drivernationalid').value,
-                driverphoto: document.getElementById('driverphoto').value,
-                notes: document.getElementById('notes').value
+                id: document.getElementById('edit-id').value,
+                firstname: document.getElementById('edit-firstname').value,
+                lastname: document.getElementById('edit-lastname').value,
+                gender: document.getElementById('edit-gender').value,
+                contactnumber: document.getElementById('edit-contactnumber').value,
+                email: document.getElementById('edit-email').value,
+                date: document.getElementById('edit-date').value,
+                time: document.getElementById('edit-time').value,
+                nationalid: document.getElementById('edit-nationalid').value,
+                visit: document.getElementById('edit-visit').value,
+                personname: document.getElementById('edit-personname').value,
+                department: document.getElementById('edit-department').value,
+                durationtime: document.getElementById('edit-durationtime').value,
+                durationUnit: document.getElementById('edit-durationUnit').value,
+                visitortype: document.getElementById('edit-visitortype').value,
+                vehicletype: document.getElementById('edit-vehicletype').value,
+                vehiclenumber: document.getElementById('edit-vehiclenumber').value,
+                drivername: document.getElementById('edit-drivername').value,
+                drivermobile: document.getElementById('edit-drivermobile').value,
+                drivernationalid: document.getElementById('edit-drivernationalid').value,
+                notes: document.getElementById('edit-notes').value
             };
             console.log('Submitting form data for visitor ID:', visitorId, formData);
-            // In a real app: await fetch('/api/visitors/' + visitorId, { method: 'PUT', body: JSON.stringify(formData) })
             alert('Details saved (simulated).');
             closeModal();
+            await loadVisitorData();
         });
 
         // Handle Approve Gatepass button
         document.getElementById('approveGatepass').addEventListener('click', async () => {
             const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
-            // Simulate updating gatepass status
-            // In a real app: await fetch('/api/visitors/' + visitorId + '/gatepass', { method: 'PATCH', body: JSON.stringify({ gatepassApproved: true }) })
             const row = document.querySelector(`tr[data-id="${visitorId}"]`);
             if (row) {
                 const checkbox = row.querySelector('.gatepass-approve');
@@ -3194,8 +3622,6 @@
         // Handle Disapprove Gatepass button
         document.getElementById('disapproveGatepass').addEventListener('click', async () => {
             const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
-            // Simulate updating gatepass status
-            // In a real app: await fetch('/api/visitors/' + visitorId + '/gatepass', { method: 'PATCH', body: JSON.stringify({ gatepassApproved: false }) })
             const row = document.querySelector(`tr[data-id="${visitorId}"]`);
             if (row) {
                 const checkbox = row.querySelector('.gatepass-approve');
@@ -3206,15 +3632,25 @@
             closeModal();
         });
 
-        // Modal close functionality
-        function closeModal() {
-            document.getElementById('visitorModal').style.display = 'none';
+        // Toggle driver details visibility
+        function toggleDriverDetails() {
+            const driverDetails = document.getElementById('driverDetails');
+            const driverToggle = document.getElementById('edit-driverToggle');
+            driverDetails.classList.toggle('hidden', !driverToggle.checked);
         }
 
-        document.querySelector('.modal .close').addEventListener('click', closeModal);
+        // Handle search input
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            loadVisitorData(1, e.target.value);
+        });
+
+        // Handle entries per page change
+        document.getElementById('entriesPerPage').addEventListener('change', () => {
+            loadVisitorData();
+        });
 
         // Load data when the page loads
-        document.addEventListener('DOMContentLoaded', loadVisitorData);
+        document.addEventListener('DOMContentLoaded', () => loadVisitorData());
     </script>
 
     <script src="assets/js/alpine-collaspe.min.js"></script>
@@ -3224,6 +3660,9 @@
     <script defer src="assets/js/alpine.min.js"></script>
 
     <script src="assets/js/custom.js"></script>
+
+    <script src="assets/js/auth.js"></script>
+
     <script>
         document.addEventListener('alpine:init', () => {
             // main section
@@ -3839,8 +4278,7 @@
         });
 
     </script>
-    <script src="assets/js/auth.js"></script>
-    
+
 </body>
 
 </html>

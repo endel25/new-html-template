@@ -302,7 +302,16 @@
             border-color: #17263c
         }
  
+        .cancel-icon {
+    font-size: 2rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
 
+.cancel-icon:hover {
+    color: #333;
+}
 
     </style>
 
@@ -2905,8 +2914,8 @@
                             style="font-family: 'Nunito', sans-serif; position: relative;">
                             Edit Visitor Appointment Details
                             <span class="cancel-icon"
-                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"
-                                onclick="closeEditModal()">&#10006;</span>
+                            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"
+                            onclick="closeEditModal()">×</span>
                         </div>
                         <form id="editForm" class="p-3 space-y-4">
                             <div class="grid grid-cols-2 gap-4">
@@ -3689,7 +3698,7 @@
                         console.log('Sending Data:', formattedData);
             
                         try {
-                            const response = await axios.post('http://192.168.3.74:3001/visitors', formattedData, {
+                            const response = await axios.post('http://192.168.3.73:3001/visitors', formattedData, {
                                 headers: { 'Content-Type': 'application/json' }
                             });
                             console.log('Response:', response.data);
