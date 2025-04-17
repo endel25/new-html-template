@@ -44,7 +44,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
 
         .panel-header h2 {
@@ -444,6 +444,45 @@
         .has-success input {
             border-color: green;
         }
+
+        .ltr .dataTable-search {
+            margin-left: auto
+        }
+
+        .rtl .dataTable-search {
+            margin-right: auto
+        }
+
+        .dataTable-dropdown .dataTable-selector,
+        .dataTable-search .dataTable-input {
+            width: auto;
+            background-color: #fff;
+            color: #0e1726;
+            border-color: #e0e6ed;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+            border-width: 1px;
+            outline: none !important
+        }
+
+        .dataTable-dropdown .dataTable-selector:focus,
+        .dataTable-search .dataTable-input:focus {
+            border-color: #4361ee
+        }
+
+        .dataTable-search .dataTable-input {
+            box-shadow: none !important
+        }
+
+        .dark .dataTable-search .dataTable-input {
+            background-color: #121e32;
+            color: #888ea8;
+            border-color: #17263c
+        }
+
     </style>
 </head>
 
@@ -2788,18 +2827,20 @@
                             <button class="btn btn-sm btn-primary rounded-full" onclick="openAddUserModal()">Add User</button>
                         </div>
                     </div>
-                    <div class="panel-controls" id="paginationControls">
-                        <div class="entries-per-page">
-                            <select id="entriesPerPage" onchange="fetchUsers()">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            entries per page
+                    <!-- Add the dropdown here -->
+                    <div class="px-2 py-2 flex items-center justify-between">
+                        <div class="dataTable-dropdown">
+                            <label>
+                                <select class="dataTable-selector">
+                                    <option value="5">5</option>
+                                    <option value="10" selected="">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select> entries per page
+                            </label>
                         </div>
-                        <div class="search-bar">
-                            <input type="text" id="searchInput" placeholder="Search..." onkeyup="fetchUsers()">
+                        <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..." type="text">
                         </div>
                     </div>
                     <table id="userTable">
@@ -2815,6 +2856,7 @@
                             <!-- Data will be populated dynamically -->
                         </tbody>
                     </table>
+                    <!-- Add the panel footer here -->
                     <div class="panel-footer" id="panelFooter">
                         Showing 0 to 0 of 0 entries
                     </div>
@@ -3116,9 +3158,9 @@
         document.getElementById('paginationControls').style.display = 'none';
         isPaginatedView = false;
     } catch (error) {
-        console.error('Error fetching all users:', error);
-        showMessage('Error fetching all users: ' + error.message, 'error');
-    }
+        // console.error('Error fetching all users:', error);
+        // showMessage('Error fetching all users: ' + error.message, 'error');
+    }   
 }
 
 // Fetch users with pagination and search
