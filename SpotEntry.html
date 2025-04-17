@@ -193,6 +193,108 @@
             background-color: #dc3545;
             color: white;
         }
+
+        .dataTable-dropdown .dataTable-selector,
+        .dataTable-search .dataTable-input {
+            width: auto;
+            background-color: #fff;
+            color: #0e1726;
+            border-color: #e0e6ed;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+            border-width: 1px;
+            outline: none !important;
+        }
+ 
+        .dataTable-dropdown .dataTable-selector:focus,
+        .dataTable-search .dataTable-input:focus {
+            border-color: #4361ee;
+        }
+ 
+        .dataTable-search .dataTable-input {
+            box-shadow: none !important;
+        }
+ 
+        .dataTable-dropdown .dataTable-selector {
+            padding-top: .375rem;
+            padding-bottom: .375rem;
+        }
+ 
+        .dataTable-dropdown .dataTable-selector:where([dir=ltr], [dir=ltr] *) {
+            padding-left: .5rem;
+            padding-right: 1rem;
+        }
+ 
+        .dark .dataTable-dropdown .dataTable-selector,
+        .dark .dataTable-search .dataTable-input {
+            background-color: #121e32;
+            color: #888ea8;
+            border-color: #17263c;
+        }
+ 
+        .dataTable-dropdown label {
+            margin-bottom: 0;
+        }
+ 
+        .panel-footer {
+            padding: 8px 16px;
+            background-color: #f8f9fa;
+            color: #0e1726;
+            font-size: 14px;
+            line-height: 20px;
+            border-top: 1px solid #e0e6ed;
+            text-align: left;
+        }
+ 
+        .dark .panel-footer {
+            background-color: #121e32;
+            color: #888ea8;
+            border-top: 1px solid #17263c;
+        }
+ 
+        .ltr .dataTable-search {
+            margin-left: auto
+        }
+ 
+        .rtl .dataTable-search {
+            margin-right: auto
+        }
+ 
+        .dataTable-dropdown .dataTable-selector,
+        .dataTable-search .dataTable-input {
+            width: auto;
+            background-color: #fff;
+            color: #0e1726;
+            border-color: #e0e6ed;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+            border-width: 1px;
+            outline: none !important
+        }
+ 
+        .dataTable-dropdown .dataTable-selector:focus,
+        .dataTable-search .dataTable-input:focus {
+            border-color: #4361ee
+        }
+ 
+        .dataTable-search .dataTable-input {
+            box-shadow: none !important
+        }
+ 
+        .dark .dataTable-search .dataTable-input {
+            background-color: #121e32;
+            color: #888ea8;
+            border-color: #17263c
+        }
+ 
+
+
     </style>
 
 
@@ -2782,7 +2884,7 @@
                         </table>
                     </div>
                     <!-- Add the panel footer here -->
-                    <div class="px-4 py-2 panel-footer" id="panelFooter">
+                    <div class="panel-footer" id="panelFooter">
                         Showing 0 to 0 of 0 entries
                     </div>
                 </div>
