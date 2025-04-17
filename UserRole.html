@@ -27,21 +27,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <style>
-        /* ========================== */
-        /* GENERAL STYLES */
-        /* ========================== */
-        /* * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Nunito', sans-serif;
-            color: #333;
-        } */
-
-        body {
-            background-color: #f5f7fa;
-            padding: 20px;
-        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
 
 
         /* ========================== */
@@ -52,7 +39,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             padding: 30px;
-            max-width: 1200px;
+            
             margin: 0 auto;
         }
 
@@ -68,6 +55,11 @@
             font-weight: 600;
         }
 
+        .font-bold{
+            font-weight: 600;
+           
+        }
+
         /* ========================== */
         /* BUTTON STYLES */
         /* ========================== */
@@ -76,7 +68,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: .375rem;
+            border-radius: 1.5rem;
             border-width: 1px;
             padding: .5rem 1.25rem;
             font-size: .875rem;
@@ -216,6 +208,10 @@
         .form-container {
             margin-top: 10px;
         }
+
+        .container {
+        max-width: inherit;
+    }
 
         .form-row {
             display: flex;
@@ -556,6 +552,108 @@
         .has-success input {
             border-color: green;
         }
+
+
+
+        
+        .dataTable-dropdown .dataTable-selector,
+        .dataTable-search .dataTable-input {
+            width: auto;
+            background-color: #fff;
+            color: #0e1726;
+            border-color: #e0e6ed;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+            border-width: 1px;
+            outline: none !important;
+        }
+
+        .dataTable-dropdown .dataTable-selector:focus,
+        .dataTable-search .dataTable-input:focus {
+            border-color: #4361ee;
+        }
+
+        .dataTable-search .dataTable-input {
+            box-shadow: none !important;
+        }
+
+        .dataTable-dropdown .dataTable-selector {
+            padding-top: .375rem;
+            padding-bottom: .375rem;
+        }
+
+        .dataTable-dropdown .dataTable-selector:where([dir=ltr], [dir=ltr] *) {
+            padding-left: .5rem;
+            padding-right: 1rem;
+        }
+
+        .dark .dataTable-dropdown .dataTable-selector,
+        .dark .dataTable-search .dataTable-input {
+            background-color: #121e32;
+            color: #888ea8;
+            border-color: #17263c;
+        }
+
+        .dataTable-dropdown label {
+            margin-bottom: 0;
+        }
+
+        .panel-footer {
+            padding: 8px 16px;
+            background-color: #f8f9fa;
+            color: #0e1726;
+            font-size: 14px;
+            line-height: 20px;
+            border-top: 1px solid #e0e6ed;
+            text-align: left;
+        }
+
+        .dark .panel-footer {
+            background-color: #121e32;
+            color: #888ea8;
+            border-top: 1px solid #17263c;
+        }
+
+        .ltr .dataTable-search {
+            margin-left: auto
+        }
+
+        .rtl .dataTable-search {
+            margin-right: auto
+        }
+
+        .dataTable-dropdown .dataTable-selector,
+        .dataTable-search .dataTable-input {
+            width: auto;
+            background-color: #fff;
+            color: #0e1726;
+            border-color: #e0e6ed;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+            border-width: 1px;
+            outline: none !important
+        }
+
+        .dataTable-dropdown .dataTable-selector:focus,
+        .dataTable-search .dataTable-input:focus {
+            border-color: #4361ee
+        }
+
+        .dataTable-search .dataTable-input {
+            box-shadow: none !important
+        }
+
+        .dark .dataTable-search .dataTable-input {
+            background-color: #121e32;
+            color: #888ea8;
+            border-color: #17263c
+        }
     </style>
 </head>
 
@@ -882,7 +980,7 @@
                         <li class="nav-item">
                             <ul>
                                 <li class="nav-item">
-                                    <a href="PreApprovalEntry.html" class="group">
+                                    <a href="PreApproval.html" class="group">
                                         <div class="flex items-center">
                                             <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -894,7 +992,7 @@
                                                     fill="currentColor" />
                                             </svg>
                                             <span
-                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Pre Approval Entry</span>
+                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Pre Approval</span>
                                         </div>
                                     </a>
                                 </li>
@@ -944,7 +1042,7 @@
                                                     fill="currentColor" />
                                             </svg>
                                             <span
-                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Spot</span>
+                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Spot Entry</span>
                                         </div>
                                     </a>
                                 </li>
@@ -1803,7 +1901,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="PreApprovalEntry.html"
+                                    <a href="PreApproval.html"
                                         class="block rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -2303,7 +2401,7 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="PreApprovalEntry.html">Pre Approval Entry</a>
+                                    <a href="PreApproval.html">Pre Approval</a>
                                 </li>
                                 <!-- <li>
                                         <a href="visitorverify.html">Mailbox</a>
@@ -2885,28 +2983,45 @@
             </header>
             <!-- end header section -->
 
-            <div class="dvanimation animate__animated p-6" :class="[$store.app.animation]">
+            <div class="dvanimation animate__animated p-4" :class="[$store.app.animation]">
                 <!-- start main content section -->
-                <div class="container mx-auto p-6">
+                <div class="container mx-auto p-2">
                     <!-- Roles Table with Integrated Header -->
                     <div class="bg-white rounded-lg shadow overflow-hidden">
                         <!-- Header -->
-                        <div class="flex justify-between items-center mb-6 px-6 pt-6">
+                        <div class="flex justify-between items-center mb-2 px-6 pt-6">
                             <h1 class="text-2xl font-bold text-gray-800">User Role Management</h1>
-                            <button id="addRoleBtn" class="btn btn-primary">
+                            <button id="addRoleBtn" class="btn btn-sm btn-primary rounded-full">
                                 Add User Role
                             </button>
                         </div>
+                        
+                                            <!-- Add the dropdown here -->
+                    <div class="px-4 py-2 flex items-center justify-between">
+                        <div class="dataTable-dropdown">
+                            <label>
+                                <select class="dataTable-selector">
+                                    <option value="5">5</option>
+                                    <option value="10" selected="">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select> entries per page
+                            </label>
+                        </div>
+                        <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..." type="text">
+                        </div>
+                    </div>
 
                         <!-- Table -->
                         <table class="min-w-full">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role
+                                    <th class="px-6 border-b text-16px font-semibold  items-center justify-between">Role
                                         Name</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Active
+                                    <th class="px-6 border-b text-16px font-semibold  items-center justify-between">Active
                                     </th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions
+                                    <th class="px-6 border-b text-16px font-semibold  items-center justify-between">Actions
                                     </th>
                                 </tr>
                             </thead>
@@ -2914,6 +3029,10 @@
                                 <!-- Dynamically populated -->
                             </tbody>
                         </table>
+                                                                <!-- Add the panel footer here -->
+                                                                <div class="panel-footer" id="panelFooter">
+                                                                    Showing 0 to 0 of 0 entries
+                                                                </div>
                     </div>
 
                     <!-- Create/Edit Role Modal -->
@@ -3003,7 +3122,7 @@
         };
 
        // Fetch and display all roles in the table
-async function loadRoles() {
+       async function loadRoles() {
     try {
         const response = await fetch(`${API_BASE_URL}`, { method: 'GET' });
         if (!response.ok) {
@@ -3023,8 +3142,8 @@ async function loadRoles() {
                     </span>
                 </td>
                 <td class="action-icons">
-                    <i class="fas fa-edit" onclick="editRole(${role.id})"></i>
-                    <i class="fas fa-trash" onclick="deleteRole(${role.id})"></i>
+                    <span onclick="editRole(${role.id})" style="cursor:pointer;">✏️</span>
+                    <span onclick="deleteRole(${role.id})" style="cursor:pointer;">🗑️</span>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -3037,6 +3156,7 @@ async function loadRoles() {
         alert(`Error: ${error.message}`);
     }
 }
+
 
 // Function to toggle the active status of a role
 async function toggleActive(roleId, currentActiveStatus) {
