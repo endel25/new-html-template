@@ -2674,21 +2674,30 @@
                             <span>Appointment Details Form</span>
                             <a href="SpotEntry.html" class="btn btn-sm btn-primary rounded-full">Back</a>
                         </div>
-                        <form id="visitorForm" class="p-6 space-y-4" enctype="multipart/form-data">
+                        <form class="p-6 space-y-4" id="visitorForm">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="firstname" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">First Name</label>
-                                    <input type="text" id="firstname" name="firstname" placeholder="Enter first name" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="firstname"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">First
+                                        Name</label>
+                                    <input type="text" id="firstname" name="firstname" placeholder="Enter first name"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-firstname"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="lastname" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Last Name</label>
-                                    <input type="text" id="lastname" name="lastname" placeholder="Enter last name" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="lastname"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Last Name</label>
+                                    <input type="text" id="lastname" name="lastname" placeholder="Enter last name"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-lastname"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="gender" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Gender</label>
-                                    <select id="gender" name="gender" class="text-xs form-select w-1/3 border rounded px-3 py-2">
+                                    <label for="gender"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Gender</label>
+                                    <select id="gender" name="gender"
+                                        class="text-xs form-select w-1/3 border rounded px-3 py-2">
                                         <option value="">Select gender</option>
                                         <option>Male</option>
                                         <option>Female</option>
@@ -2696,71 +2705,117 @@
                                     </select>
                                     <span class="error text-xs text-red-500" id="error-gender"></span>
                                 </div>
+
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="contactnumber" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Contact Number</label>
-                                    <input type="text" id="contactnumber" name="contactnumber" placeholder="Enter contact number" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="contactnumber"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Contact
+                                        Number</label>
+                                    <input type="text" id="contactnumber" name="contactnumber"
+                                        placeholder="Enter contact number"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-contactnumber"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="email" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Email Address</label>
-                                    <input type="email" id="email" name="email" placeholder="Enter email address" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="email"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Email
+                                        Address</label>
+                                    <input type="email" id="email" name="email" placeholder="Enter email address"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-email"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="date" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Date</label>
-                                    <input type="date" id="date" name="date" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="date"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Date</label>
+                                    <input type="date" id="date" name="date"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-date"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="time" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Time</label>
-                                    <input type="time" id="time" name="time" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="time"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Time</label>
+                                    <input type="time" id="time" name="time"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-time"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="nationalid" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">National ID</label>
-                                    <input type="text" id="nationalid" name="nationalid" placeholder="Enter national ID" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="nationalid"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">National
+                                        ID</label>
+                                    <input type="text" id="nationalid" name="nationalid" placeholder="Enter national ID"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-nationalid"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="photo" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Photo</label>
-                                    <input type="file" id="photo" name="files" accept="image/*" onchange="previewImage(this, 'mainPreview')" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
-                                    <button type="button" class="w-1/3 mt-2 px-3 py-2 border rounded text-xs" onclick="showModal('photo')">Choose Photo</button>
+                                    <label for="photo"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Photo</label>
+                                    <input type="file" id="photo" name="photo" accept="image/*"
+                                        onchange="previewImage(this, 'mainPreview')"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <button type="button" class="w-1/3 mt-2 px-3 py-2 border rounded text-xs"
+                                        onclick="showModal('photo')">Choose Photo</button>
                                     <span class="error text-xs text-red-500" id="error-photo"></span>
                                     <div class="mt-2">
                                         <img id="mainPreview" class="w-24 h-16 rounded border hidden" />
                                     </div>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="visit" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Purpose of Visit</label>
-                                    <input type="text" id="visit" name="visit" placeholder="Enter visit purpose" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="visit"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Purpose of
+                                        Visit</label>
+                                    <input type="text" id="visit" name="visit" placeholder="Enter visit purpose"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-visit"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="personname" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Person Name</label>
-                                    <input type="text" id="personname" name="personname" placeholder="Enter name of person to meet" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="personname"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Person
+                                        Name</label>
+                                    <input type="text" id="personname" name="personname"
+                                        placeholder="Enter name of person to meet"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-personname"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="department" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Department</label>
-                                    <input type="text" id="department" name="department" placeholder="Enter the visiting department" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="department"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Department</label>
+                                    <input type="text" id="department" name="department"
+                                        placeholder="Enter the visiting department"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-department"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Expected Duration</label>
-                                    <div class="flex w-1/3 space-x-2">
-                                        <select id="durationunit" name="durationunit" class="text-xs form-select w-1/2 border rounded px-3 py-2">
-                                            <option value="">Select unit</option>
-                                            <option value="Hours">Hours</option>
-                                            <option value="Minutes">Minutes</option>
-                                            <option value="Days">Days</option>
-                                        </select>
-                                        <input type="number" id="durationtime" name="durationtime" placeholder="Enter expected duration" class="text-xs form-input w-1/2 border rounded px-3 py-2" min="1" />
-                                    </div>
-                                    <span class="error text-xs text-red-500" id="error-durationtime"></span>
-                                </div>
+    <label class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Expected Duration</label>
+    <div class="flex w-1/3 space-x-2">
+        <select id="durationunit" name="durationunit" class="text-xs form-select w-1/2 border rounded px-3 py-2">
+            <option value="">Select unit</option>
+            <option value="Hours">Hours</option>
+            <option value="Minutes">Minutes</option>
+            <option value="Days">Days</option>
+        </select>
+        <input type="number" id="durationtime" name="durationtime" placeholder="Enter expected duration"
+            class="text-xs form-input w-1/2 border rounded px-3 py-2" min="1" />
+    </div>
+    <span class="error text-xs text-red-500" id="error-durationunit"></span>
+    <span class="error text-xs text-red-500" id="error-durationtime"></span>
+</div>
+
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="visitortype" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Visitor Type</label>
-                                    <select id="visitortype" name="visitortype" class="text-xs form-select w-1/3 border rounded px-3 py-2">
+                                    <label for="visitortype"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Visitor
+                                        Type</label>
+                                    <select id="visitortype" name="visitortype"
+                                        class="text-xs form-select w-1/3 border rounded px-3 py-2">
                                         <option value="">Select visitor type</option>
                                         <option>Vendor</option>
                                         <option>Client</option>
@@ -2769,44 +2824,75 @@
                                     </select>
                                     <span class="error text-xs text-red-500" id="error-visitortype"></span>
                                 </div>
+
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="vehicletype" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Vehicle Type</label>
-                                    <input type="text" id="vehicletype" name="vehicletype" placeholder="Enter vehicle type" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="vehicletype"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Vehicle
+                                        Type</label>
+                                    <input type="text" id="vehicletype" name="vehicletype"
+                                        placeholder="Enter vehicle type"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-vehicletype"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label for="vehiclenumber" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Vehicle Number</label>
-                                    <input type="text" id="vehiclenumber" name="vehiclenumber" placeholder="Enter vehicle number" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                    <label for="vehiclenumber"
+                                        class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Vehicle
+                                        Number</label>
+                                    <input type="text" id="vehiclenumber" name="vehiclenumber"
+                                        placeholder="Enter vehicle number"
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                     <span class="error text-xs text-red-500" id="error-vehiclenumber"></span>
                                 </div>
+
                                 <div class="flex sm:flex-row flex-col">
-                                    <label class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Include Driver?</label>
-                                    <input type="checkbox" id="driverToggle" name="driverToggle" onchange="toggleDriverDetails()" class="mt-1" />
+                                    <label class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Include
+                                        Driver?</label>
+                                    <input type="checkbox" id="driverToggle" onchange="toggleDriverDetails()"
+                                        class="mt-1" />
                                     <span class="error text-xs text-red-500" id="error-driverToggle"></span>
                                 </div>
                             </div>
-            
+
                             <div id="driverDetails" class="hidden mt-4 space-y-4 border-t pt-4">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div class="flex sm:flex-row flex-col">
-                                        <label for="drivername" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Driver Name</label>
-                                        <input type="text" id="drivername" name="drivername" placeholder="Enter driver name" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                        <label for="drivername"
+                                            class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Driver
+                                            Name</label>
+                                        <input type="text" id="drivername" name="drivername"
+                                            placeholder="Enter driver name"
+                                            class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                         <span class="error text-xs text-red-500" id="error-drivername"></span>
                                     </div>
                                     <div class="flex sm:flex-row flex-col">
-                                        <label for="drivermobile" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Driver Mobile</label>
-                                        <input type="text" id="drivermobile" name="drivermobile" placeholder="Enter driver mobile" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                        <label for="drivermobile"
+                                            class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Driver
+                                            Mobile</label>
+                                        <input type="text" id="drivermobile" name="drivermobile"
+                                            placeholder="Enter driver mobile"
+                                            class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                         <span class="error text-xs text-red-500" id="error-drivermobile"></span>
                                     </div>
                                     <div class="flex sm:flex-row flex-col">
-                                        <label for="drivernationalid" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Driver National ID</label>
-                                        <input type="text" id="drivernationalid" name="drivernationalid" placeholder="Enter driver national ID" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                        <label for="drivernationalid"
+                                            class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Driver
+                                            National ID</label>
+                                        <input type="text" id="drivernationalid" name="drivernationalid"
+                                            placeholder="Enter driver national ID"
+                                            class="text-xs form-input w-1/3 border rounded px-3 py-2" />
                                         <span class="error text-xs text-red-500" id="error-drivernationalid"></span>
                                     </div>
                                     <div class="flex sm:flex-row flex-col">
-                                        <label for="driverphoto" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Driver Photo</label>
-                                        <input type="file" id="driverphoto" name="files" accept="image/*" onchange="previewImage(this, 'driverPreview')" class="text-xs form-input w-1/3 border rounded px-3 py-2" />
-                                        <button type="button" class="w-1/3 mt-2 px-3 py-2 border rounded text-xs" onclick="showModal('driverphoto')">Choose Photo</button>
+                                        <label for="driverphoto"
+                                            class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 text-sm font-medium">Driver
+                                            Photo</label>
+                                        <input type="file" id="driverphoto" name="driverphoto" accept="image/*"
+                                            onchange="previewImage(this, 'driverPreview')"
+                                            class="text-xs form-input w-1/3 border rounded px-3 py-2" />
+                                        <button type="button" class="w-1/3 mt-2 px-3 py-2 border rounded text-xs"
+                                            onclick="showModal('driverphoto')">Choose Photo</button>
                                         <span class="error text-xs text-red-500" id="error-driverphoto"></span>
                                         <div class="mt-2">
                                             <img id="driverPreview" class="w-24 h-16 rounded border hidden" />
@@ -2814,20 +2900,24 @@
                                     </div>
                                 </div>
                             </div>
-            
+
                             <div class="flex sm:flex-row flex-col items-center">
                                 <label for="notes" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Notes</label>
                                 <div class="form-group">
-                                    <textarea id="notes" name="notes" rows="1" placeholder="Enter any notes..." class="text-xs form-input w-1/3 border rounded px-3 py-2"></textarea>
+                                    <textarea id="notes" name="notes" rows="1" placeholder="Enter any notes..."
+                                        class="text-xs form-input w-1/3 border rounded px-3 py-2"></textarea>
                                     <span class="error text-xs text-red-500" id="error-notes"></span>
                                 </div>
                             </div>
-            
-                            <button type="submit" id="submitBtn" class="btn btn-outline-primary btn-sm rounded-full !mt-6">Create</button>
+
+                            <button type="submit" id="submitBtn"
+                                class="btn btn-outline-primary btn-sm rounded-full !mt-6">Create</button>
                         </form>
                     </div>
                 </div>
-            
+
+
+                <!-- Modal for Gallery/Camera selection -->
                 <div id="photoModal" class="modal">
                     <div class="modal-content">
                         <h3>Select Photo Source</h3>
@@ -2836,7 +2926,8 @@
                         <button class="close-btn" onclick="closeModal()">Close</button>
                     </div>
                 </div>
-            
+
+                <!-- Hidden video element for camera preview -->
                 <video id="cameraPreview" style="display: none;"></video>
                 <canvas id="cameraCanvas" style="display: none;"></canvas>
             
@@ -2858,321 +2949,363 @@
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-            <script>
-                let currentFileInputId = '';
         
-                function showModal(fileInputId) {
-                    currentFileInputId = fileInputId;
-                    document.getElementById('photoModal').style.display = 'flex';
-                }
-        
-                function closeModal() {
-                    document.getElementById('photoModal').style.display = 'none';
+     <script>
+            let currentFileInputId = '';
+
+function showModal(fileInputId) {
+    currentFileInputId = fileInputId;
+    document.getElementById('photoModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('photoModal').style.display = 'none';
+    stopCamera();
+}
+
+function openGallery() {
+    const fileInput = document.getElementById(currentFileInputId);
+    fileInput.removeAttribute('capture');
+    fileInput.click();
+    closeModal();
+}
+
+function openCamera() {
+    const fileInput = document.getElementById(currentFileInputId);
+    fileInput.setAttribute('capture', 'environment');
+    fileInput.click();
+    closeModal();
+}
+
+function startCamera(fileInput) {
+    const video = document.getElementById('cameraPreview');
+    const canvas = document.getElementById('cameraCanvas');
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+        .then(stream => {
+            video.srcObject = stream;
+            video.style.display = 'block';
+            video.play();
+            const captureBtn = document.createElement('button');
+            captureBtn.textContent = 'Capture Photo';
+            captureBtn.className = 'btn-outline-primary';
+            captureBtn.onclick = () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                canvas.toBlob(blob => {
+                    const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+                    fileInput.dispatchEvent(new Event('change'));
                     stopCamera();
-                }
-        
-                function openGallery() {
-                    const fileInput = document.getElementById(currentFileInputId);
-                    fileInput.removeAttribute('capture');
-                    fileInput.click();
-                    closeModal();
-                }
-        
-                function openCamera() {
-                    const fileInput = document.getElementById(currentFileInputId);
-                    fileInput.setAttribute('capture', 'environment');
-                    fileInput.click();
-                    closeModal();
-                }
-        
-                function startCamera(fileInput) {
-                    const video = document.getElementById('cameraPreview');
-                    const canvas = document.getElementById('cameraCanvas');
-                    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-                        .then(stream => {
-                            video.srcObject = stream;
-                            video.style.display = 'block';
-                            video.play();
-                            const captureBtn = document.createElement('button');
-                            captureBtn.textContent = 'Capture Photo';
-                            captureBtn.className = 'btn-outline-primary';
-                            captureBtn.onclick = () => {
-                                canvas.width = video.videoWidth;
-                                canvas.height = video.videoHeight;
-                                canvas.getContext('2d').drawImage(video, 0, 0);
-                                canvas.toBlob(blob => {
-                                    const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
-                                    const dataTransfer = new DataTransfer();
-                                    dataTransfer.items.add(file);
-                                    fileInput.files = dataTransfer.files;
-                                    fileInput.dispatchEvent(new Event('change'));
-                                    stopCamera();
-                                }, 'image/jpeg');
-                            };
-                            document.body.appendChild(captureBtn);
-                        })
-                        .catch(err => {
-                            console.error('Camera access denied:', err);
-                            showError('error-' + currentFileInputId, 'Unable to access camera');
-                        });
-                }
-        
-                function stopCamera() {
-                    const video = document.getElementById('cameraPreview');
-                    const stream = video.srcObject;
-                    if (stream) {
-                        stream.getTracks().forEach(track => track.stop());
+                }, 'image/jpeg');
+            };
+            document.body.appendChild(captureBtn);
+        })
+        .catch(err => {
+            console.error('Camera access denied:', err);
+            showError('error-' + currentFileInputId, 'Unable to access camera');
+        });
+}
+
+function stopCamera() {
+    const video = document.getElementById('cameraPreview');
+    const stream = video.srcObject;
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+    }
+    video.style.display = 'none';
+    const captureBtn = document.querySelector('button[onclick*="capture"]');
+    if (captureBtn) captureBtn.remove();
+}
+
+function previewImage(input, id) {
+    const file = input.files[0];
+    const img = document.getElementById(id);
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            img.src = e.target.result;
+            img.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    } else {
+        img.classList.add('hidden');
+    }
+}
+
+function toggleDriverDetails() {
+    document.getElementById('driverDetails').classList.toggle('hidden');
+}
+
+function showError(id, msg) {
+    const element = document.getElementById(id);
+    if (element) element.innerText = msg;
+}
+
+function clearErrors() {
+    document.querySelectorAll(".error").forEach(el => el.innerText = '');
+}
+
+const validateField = (name, value, formData = {}) => {
+    let error = '';
+    const requiredFields = ['firstname', 'lastname', 'gender', 'contactnumber', 'email', 'date', 'time', 'nationalid', 'photo', 'visit', 'personname', 'department', 'durationtime', 'visitortype'];
+    const driverToggle = document.getElementById('driverToggle')?.checked;
+    if (requiredFields.includes(name) && !value && name !== 'photo') {
+        error = `${name.charAt(0).toUpperCase() + name.slice(1).replace(/([A-Z])/g, ' $1')} is required`;
+    } else if (name === 'photo' && !document.getElementById(name)?.files?.length) {
+        error = 'Photo is required';
+    } else if (name === 'durationunit' && driverToggle && !value) {
+        error = 'Duration unit is required when driver details are included';
+    }
+    switch (name) {
+        case 'firstname':
+        case 'lastname':
+            if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
+                error = `${name === 'firstname' ? 'First' : 'Last'} name must be at least 2 characters and contain only letters`;
+            }
+            break;
+        case 'personname':
+            if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
+                error = 'Person name must be at least 2 characters and contain only letters';
+            }
+            break;
+        case 'drivername':
+            if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
+                error = 'Driver name must be at least 2 characters and contain only letters';
+            }
+            break;
+        case 'contactnumber':
+            if (value && !/^\d+$/.test(value)) {
+                error = 'Phone number must contain only digits';
+            }
+            break;
+        case 'drivermobile':
+            if (value && !/^\d+$/.test(value)) {
+                error = 'Phone number must contain only digits';
+            }
+            break;
+        case 'nationalid':
+            if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
+                error = 'National ID must be at least 4 characters (letters and numbers allowed)';
+            }
+            break;
+        case 'drivernationalid':
+            if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
+                error = 'National ID must be at least 4 characters (letters and numbers allowed)';
+            }
+            break;
+        case 'email':
+            if (value && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+                error = 'Please enter a valid email address';
+            }
+            break;
+        case 'gender':
+            if (!value) {
+                error = 'Please select a gender';
+            }
+            break;
+        case 'visitortype':
+            if (!value) {
+                error = 'Please select a visitor type';
+            }
+            break;
+        case 'durationunit':
+            if (value && !['Hours', 'Minutes', 'Days'].includes(value)) {
+                error = 'Duration unit must be "Hours", "Minutes", or "Days"';
+            }
+            break;
+        case 'time':
+            if (value && formData.date) {
+                const selectedDate = new Date(formData.date);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                selectedDate.setHours(0, 0, 0, 0);
+                if (selectedDate.getTime() === today.getTime()) {
+                    const [hours, minutes] = value.split(':').map(Number);
+                    const now = new Date();
+                    if (hours < now.getHours() || (hours === now.getHours() && minutes <= now.getMinutes())) {
+                        error = 'Allocation time cannot be in the past for today';
                     }
-                    video.style.display = 'none';
-                    const captureBtn = document.querySelector('button[onclick*="capture"]');
-                    if (captureBtn) captureBtn.remove();
                 }
-        
-                function previewImage(input, id) {
-                    const file = input.files[0];
-                    const img = document.getElementById(id);
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = e => {
-                            img.src = e.target.result;
-                            img.classList.remove('hidden');
-                        };
-                        reader.readAsDataURL(file);
-                    } else {
-                        img.classList.add('hidden');
-                    }
+            }
+            break;
+        case 'durationtime':
+            if (value && !/^(\d{1,3}|[0-9]{1,2}:[0-5][0-9])$/.test(value)) {
+                error = 'Duration must be in minutes (e.g. 90) or HH:MM format (e.g. 01:30)';
+            }
+            break;
+        case 'date':
+            if (value) {
+                const selectedDate = new Date(value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (selectedDate < today) {
+                    error = 'Date must be today or later';
                 }
-        
-                function toggleDriverDetails() {
-                    document.getElementById('driverDetails').classList.toggle('hidden');
-                }
-        
-                function showError(id, msg) {
-                    const element = document.getElementById(id);
-                    if (element) element.innerText = msg;
-                }
-        
-                function clearErrors() {
-                    document.querySelectorAll(".error").forEach(el => el.innerText = '');
-                }
-        
-                const validateField = (name, value, formData = {}) => {
-                    let error = '';
-                    const requiredFields = ['firstname', 'email', 'photo'];
-                    if (requiredFields.includes(name) && !value && name !== 'photo') {
-                        error = `${name.charAt(0).toUpperCase() + name.slice(1).replace(/([A-Z])/g, ' $1')} is required`;
-                    } else if (name === 'photo' && !value) {
-                        error = 'Photo is required';
-                    }
-                    switch (name) {
-                        case 'firstname':
-                        case 'lastname':
-                            if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
-                                error = `${name === 'firstname' ? 'First' : 'Last'} name must be at least 2 characters and contain only letters`;
-                            }
-                            break;
-                        case 'personname':
-                            if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
-                                error = 'Person name must be at least 2 characters and contain only letters';
-                            }
-                            break;
-                        case 'drivername':
-                            if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
-                                error = 'Driver name must be at least 2 characters and contain only letters';
-                            }
-                            break;
-                        case 'contactnumber':
-                            if (value && !/^\d+$/.test(value)) {
-                                error = 'Phone number must contain only digits';
-                            }
-                            break;
-                        case 'drivermobile':
-                            if (value && !/^\d+$/.test(value)) {
-                                error = 'Phone number must contain only digits';
-                            }
-                            break;
-                        case 'nationalid':
-                            if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
-                                error = 'National ID must be at least 4 characters (letters and numbers allowed)';
-                            }
-                            break;
-                        case 'drivernationalid':
-                            if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
-                                error = 'National ID must be at least 4 characters (letters and numbers allowed)';
-                            }
-                            break;
-                        case 'email':
-                            if (value && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
-                                error = 'Please enter a valid email address';
-                            }
-                            break;
-                        case 'gender':
-                            if (value && !['Male', 'Female', 'Other'].includes(value)) {
-                                error = 'Please select a valid gender';
-                            }
-                            break;
-                        case 'visitortype':
-                            if (value && !['Vendor', 'Client', 'Interview', 'Guest'].includes(value)) {
-                                error = 'Please select a valid visitor type';
-                            }
-                            break;
-                        case 'time':
-                            if (value && formData.date) {
-                                const selectedDate = new Date(formData.date);
-                                const today = new Date();
-                                today.setHours(0, 0, 0, 0);
-                                selectedDate.setHours(0, 0, 0, 0);
-                                if (selectedDate.getTime() === today.getTime()) {
-                                    const [hours, minutes] = value.split(':').map(Number);
-                                    const now = new Date();
-                                    if (hours < now.getHours() || (hours === now.getHours() && minutes <= now.getMinutes())) {
-                                        error = 'Allocation time cannot be in the past for today';
-                                    }
-                                }
-                            }
-                            break;
-                        case 'durationtime':
-                            if (value && !/^\d+$/.test(value)) {
-                                error = 'Duration must be a number';
-                            }
-                            break;
-                        case 'date':
-                            if (value) {
-                                const selectedDate = new Date(value);
-                                const today = new Date();
-                                today.setHours(0, 0, 0, 0);
-                                if (selectedDate < today) {
-                                    error = 'Date must be today or later';
-                                }
-                            }
-                            break;
-                    }
-                    return error;
-                };
-        
-                const attachLiveValidation = () => {
-                    document.querySelectorAll("input, select, textarea").forEach(input => {
-                        input.addEventListener("input", () => {
-                            const formData = {
-                                date: document.getElementById("date")?.value,
-                                time: document.getElementById("time")?.value,
-                            };
-                            const error = validateField(input.id, input.value, formData);
-                            showError("error-" + input.id, error);
-                        });
-                    });
-                };
-        
-                document.addEventListener("DOMContentLoaded", () => {
-                    attachLiveValidation();
-                    const form = document.getElementById("visitorForm");
-                    if (!form) {
-                        console.error("Form with ID 'visitorForm' not found");
-                        return;
-                    }
-        
-                    console.log("Form found, attaching submit listener");
-        
-                    form.addEventListener("submit", async (e) => {
-                        e.preventDefault();
-                        console.log("Form submission triggered");
-                        clearErrors();
-                        let valid = true;
-        
-                        const formData = new FormData();
-                        const validationFormData = {
-                            date: form.elements["date"]?.value || "",
-                            time: form.elements["time"]?.value || "",
-                        };
-        
-                        const fields = [
-                            "firstname", "lastname", "gender", "contactnumber", "email",
-                            "date", "time", "nationalid", "photo", "visit", "personname",
-                            "department", "durationtime", "durationunit", "visitortype",
-                            "vehicletype", "vehiclenumber", "drivername", "drivermobile",
-                            "drivernationalid", "driverphoto", "notes"
-                        ];
-        
-                        for (const id of fields) {
-                            const isFile = id === "photo" || id === "driverphoto";
-                            const value = isFile
-                                ? form.elements[id]?.files[0]
-                                : form.elements[id]?.value?.trim();
-                            if (isFile && value) {
-                                formData.append("files", value);
-                            } else if (value) {
-                                formData.append(id, value);
-                            }
-                            const errorMsg = validateField(id, value, validationFormData);
-                            if (errorMsg) {
-                                showError("error-" + id, errorMsg);
-                                valid = false;
-                            }
-                        }
-        
-                        if (!form.elements["photo"]?.files[0]) {
-                            showError("error-photo", "Photo is required");
-                            valid = false;
-                        }
-        
-                        if (form.elements["driverToggle"]?.checked) {
-                            const dPhoto = form.elements["driverphoto"]?.files[0];
-                            if (!dPhoto) {
-                                showError("error-driverphoto", "Driver photo is required when driver is included");
-                                valid = false;
-                            }
-                        }
-        
-                        if (validationFormData.date) {
-                            const [year, month, day] = validationFormData.date.split("-");
-                            formData.set("date", `${day}-${month}-${year}`);
-                        }
-        
-                        console.log("FormData contents:");
-                        for (let [key, value] of formData.entries()) {
-                            console.log(`${key}: ${value instanceof File ? value.name : value}`);
-                        }
-        
-                        if (valid) {
-                            try {
-                                const submitBtn = document.getElementById("submitBtn");
-                                submitBtn.disabled = true;
-                                console.log("Sending to http://192.168.3.77:3001/visitors");
-                                const response = await fetch("http://192.168.3.77:3001/visitors", {
-                                    method: "POST",
-                                    body: formData,
-                                });
-        
-                                if (!response.ok) {
-                                    const errorData = await response.json().catch(() => ({}));
-                                    throw new Error(errorData.message || `HTTP ${response.status}`);
-                                }
-        
-                                const result = await response.json();
-                                console.log("API response:", result);
-                                const successMessage = document.createElement("span");
-                                successMessage.className = "success-message";
-                                successMessage.textContent = "Visitor created successfully!";
-                                form.appendChild(successMessage);
-                                setTimeout(() => successMessage.remove(), 3000);
-        
-                                form.reset();
-                                document.getElementById("mainPreview")?.classList.add("hidden");
-                                document.getElementById("driverPreview")?.classList.add("hidden");
-                                document.getElementById("driverDetails")?.classList.add("hidden");
-                            } catch (error) {
-                                console.error("Submission error:", error.message);
-                                showError("error-notes", error.message || "Failed to submit form");
-                            } finally {
-                                submitBtn.disabled = false;
-                            }
-                        } else {
-                            console.log("Validation failed");
-                        }
-                    });
+            }
+            break;
+    }
+    return error;
+};
+
+const attachLiveValidation = () => {
+    document.querySelectorAll("input, select, textarea").forEach(input => {
+        input.addEventListener("input", () => {
+            const formData = {
+                date: document.getElementById("date")?.value,
+                time: document.getElementById("time")?.value,
+            };
+            const error = validateField(input.id, input.value, formData);
+            showError("error-" + input.id, error);
+        });
+    });
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    attachLiveValidation();
+    const form = document.getElementById("visitorForm");
+    if (!form) {
+        console.error("Form with ID 'visitorForm' not found");
+        return;
+    }
+
+    console.log("Form found, attaching submit listener");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        console.log("Form submission triggered");
+        clearErrors();
+        let valid = true;
+
+        const formData = new FormData();
+        const validationFormData = {
+            date: form.elements["date"]?.value || "",
+            time: form.elements["time"]?.value || "",
+        };
+
+        const fields = [
+            "firstname", "lastname", "gender", "contactnumber", "email",
+            "date", "time", "nationalid", "photo", "visit", "personname",
+            "department", "durationtime", "durationunit", "visitortype",
+            "vehicletype", "vehiclenumber", "drivername", "drivermobile",
+            "drivernationalid", "driverphoto", "notes"
+        ];
+
+        for (const id of fields) {
+            const isFile = id === "photo" || id === "driverphoto";
+            const value = isFile
+                ? form.elements[id]?.files[0]
+                : form.elements[id]?.value?.trim();
+            if (isFile && value) {
+                formData.append("files", value);
+            } else {
+                formData.append(id, value || "");
+            }
+            const errorMsg = validateField(id, value, validationFormData);
+            if (errorMsg) {
+                showError("error-" + id, errorMsg);
+                valid = false;
+            }
+        }
+
+        const photo = form.elements["photo"]?.files[0];
+        if (!photo || !/\.(jpg|jpeg|png)$/i.test(photo?.name)) {
+            showError("error-photo", "Upload .jpg/.png image");
+            valid = false;
+        }
+
+        const vehType = form.elements["vehicletype"]?.value?.trim();
+        const vehNum = form.elements["vehiclenumber"]?.value?.trim();
+        if (vehType && !/^.{2,20}$/.test(vehType)) {
+            showError("error-vehicletype", "Enter valid vehicle type");
+            valid = false;
+        }
+        if (vehType && !/^[A-Za-z0-9]{6,12}$/.test(vehNum)) {
+            showError("error-vehiclenumber", "Enter valid vehicle number");
+            valid = false;
+        }
+
+        if (form.elements["driverToggle"]?.checked) {
+            const dName = form.elements["drivername"]?.value?.trim();
+            const dMob = form.elements["drivermobile"]?.value?.trim();
+            const dNid = form.elements["drivernationalid"]?.value?.trim();
+            const dPhoto = form.elements["driverphoto"]?.files[0];
+
+            if (!/^[A-Za-z\s]{2,50}$/.test(dName)) {
+                showError("error-drivername", "Enter valid driver name");
+                valid = false;
+            }
+            if (!/^\d{5,15}$/.test(dMob)) {
+                showError("error-drivermobile", "Enter valid mobile");
+                valid = false;
+            }
+            if (!/^[a-zA-Z0-9]{4,}$/.test(dNid)) {
+                showError("error-drivernationalid", "Enter valid ID");
+                valid = false;
+            }
+            if (!dPhoto || !/\.(jpg|jpeg|png)$/i.test(dPhoto.name)) {
+                showError("error-driverphoto", "Upload driver image");
+                valid = false;
+            }
+        }
+
+        const notes = form.elements["notes"]?.value?.trim();
+        if (notes?.length > 500 || /<script/i.test(notes)) {
+            showError("error-notes", "Invalid notes content");
+            valid = false;
+        }
+
+        if (validationFormData.date) {
+            const [year, month, day] = validationFormData.date.split("-");
+            formData.set("date", `${day}-${month}-${year}`);
+        }
+
+        console.log("FormData contents:");
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value instanceof File ? value.name : value}`);
+        }
+
+        if (valid) {
+            try {
+                const submitBtn = document.getElementById("submitBtn");
+                submitBtn.disabled = true;
+                console.log("Sending to http://192.168.3.77:3001/visitors");
+                const response = await fetch("http://192.168.3.77:3001/visitors", {
+                    method: "POST",
+                    body: formData,
                 });
-            </script>
-        
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || `HTTP ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log("API response:", result);
+                const successMessage = document.createElement("span");
+                successMessage.className = "success-message";
+                successMessage.textContent = "Visitor created successfully!";
+                form.appendChild(successMessage);
+                setTimeout(() => successMessage.remove(), 3000);
+
+                form.reset();
+                document.getElementById("mainPreview")?.classList.add("hidden");
+                document.getElementById("driverPreview")?.classList.add("hidden");
+                document.getElementById("driverDetails")?.classList.add("hidden");
+            } catch (error) {
+                console.error("Submission error:", error.message);
+                showError("error-notes", error.message || "Failed to submit form");
+            } finally {
+                submitBtn.disabled = false;
+            }
+        } else {
+            console.log("Validation failed");
+        }
+    });
+});
+        </script>
 
             <script src="assets/js/custom.js"></script>
             <script>
