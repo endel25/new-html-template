@@ -6,7 +6,7 @@
     console.log('Current Page:', currentPage);
     console.log('Token:', token);
 
-    List of pages that require authentication
+    // List of pages that require authentication
     const protectedPages = [
         'index.html',
         'PreApprovalEntry.html',

@@ -2896,206 +2896,231 @@
         </div>
     </div>
     <script>
-        // Simulated visitor data fetching (replace with real API)
-        async function fetchVisitorData() {
-            try {
-                // Replace with your actual API endpoint
-                // const response = await fetch('/api/visitors');
-                // return await response.json();
-
-                // Mock response for demonstration
-                return [
-                    {
-                        id: 1,
-                        firstname: "John",
-                        lastname: "Doe",
-                        contactnumber: "1234567890",
-                        vehiclenumber: "ABC123",
-                        gender: "Male",
-                        email: "john@example.com",
-                        date: "2025-04-15",
-                        time: "10:00",
-                        nationalid: "ID123456",
-                        photo: "https://via.placeholder.com/40",
-                        visit: "Meeting",
-                        personname: "Jane Smith",
-                        department: "HR",
-                        durationtime: 2,
-                        durationUnit: " ",
-                        visitortype: "Guest",
-                        vehicletype: "Car",
-                        drivername: "Mike Johnson",
-                        drivermobile: "0987654321",
-                        drivernationalid: "DID789",
-                        driverphoto: "https://via.placeholder.com/40",
-                        notes: "VIP visitor",
-                        ndaApproved: false,
-                        safetyApproved: false,
-                        gatepassApproved: null // Default to null for unset state
-                    }
-                    // In real app, this comes from API
-                ];
-            } catch (error) {
-                console.error('Error fetching visitor data:', error);
-                return [];
-            }
-        }
-
-        // Function to fetch and display visitor data
-        async function loadVisitorData() {
-            try {
-                const visitors = await fetchVisitorData();
-
-                const tableBody = document.getElementById('visitorTableBody');
-                tableBody.innerHTML = ''; // Clear existing rows
-
-                if (visitors.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
-                    return;
-                }
-
-                visitors.forEach(visitor => {
-                    const row = document.createElement('tr');
-                    row.setAttribute('data-id', visitor.id);
-                    row.innerHTML = `
-                        <td>${visitor.id || '-'}</td>
-                        <td>${visitor.firstname || '-'}</td>
-                        <td>${visitor.lastname || '-'}</td>
-                        <td>${visitor.contactnumber || '-'}</td>
-                        <td>${visitor.nationalid || '-'}</td>
-                        <td class="center-checkbox">
-  <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
-</td>
-<td class="center-checkbox">
-  <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
-</td>
-<td class="center-checkbox">
-  <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
-  <label for="gatepass-${visitor.id}"></label>
-</td>
-                        <td><button class="btn btn-sm btn-primary rounded-full details-btn">Details</button></td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-
-                // Attach event listeners to Details buttons
-                document.querySelectorAll('.details-btn').forEach(button => {
-                    button.addEventListener('click', async (e) => {
-                        const row = e.target.closest('tr');
-                        const visitorId = row.getAttribute('data-id');
-                        await openVisitorModal(visitorId);
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableBody = document.getElementById('visitorTableBody');
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'text-red-500 text-sm mt-2 text-center hidden';
+            document.querySelector('.table-container').appendChild(errorMessage);
+    
+            let visitors = [];
+    
+            // Fetch visitor data from the backend API
+            async function fetchVisitorData() {
+                try {
+                    const response = await fetch('http://192.168.3.75:3001/visitor-appointment-data', {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' },
                     });
-                });
-            } catch (error) {
-                console.error('Error loading visitor data:', error);
-                document.getElementById('visitorTableBody').innerHTML =
-                    '<tr><td colspan="9" class="no-data">Error loading data</td></tr>';
+    
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+                    }
+    
+                    const data = await response.json();
+                    console.log('📥 Raw API response:', data);
+    
+                    return Array.isArray(data) ? data : data.data || [];
+                } catch (error) {
+                    console.error('Error fetching visitor data:', error);
+                    return [];
+                }
             }
-        }
-
-        // Function to open the modal and populate the form
-        async function openVisitorModal(visitorId) {
-            const visitors = await fetchVisitorData();
-            const visitor = visitors.find(v => v.id == visitorId);
-            if (!visitor) return;
-
-            // Populate form fields
-            document.getElementById('gender').value = visitor.gender || '';
-            document.getElementById('email').value = visitor.email || '';
-            document.getElementById('date').value = visitor.date || '';
-            document.getElementById('time').value = visitor.time || '';
-            document.getElementById('nationalid').value = visitor.nationalid || '';
-            document.getElementById('photo').value = visitor.photo || '';
-            document.getElementById('visit').value = visitor.visit || '';
-            document.getElementById('personname').value = visitor.personname || '';
-            document.getElementById('department').value = visitor.department || '';
-            document.getElementById('durationtime').value = visitor.durationtime || '';
-            document.getElementById('durationUnit').value = visitor.durationUnit || 'hours';
-            document.getElementById('visitortype').value = visitor.visitortype || '';
-            document.getElementById('vehicletype').value = visitor.vehicletype || '';
-            document.getElementById('drivername').value = visitor.drivername || '';
-            document.getElementById('drivermobile').value = visitor.drivermobile || '';
-            document.getElementById('drivernationalid').value = visitor.drivernationalid || '';
-            document.getElementById('driverphoto').value = visitor.driverphoto || '';
-            document.getElementById('notes').value = visitor.notes || '';
-
-            // Store visitor ID in form for reference
-            document.getElementById('visitorForm').setAttribute('data-id', visitorId);
-
-            // Show modal
-            document.getElementById('visitorModal').style.display = 'block';
-        }
-
-        // Handle form submission
-        document.getElementById('visitorForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const visitorId = e.target.getAttribute('data-id');
-            // Collect form data
-            const formData = {
-                gender: document.getElementById('gender').value,
-                email: document.getElementById('email').value,
-                date: document.getElementById('date').value,
-                time: document.getElementById('time').value,
-                nationalid: document.getElementById('nationalid').value,
-                photo: document.getElementById('photo').value,
-                visit: document.getElementById('visit').value,
-                personname: document.getElementById('personname').value,
-                department: document.getElementById('department').value,
-                durationtime: document.getElementById('durationtime').value,
-                durationUnit: document.getElementById('durationUnit').value,
-                visitortype: document.getElementById('visitortype').value,
-                vehicletype: document.getElementById('vehicletype').value,
-                drivername: document.getElementById('drivername').value,
-                drivermobile: document.getElementById('drivermobile').value,
-                drivernationalid: document.getElementById('drivernationalid').value,
-                driverphoto: document.getElementById('driverphoto').value,
-                notes: document.getElementById('notes').value
-            };
-            console.log('Submitting form data for visitor ID:', visitorId, formData);
-            // In a real app: await fetch('/api/visitors/' + visitorId, { method: 'PUT', body: JSON.stringify(formData) })
-            alert('Details saved (simulated).');
-            closeModal();
-        });
-
-        // Handle Approve Gatepass button
-        document.getElementById('approveGatepass').addEventListener('click', async () => {
-            const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
-            // Simulate updating gatepass status
-            // In a real app: await fetch('/api/visitors/' + visitorId + '/gatepass', { method: 'PATCH', body: JSON.stringify({ gatepassApproved: true }) })
-            const row = document.querySelector(`tr[data-id="${visitorId}"]`);
-            if (row) {
-                const checkbox = row.querySelector('.gatepass-approve');
-                checkbox.checked = true;
-                checkbox.classList.remove('unset');
+    
+            // Function to fetch and display visitor data
+            async function loadVisitorData() {
+                try {
+                    const visitors = await fetchVisitorData();
+    
+                    tableBody.innerHTML = ''; // Clear existing rows
+    
+                    if (visitors.length === 0) {
+                        tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
+                        return;
+                    }
+    
+                    visitors.forEach(visitor => {
+                        const row = document.createElement('tr');
+                        row.setAttribute('data-id', visitor.id);
+                        row.innerHTML = `
+                            <td>${visitor.id || '-'}</td>
+                            <td>${visitor.firstname || '-'}</td>
+                            <td>${visitor.lastname || '-'}</td>
+                            <td>${visitor.contactnumber || '-'}</td>
+                            <td>${visitor.nationalid || '-'}</td>
+                            <td class="center-checkbox">
+                                <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
+                            </td>
+                            <td class="center-checkbox">
+                                <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
+                            </td>
+                            <td class="center-checkbox">
+                                <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
+                                <label for="gatepass-${visitor.id}"></label>
+                            </td>
+                            <td><button class="btn btn-sm btn-primary rounded-full details-btn">Details</button></td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+    
+                    // Attach event listeners to Details buttons
+                    document.querySelectorAll('.details-btn').forEach(button => {
+                        button.addEventListener('click', async (e) => {
+                            const row = e.target.closest('tr');
+                            const visitorId = row.getAttribute('data-id');
+                            await openVisitorModal(visitorId);
+                        });
+                    });
+                } catch (error) {
+                    console.error('Error loading visitor data:', error);
+                    document.getElementById('visitorTableBody').innerHTML =
+                        '<tr><td colspan="9" class="no-data">Error loading data</td></tr>';
+                }
             }
-            alert('Gatepass approved (simulated).');
-            closeModal();
-        });
-
-        // Handle Disapprove Gatepass button
-        document.getElementById('disapproveGatepass').addEventListener('click', async () => {
-            const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
-            // Simulate updating gatepass status
-            // In a real app: await fetch('/api/visitors/' + visitorId + '/gatepass', { method: 'PATCH', body: JSON.stringify({ gatepassApproved: false }) })
-            const row = document.querySelector(`tr[data-id="${visitorId}"]`);
-            if (row) {
-                const checkbox = row.querySelector('.gatepass-approve');
-                checkbox.checked = false;
-                checkbox.classList.remove('unset');
+    
+            // Function to open the modal and populate the form
+            async function openVisitorModal(visitorId) {
+                const visitors = await fetchVisitorData();
+                const visitor = visitors.find(v => v.id == visitorId);
+                if (!visitor) return;
+    
+                // Populate form fields
+                document.getElementById('gender').value = visitor.gender || '';
+                document.getElementById('email').value = visitor.email || '';
+                document.getElementById('date').value = visitor.date || '';
+                document.getElementById('time').value = visitor.time || '';
+                document.getElementById('nationalid').value = visitor.nationalid || '';
+                document.getElementById('photo').value = visitor.photo || '';
+                document.getElementById('visit').value = visitor.visit || '';
+                document.getElementById('personname').value = visitor.personname || '';
+                document.getElementById('department').value = visitor.department || '';
+                document.getElementById('durationtime').value = visitor.durationtime || '';
+                document.getElementById('durationUnit').value = visitor.durationUnit || '';
+                document.getElementById('visitortype').value = visitor.visitortype || '';
+                document.getElementById('vehicletype').value = visitor.vehicletype || '';
+                document.getElementById('drivername').value = visitor.drivername || '';
+                document.getElementById('drivermobile').value = visitor.drivermobile || '';
+                document.getElementById('drivernationalid').value = visitor.drivernationalid || '';
+                document.getElementById('driverphoto').value = visitor.driverphoto || '';
+                document.getElementById('notes').value = visitor.notes || '';
+                document.getElementById('visitorForm').setAttribute('data-id', visitorId);
+    
+                // Show modal
+                document.getElementById('visitorModal').style.display = 'block';
             }
-            alert('Gatepass disapproved (simulated).');
-            closeModal();
+    
+            // Handle form submission
+            document.getElementById('visitorForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const visitorId = e.target.getAttribute('data-id');
+                const formData = {
+                    gender: document.getElementById('gender').value,
+                    email: document.getElementById('email').value,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    nationalid: document.getElementById('nationalid').value,
+                    photo: document.getElementById('photo').value,
+                    visit: document.getElementById('visit').value,
+                    personname: document.getElementById('personname').value,
+                    department: document.getElementById('department').value,
+                    durationtime: document.getElementById('durationtime').value,
+                    durationUnit: document.getElementById('durationUnit').value,
+                    visitortype: document.getElementById('visitortype').value,
+                    vehicletype: document.getElementById('vehicletype').value,
+                    drivername: document.getElementById('drivername').value,
+                    drivermobile: document.getElementById('drivermobile').value,
+                    drivernationalid: document.getElementById('drivernationalid').value,
+                    driverphoto: document.getElementById('driverphoto').value,
+                    notes: document.getElementById('notes').value
+                };
+                console.log('Submitting form data for visitor ID:', visitorId, formData);
+                try {
+                    const response = await fetch(`http://192.168.3.75:3001/visitor-appointment-data/${visitorId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error(`Failed to update visitor: ${response.statusText}`);
+                    }
+    
+                    alert('Details saved successfully.');
+                    closeModal();
+                    await loadVisitorData(); // Refresh table data
+                } catch (error) {
+                    console.error('Error updating visitor:', error);
+                    alert('Failed to save details: ' + error.message);
+                }
+            });
+    
+            // Handle Approve Gatepass button
+            document.getElementById('approveGatepass').addEventListener('click', async () => {
+                const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
+                try {
+                    const response = await fetch(`http://192.168.3.75:3001/visitor-appointment-data/${visitorId}/gatepass`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ gatepassApproved: true })
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error(`Failed to approve gatepass: ${response.statusText}`);
+                    }
+    
+                    const row = document.querySelector(`tr[data-id="${visitorId}"]`);
+                    if (row) {
+                        const checkbox = row.querySelector('.gatepass-approve');
+                        checkbox.checked = true;
+                        checkbox.classList.remove('unset');
+                    }
+                    alert('Gatepass approved successfully.');
+                    closeModal();
+                    await loadVisitorData(); // Refresh table data
+                } catch (error) {
+                    console.error('Error approving gatepass:', error);
+                    alert('Failed to approve gatepass: ' + error.message);
+                }
+            });
+    
+            // Handle Disapprove Gatepass button
+            document.getElementById('disapproveGatepass').addEventListener('click', async () => {
+                const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
+                try {
+                    const response = await fetch(`http://192.168.3.75:3001/visitor-appointment-data/${visitorId}/gatepass`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ gatepassApproved: false })
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error(`Failed to disapprove gatepass: ${response.statusText}`);
+                    }
+    
+                    const row = document.querySelector(`tr[data-id="${visitorId}"]`);
+                    if (row) {
+                        const checkbox = row.querySelector('.gatepass-approve');
+                        checkbox.checked = false;
+                        checkbox.classList.remove('unset');
+                    }
+                    alert('Gatepass disapproved successfully.');
+                    closeModal();
+                    await loadVisitorData(); // Refresh table data
+                } catch (error) {
+                    console.error('Error disapproving gatepass:', error);
+                    alert('Failed to disapprove gatepass: ' + error.message);
+                }
+            });
+    
+            // Modal close functionality
+            function closeModal() {
+                document.getElementById('visitorModal').style.display = 'none';
+            }
+    
+            document.querySelector('.modal .close').addEventListener('click', closeModal);
+    
+            // Load data when the page loads
+            loadVisitorData();
         });
-
-        // Modal close functionality
-        function closeModal() {
-            document.getElementById('visitorModal').style.display = 'none';
-        }
-
-        document.querySelector('.modal .close').addEventListener('click', closeModal);
-
-        // Load data when the page loads
-        document.addEventListener('DOMContentLoaded', loadVisitorData);
     </script>
 
     <script src="assets/js/alpine-collaspe.min.js"></script>
