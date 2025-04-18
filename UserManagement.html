@@ -3124,7 +3124,7 @@
             $('.error-message').text('');
         }
         
-        const showMessage = (msg = 'Example notification text.', type = 'success', position = 'top-right', showCloseButton = true, duration = 3000) => {
+        const showMessage = (msg = 'Example notification text.', type = 'success', position = 'top-right', showCloseButton = true, duration = 2000) => {
             const toast = window.Swal.mixin({
                 toast: true,
                 position: position,
@@ -3398,43 +3398,46 @@
             }
         }
         
-        // Toggle user active status
-        async function toggleUserStatus(userId) {
-            try {
-                let toggleInput = document.getElementById(`toggleActive_${userId}`);
-                let isActive = toggleInput.checked;
-                console.log(`Toggling user ${userId}: isActive = ${isActive}`);
-        
-                toggleInput.checked = !isActive;
-                console.log(`New checked state: ${toggleInput.checked}`);
-        
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
-                const response = await fetch(`${BASE_URL}/users/${userId}/toggle`, {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ isActive: !isActive }),
-                    signal: controller.signal,
-                });
-                clearTimeout(timeoutId);
-        
-                console.log(`API response status: ${response.status}`);
-                const text = await response.text();
-                console.log(`API response body: ${text}`);
-        
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status} - ${text}`);
-                }
-        
-                if (isPaginatedView) fetchUsers();
-                else fetchAllUsers();
-            } catch (error) {
-                console.error("Error toggling user status:", error);
-                showMessage(`Error toggling user status: ${error.message}`, 'error');
-                if (isPaginatedView) fetchUsers();
-                else fetchAllUsers();
-            }
+// Toggle user active status
+async function toggleUserStatus(userId) {
+    try {
+        let toggleInput = document.getElementById(`toggleActive_${userId}`);
+        let isActive = toggleInput.checked;
+        console.log(`Toggling user ${userId}: isActive = ${isActive}`);
+
+        toggleInput.checked = !isActive;
+        console.log(`New checked state: ${toggleInput.checked}`);
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        const response = await fetch(`${BASE_URL}/users/${userId}/toggle`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ isActive: !isActive }),
+            signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+
+        console.log(`API response status: ${response.status}`);
+        const text = await response.text();
+        console.log(`API response body: ${text}`);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status} - ${text}`);
         }
+
+        // Show success message
+        showMessage(`User ${!isActive ? 'activated' : 'deactivated'} successfully`, 'success');
+
+        if (isPaginatedView) fetchUsers();
+        else fetchAllUsers();
+    } catch (error) {
+        console.error("Error toggling user status:", error);
+        showMessage(`Error toggling user status: ${error.message}`, 'error');
+        if (isPaginatedView) fetchUsers();
+        else fetchAllUsers();
+    }
+}
         
         // Edit user
         async function editUser(userId) {
