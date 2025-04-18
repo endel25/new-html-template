@@ -3216,8 +3216,8 @@
 
                 async function fetchVisitors() {
                     try {
-                        console.log('Fetching visitors from http://192.168.3.73:3001/visitors');
-                        const response = await fetch('http://192.168.3.73:3001/visitors', {
+                        console.log('Fetching visitors from http://192.168.3.74:3001/visitors');
+                        const response = await fetch('http://192.168.3.74:3001/visitors', {
                             method: 'GET',
                             headers: { 'Content-Type': 'application/json' },
                         });
@@ -3413,13 +3413,13 @@
                     const mainPreview = document.getElementById('mainPreview');
                     const driverPreview = document.getElementById('driverPreview');
                     if (visitor.photo) {
-                        mainPreview.src = `http://192.168.3.73:3001/Uploads/${visitor.photo}`;
+                        mainPreview.src = `http://192.168.3.74:3001/Uploads/${visitor.photo}`;
                         mainPreview.classList.remove('hidden');
                     } else {
                         mainPreview.classList.add('hidden');
                     }
                     if (visitor.driverphoto) {
-                        driverPreview.src = `http://192.168.3.73:3001/Uploads/${visitor.driverphoto}`;
+                        driverPreview.src = `http://192.168.3.74:3001/Uploads/${visitor.driverphoto}`;
                         driverPreview.classList.remove('hidden');
                     } else {
                         driverPreview.classList.add('hidden');
@@ -3527,7 +3527,7 @@
                                 apiFormData.append('driverphoto', existingVisitor.driverphoto);
                             }
 
-                            const response = await fetch(`http://192.168.3.73:3001/visitors/${updatedVisitor.id}`, {
+                            const response = await fetch(`http://192.168.3.74:3001/visitors/${updatedVisitor.id}`, {
                                 method: 'PATCH',
                                 body: apiFormData,
                             });
@@ -3555,7 +3555,7 @@
                 async function deleteVisitor(id) {
                     if (confirm('Are you sure you want to delete this visitor?')) {
                         try {
-                            const response = await fetch(`http://192.168.3.73:3001/visitors/${id}`, {
+                            const response = await fetch(`http://192.168.3.74:3001/visitors/${id}`, {
                                 method: 'DELETE',
                             });
 
@@ -3782,7 +3782,7 @@
                         console.log('Sending Data:', formattedData);
             
                         try {
-                            const response = await axios.post('http://192.168.3.73:3001/visitors', formattedData, {
+                            const response = await axios.post('http://192.168.3.74:3001/visitors', formattedData, {
                                 headers: { 'Content-Type': 'application/json' }
                             });
                             console.log('Response:', response.data);
