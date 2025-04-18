@@ -3388,17 +3388,21 @@
                         <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
                         <label for="gatepass-${visitor.id}"></label>
                     </td>
-                    <td><button class="btn btn-sm btn-primary rounded-full details-btn">Details</button></td>
+                    <td><button class="btn btn-sm btn-primary rounded-full details-btn" data-id="${visitor.id}">Details</button></td>
                 `;
                 tableBody.appendChild(row);
             });
 
-            document.querySelectorAll('.details-btn').forEach(button => {
-                button.addEventListener('click', async (e) => {
-                    const row = e.target.closest('tr');
-                    const visitorId = row.getAttribute('data-id');
+            console.log('✅ Table rows created with Details buttons:', tableBody.querySelectorAll('.details-btn').length);
+
+            // Use event delegation for Details button clicks
+            tableBody.addEventListener('click', async (e) => {
+                const button = e.target.closest('.details-btn');
+                if (button) {
+                    const visitorId = button.getAttribute('data-id');
+                    console.log('🔍 Details button clicked for visitor ID:', visitorId);
                     await openVisitorModal(visitorId);
-                });
+                }
             });
         } catch (error) {
             console.error('Error loading visitor data:', error);
@@ -3442,78 +3446,94 @@
             reader.onload = () => {
                 preview.src = reader.result;
                 preview.style.display = 'block';
+                console.log(`📸 Previewing new ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo`);
             };
             reader.readAsDataURL(file);
         } else {
-            preview.src = '';
-            preview.style.display = 'none';
+            // Do not clear the preview if no file is selected to retain the old photo
+            console.log(`📸 No new ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo selected, retaining old photo`);
         }
     }
 
     // Function to open the modal and populate the form
     async function openVisitorModal(visitorId) {
-        const visitor = await fetchVisitorById(visitorId);
-        if (!visitor) return;
+    const visitor = await fetchVisitorById(visitorId);
+    if (!visitor) return;
 
-        originalVisitorData = { ...visitor }; // Store original data for comparison
+    originalVisitorData = { ...visitor }; // Store original data for comparison
 
-        const populateField = (id, value, defaultValue = '') => {
-            const element = document.getElementById(id);
-            if (element) {
-                const finalValue = value ?? defaultValue;
-                if (element.tagName === 'SELECT') {
-                    element.value = finalValue;
-                } else {
-                    element.value = finalValue;
-                }
+    const populateField = (id, value, defaultValue = '') => {
+        const element = document.getElementById(`edit-${id}`);
+        if (element) {
+            const finalValue = value ?? defaultValue;
+            if (element.tagName === 'SELECT') {
+                element.value = finalValue;
             } else {
-                console.warn(`⚠️ Element with ID ${id} not found`);
+                element.value = finalValue;
             }
-        };
+        } else {
+            console.warn(`⚠️ Element with ID edit-${id} not found`);
+        }
+    };
 
-        populateField('gender', visitor.gender);
-        populateField('email', visitor.email);
-        populateField('date', visitor.date);
-        populateField('time', visitor.time);
-        populateField('nationalid', visitor.nationalid);
-        populateField('visit', visitor.visit);
-        populateField('personname', visitor.personname);
-        populateField('department', visitor.department);
-        populateField('durationtime', visitor.durationtime);
-        populateField('durationUnit', visitor.durationunit);
-        populateField('visitortype', visitor.visitortype);
-        populateField('vehicletype', visitor.vehicletype);
-        populateField('vehiclenumber', visitor.vehiclenumber);
-        populateField('drivername', visitor.drivername);
-        populateField('drivermobile', visitor.drivermobile);
-        populateField('drivernationalid', visitor.drivernationalid);
-        populateField('notes', visitor.notes);
+    populateField('firstname', visitor.firstname);
+    populateField('lastname', visitor.lastname);
+    populateField('gender', visitor.gender);
+    populateField('contactnumber', visitor.contactnumber);
+    populateField('email', visitor.email);
+    populateField('date', visitor.date);
+    populateField('time', visitor.time);
+    populateField('nationalid', visitor.nationalid);
+    populateField('visit', visitor.visit);
+    populateField('personname', visitor.personname);
+    populateField('department', visitor.department);
+    populateField('durationtime', visitor.durationtime);
+    populateField('durationUnit', visitor.durationunit);
+    populateField('visitortype', visitor.visitortype);
+    populateField('vehicletype', visitor.vehicletype);
+    populateField('vehiclenumber', visitor.vehiclenumber);
+    populateField('drivername', visitor.drivername);
+    populateField('drivermobile', visitor.drivermobile);
+    populateField('drivernationalid', visitor.drivernationalid);
+    populateField('notes', visitor.notes);
 
-        const setPhotoPreview = (preview, path) => {
-            if (path) {
-                preview.src = `http://192.168.3.75:3001/uploads/${path}`;
-                preview.style.display = 'block';
-                preview.onerror = () => {
-                    preview.src = '';
-                    preview.style.display = 'none';
-                    console.warn(`⚠️ Failed to load image: ${path}`);
-                };
-            } else {
-                preview.src = '';
-                preview.style.display = 'none';
-            }
-        };
+    const setPhotoPreview = (previewId, path) => {
+        const preview = document.getElementById(previewId);
+        if (!preview) {
+            console.warn(`⚠️ Preview element with ID ${previewId} not found`);
+            return;
+        }
+        if (path && path.trim() !== '') {
+            const photoUrl = `http://192.168.3.75:3001/uploads/${path.trim()}`;
+            preview.src = photoUrl;
+            preview.classList.remove('hidden'); // Show the image
+            preview.onload = () => console.log(`📸 Successfully loaded ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo from: ${photoUrl}`);
+            preview.onerror = () => {
+                console.warn(`⚠️ Failed to load ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo from: ${photoUrl}. Falling back to placeholder.`);
+                preview.src = 'https://via.placeholder.com/150'; // Public placeholder image
+                preview.classList.remove('hidden'); // Show fallback
+            };
+            console.log(`📸 Attempting to load ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo from: ${photoUrl}`);
+        } else {
+            preview.src = 'https://via.placeholder.com/150'; // Public placeholder image if no path
+            preview.classList.remove('hidden'); // Show fallback
+            console.log(`📸 No ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo available, using placeholder`);
+        }
+    };
 
-        const photoPreview = document.getElementById('photoPreview');
-        const driverPhotoPreview = document.getElementById('driverPhotoPreview');
-        setPhotoPreview(photoPreview, visitor.photo);
-        setPhotoPreview(driverPhotoPreview, visitor.driverphoto);
+    // Set old photos in the preview with fallback
+    console.log('📋 Visitor data received:', JSON.stringify(visitor, null, 2));
+    setPhotoPreview('mainPreview', visitor.photo);
+    setPhotoPreview('driverPreview', visitor.driverphoto);
 
-        document.getElementById('photo').value = '';
-        document.getElementById('driverphoto').value = '';
-        document.getElementById('visitorForm').setAttribute('data-id', visitorId);
-        document.getElementById('visitorModal').style.display = 'block';
-    }
+    // Reset file inputs but retain old photos in previews
+    const photoInput = document.getElementById('edit-photo');
+    const driverPhotoInput = document.getElementById('edit-driverphoto');
+    if (photoInput) photoInput.value = '';
+    if (driverPhotoInput) driverPhotoInput.value = '';
+    document.getElementById('visitorForm').setAttribute('data-id', visitorId);
+    document.getElementById('visitorModal').style.display = 'block';
+}
 
     // Handle form submission for updating details with retry
     document.getElementById('visitorForm').addEventListener('submit', async (e) => {
@@ -3529,8 +3549,8 @@
         }
 
         // Validate required fields
-        const requiredFields = ['gender', 'email', 'date', 'time', 'nationalid', 'visit', 'personname', 'department', 'durationtime', 'visitortype', 'vehicletype'];
-        const missingFields = requiredFields.filter(field => !document.getElementById(field).value.trim());
+        const requiredFields = ['firstname', 'gender', 'email', 'date', 'time', 'nationalid', 'visit', 'personname', 'department', 'durationtime', 'visitortype', 'vehicletype'];
+        const missingFields = requiredFields.filter(field => !document.getElementById(`edit-${field}`).value.trim());
         if (missingFields.length > 0) {
             errorMessage.textContent = `Please fill in the following required fields: ${missingFields.join(', ')}`;
             errorMessage.classList.remove('hidden');
@@ -3541,13 +3561,12 @@
         // Collect only changed fields
         const changedData = {};
         const fields = [
-            'gender', 'email', 'date', 'time', 'nationalid', 'visit', 'personname',
-            'department', 'durationtime', 'durationUnit', 'visitortype', 'vehicletype',
-            'vehiclenumber', 'drivername', 'drivermobile', 'drivernationalid', 'notes'
+            'firstname', 'lastname', 'gender', 'contactnumber', 'email', 'date', 'time', 'nationalid', 'visit', 'personname',
+            'department', 'durationtime', 'durationUnit', 'visitortype', 'vehicletype', 'vehiclenumber', 'drivername', 'drivermobile', 'drivernationalid', 'notes'
         ];
 
         fields.forEach(field => {
-            const currentValue = document.getElementById(field).value;
+            const currentValue = document.getElementById(`edit-${field}`).value;
             const originalValue = originalVisitorData[field];
             if (currentValue !== originalValue) {
                 console.log(`📝 Changed field ${field}: ${currentValue} (was ${originalValue})`);
@@ -3555,15 +3574,21 @@
             }
         });
 
-        const photoFile = document.getElementById('photo').files[0];
-        const driverPhotoFile = document.getElementById('driverphoto').files[0];
+        const photoFile = document.getElementById('edit-photo').files[0];
+        const driverPhotoFile = document.getElementById('edit-driverphoto').files[0];
         if (photoFile) {
-            console.log('📸 Uploading new photo:', photoFile.name);
+            console.log('📸 Uploading new visitor photo:', photoFile.name);
             changedData.photo = photoFile;
+        } else {
+            console.log('📸 Retaining old visitor photo');
+            changedData.photo = originalVisitorData.photo; // Retain old photo if no new file
         }
         if (driverPhotoFile) {
             console.log('📸 Uploading new driver photo:', driverPhotoFile.name);
             changedData.driverphoto = driverPhotoFile;
+        } else {
+            console.log('📸 Retaining old driver photo');
+            changedData.driverphoto = originalVisitorData.driverphoto; // Retain old driver photo if no new file
         }
 
         if (Object.keys(changedData).length === 0) {
@@ -3588,7 +3613,12 @@
             body = new FormData();
             Object.entries(changedData).forEach(([key, value]) => {
                 if (key === 'photo' || key === 'driverphoto') {
-                    body.append(key, value);
+                    if (value instanceof File) {
+                        body.append(key, value);
+                    } else {
+                        // For existing photos, append as string (backend should handle)
+                        body.append(key, value || '');
+                    }
                 } else {
                     body.append(key, value);
                 }
@@ -3676,6 +3706,7 @@
         await attemptApprove();
     });
 
+    // Handle Disapprove Gatepass button with retry
     document.getElementById('disapproveGatepass').addEventListener('click', async () => {
         const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
         async function attemptDisapprove(attempt = 1, maxAttempts = 3) {
@@ -3717,19 +3748,53 @@
     });
 
     // Modal close functionality
-    function closeModal() {
-        document.getElementById('visitorModal').style.display = 'none';
-        errorMessage.classList.add('hidden');
-        originalVisitorData = null; // Reset original data when closing
-    }
+    // function closeModal() {
+    //     document.getElementById('visitorModal').style.display = 'none';
+    //     errorMessage.classList.add('hidden');
+    //     originalVisitorData = null; // Reset original data when closing
+    // }
 
-    document.querySelector('.modal .close').addEventListener('click', closeModal);
+    // document.querySelector('.modal .close').addEventListener('click', closeModal);
+
+    function closeModal() {
+    const modal = document.getElementById('visitorModal');
+    if (modal) {
+        modal.style.display = 'none';
+    } else {
+        console.warn('⚠️ Modal element with ID "visitorModal" not found');
+    }
+    const errorMessage = document.querySelector('.text-red-500.text-sm.mt-2.text-center');
+    if (errorMessage) {
+        errorMessage.classList.add('hidden');
+    }
+    originalVisitorData = null; // Reset original data when closing
+}
+
+// Ensure the event listener uses a valid selector
+document.querySelector('.modal .close')?.addEventListener('click', closeModal);
 
     // Load data when the page loads
     loadVisitorData();
 
     // Expose previewImage globally
     window.previewImage = previewImage;
+
+    // Expose toggleDriverDetails globally
+    window.toggleDriverDetails = function() {
+        const driverDetails = document.getElementById('driverDetails');
+        const driverToggle = document.getElementById('edit-driverToggle');
+        if (driverDetails && driverToggle) {
+            driverDetails.classList.toggle('hidden', !driverToggle.checked);
+        }
+    };
+
+    // Expose showModal globally
+    window.showModal = function(inputId) {
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.click();
+        }
+    };
 });
 </script>
     <script src="assets/js/alpine-collaspe.min.js"></script>
