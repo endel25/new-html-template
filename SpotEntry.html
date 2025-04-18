@@ -3385,7 +3385,7 @@ input[type="file"] {
             //this secon try
 
             <!-- <script>
-                let visitors = [];
+            let visitors = [];
 let currentFileInputId = '';
 let currentPage = 1;
 let entriesPerPage = 10;
@@ -3399,96 +3399,96 @@ async function fetchVisitors() {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-    const data = await response.json();
-    console.log('Fetched data:', data);
-    visitors = data.map(visitor => ({
-      ...visitor,
-      date: visitor.date ? visitor.date.split('-').reverse().join('-') : '',
-      durationunit: visitor.durationunit || '',
-    }));
+        const data = await response.json();
+        console.log('Fetched data:', data);
+        visitors = data.map(visitor => ({
+            ...visitor,
+            date: visitor.date ? visitor.date.split('-').reverse().join('-') : '',
+            durationunit: visitor.durationunit || '',
+        }));
 
-    if (visitors.length === 0) {
-      console.warn('No visitors fetched from the server');
-    }
+        if (visitors.length === 0) {
+            console.warn('No visitors fetched from the server');
+        }
 
-    localStorage.setItem('visitors', JSON.stringify(visitors));
-    populateTable();
-  } catch (error) {
-    console.error('Failed to fetch visitors:', error.message);
-    visitors = JSON.parse(localStorage.getItem('visitors')) || [];
-    if (visitors.length === 0) {
-      console.warn('No cached visitors available either');
+        localStorage.setItem('visitors', JSON.stringify(visitors));
+        populateTable();
+    } catch (error) {
+        console.error('Failed to fetch visitors:', error.message);
+        visitors = JSON.parse(localStorage.getItem('visitors')) || [];
+        if (visitors.length === 0) {
+            console.warn('No cached visitors available either');
+        }
+        populateTable();
     }
-    populateTable();
-  }
 }
 
 function showModal(fileInputId) {
-  currentFileInputId = fileInputId;
-  document.getElementById('photoModal').style.display = 'flex';
+    currentFileInputId = fileInputId;
+    document.getElementById('photoModal').style.display = 'flex';
 }
 
 function closeModal() {
-  document.getElementById('photoModal').style.display = 'none';
-  stopCamera();
+    document.getElementById('photoModal').style.display = 'none';
+    stopCamera();
 }
 
 function openGallery() {
-  const fileInput = document.getElementById(currentFileInputId);
-  fileInput.removeAttribute('capture');
-  fileInput.click();
-  closeModal();
+    const fileInput = document.getElementById(currentFileInputId);
+    fileInput.removeAttribute('capture');
+    fileInput.click();
+    closeModal();
 }
 
 function openCamera() {
-  startCamera(document.getElementById(currentFileInputId));
-  closeModal();
+    startCamera(document.getElementById(currentFileInputId));
+    closeModal();
 }
 
 function startCamera(fileInput) {
-  const video = document.getElementById('cameraPreview');
-  const canvas = document.getElementById('cameraCanvas');
-  navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-    .then(stream => {
-      video.srcObject = stream;
-      video.style.display = 'block';
-      video.play();
-      const captureBtn = document.createElement('button');
-      captureBtn.textContent = 'Capture Photo';
-      captureBtn.className = 'btn-outline-primary';
-      captureBtn.onclick = () => {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-        canvas.toBlob(blob => {
-          const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
-          const dataTransfer = new DataTransfer();
-          dataTransfer.items.add(file);
-          fileInput.files = dataTransfer.files;
-          fileInput.dispatchEvent(new Event('change'));
-          stopCamera();
-        }, 'image/jpeg');
-      };
-      document.body.appendChild(captureBtn);
-    })
-    .catch(err => {
-      console.error('Camera access denied:', err);
-    });
+    const video = document.getElementById('cameraPreview');
+    const canvas = document.getElementById('cameraCanvas');
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+        .then(stream => {
+            video.srcObject = stream;
+            video.style.display = 'block';
+            video.play();
+            const captureBtn = document.createElement('button');
+            captureBtn.textContent = 'Capture Photo';
+            captureBtn.className = 'btn-outline-primary';
+            captureBtn.onclick = () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                canvas.toBlob(blob => {
+                    const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+                    fileInput.dispatchEvent(new Event('change'));
+                    stopCamera();
+                }, 'image/jpeg');
+            };
+            document.body.appendChild(captureBtn);
+        })
+        .catch(err => {
+            console.error('Camera access denied:', err);
+        });
 }
 
 function stopCamera() {
-  const video = document.getElementById('cameraPreview');
-  const stream = video.srcObject;
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
-  }
-  video.style.display = 'none';
-  const captureBtn = document.querySelector('button[onclick*="capture"]');
-  if (captureBtn) captureBtn.remove();
+    const video = document.getElementById('cameraPreview');
+    const stream = video.srcObject;
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+    }
+    video.style.display = 'none';
+    const captureBtn = document.querySelector('button[onclick*="capture"]');
+    if (captureBtn) captureBtn.remove();
 }
 
 function previewImage(input, id) {
@@ -4079,8 +4079,6 @@ function populateTable() {
     document.getElementById('panelFooter').textContent = `Showing ${showingStart} to ${showingEnd} of ${totalEntries} entries`;
 }
 
-
-
 function openEditModal(id) {
     const visitor = visitors.find(v => v.id == id);
     if (!visitor) {
@@ -4088,7 +4086,7 @@ function openEditModal(id) {
         return;
     }
 
-    console.log('Raw visitor data:', visitor); // Log full data
+    console.log('Raw visitor data:', visitor);
 
     const fields = [
         'edit-id', 'edit-firstname', 'edit-lastname', 'edit-contactnumber', 'edit-nationalid',
@@ -4133,7 +4131,7 @@ function openEditModal(id) {
 
     const mainPreview = document.getElementById('mainPreview');
     if (visitor.photo) {
-        const photoUrl = `http://192.168.3.73:3001/uploads/${visitor.photo}`;
+        const photoUrl = `http://192.168.3.73:3001/uploads/${encodeURIComponent(visitor.photo)}`;
         mainPreview.src = photoUrl;
         mainPreview.style.display = 'block';
         console.log('Main photo URL set to:', photoUrl);
@@ -4168,13 +4166,12 @@ function closeEditModal() {
     document.getElementById('editModal').style.display = 'none';
     document.getElementById('editForm').reset();
     clearErrors();
-    toggleDriverDetails(); // Ensure driver details are hidden on close
+    toggleDriverDetails();
 }
 
 function clearErrors() {
     document.querySelectorAll('.error').forEach(error => error.textContent = '');
 }
-
 
 function validateForm(formData) {
     let isValid = true;
@@ -4249,9 +4246,8 @@ document.getElementById('editForm').addEventListener('submit', async function (e
             Object.keys(updatedVisitor).forEach(key => {
                 if (key === 'photo' || key === 'driverphoto') {
                     if (updatedVisitor[key] && updatedVisitor[key].size > 0) {
-                        apiFormData.append(key, updatedVisitor[key]);
+                        apiFormData.append('files', updatedVisitor[key]);
                     } else if (updatedVisitor[key] && typeof updatedVisitor[key] === 'string') {
-                        // If no new file, keep the existing filename
                         apiFormData.append(key, updatedVisitor[key]);
                     }
                 } else if (key !== 'driverToggle' && key !== 'id' && updatedVisitor[key] !== undefined) {
@@ -4260,7 +4256,16 @@ document.getElementById('editForm').addEventListener('submit', async function (e
             });
 
             if (updatedVisitor.date) {
-                apiFormData.set('date', updatedVisitor.date);
+                const [year, month, day] = updatedVisitor.date.split('-');
+                apiFormData.set('date', `${day}-${month}-${year}`);
+            }
+
+            const existingVisitor = visitors.find(v => v.id == updatedVisitor.id);
+            if (!apiFormData.get('photo') && existingVisitor?.photo) {
+                apiFormData.append('photo', existingVisitor.photo);
+            }
+            if (!apiFormData.get('driverphoto') && existingVisitor?.driverphoto) {
+                apiFormData.append('driverphoto', existingVisitor.driverphoto);
             }
 
             console.log('Sending PATCH with FormData for id:', updatedVisitor.id);
@@ -4388,14 +4393,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchVisitors();
 });
-           </script>
-            -->
-           
-           
-           // four merge script
-
-
-
+           </script>  -->
+    
            <script>
             let visitors = [];
 let currentFileInputId = '';
