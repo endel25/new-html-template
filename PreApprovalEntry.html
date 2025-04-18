@@ -3060,44 +3060,43 @@ document.querySelector('.modal .close')?.addEventListener('click', closeModal);
             populateField('notes', visitor.notes);
     
             const setPhotoPreview = async (previewId, path, visitorId, type) => {
-                const preview = document.getElementById(previewId);
-                if (!preview) {
-                    console.warn(`⚠️ Preview element with ID ${previewId} not found`);
-                    return;
-                }
-                preview.classList.remove('hidden'); // Ensure the preview is visible
-    
-                if (path && path.trim() !== '') {
-                    // Use the streaming endpoint for fetching photos
-                    const photoUrl = `http://192.168.3.75:3001/appointment/${visitorId}/photo?type=${type}`;
-                    console.log(`📸 Attempting to fetch ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo from: ${photoUrl} (Original path: ${path})`);
-    
-                    try {
-                        const response = await fetch(photoUrl, { method: 'GET', mode: 'cors' });
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
-                        }
-                        const blob = await response.blob();
-                        const reader = new FileReader();
-                        reader.onloadend = () => {
-                            preview.src = reader.result;
-                            console.log(`📸 Successfully set ${previewId} preview from: ${photoUrl}`);
-                        };
-                        reader.onerror = () => {
-                            throw new Error('Failed to read image data');
-                        };
-                        reader.readAsDataURL(blob);
-                    } catch (error) {
-                        console.error(`❌ Failed to fetch ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo from: ${photoUrl}`, error);
-                        preview.src = 'https://via.placeholder.com/150';
-                        console.log(`📸 Using placeholder for ${previewId}. Original path: ${path}`);
-                    }
-                } else {
-                    preview.src = 'https://via.placeholder.com/150';
-                    console.log(`📸 No ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo available, using placeholder. Path was: ${path}`);
-                }
+    const preview = document.getElementById(previewId);
+    if (!preview) {
+        console.warn(`⚠️ Preview element with ID ${previewId} not found`);
+        return;
+    }
+    preview.classList.remove('hidden');
+
+    if (path && path.trim() !== '') {
+        // Clean the path to ensure single /uploads/ prefix
+        const cleanPath = path.replace(/^\/*(uploads\/)+/, '/uploads/');
+        const photoUrl = `http://192.168.3.75:3001${cleanPath}`;
+        console.log(`📸 Attempting to fetch ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo from: ${photoUrl} (Original path: ${path})`);
+        try {
+            const response = await fetch(photoUrl, { method: 'GET', mode: 'cors' });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
+            }
+            const blob = await response.blob();
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                preview.src = reader.result;
+                console.log(`📸 Successfully set ${previewId} preview from: ${photoUrl}`);
             };
-    
+            reader.onerror = () => {
+                throw new Error('Failed to read image data');
+            };
+            reader.readAsDataURL(blob);
+        } catch (error) {
+            console.error(`❌ Failed to fetch ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo from: ${photoUrl}`, error);
+            preview.src = 'https://via.placeholder.com/150';
+            console.log(`📸 Using placeholder for ${previewId}. Original path: ${path}`);
+        }
+    } else {
+        preview.src = 'https://via.placeholder.com/150';
+        console.log(`📸 No ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo available, using placeholder. Path was: ${path}`);
+    }
+};
             // Set old photos in the preview with fetched data
             console.log('📋 Visitor data received:', JSON.stringify(visitor, null, 2));
             await setPhotoPreview('mainPreview', visitor.photo, visitorId, 'photo');
@@ -3371,7 +3370,6 @@ document.querySelector('.modal .close')?.addEventListener('click', closeModal);
         };
     });
     </script>
-
     <script src="assets/js/alpine-collaspe.min.js"></script>
     <script src="assets/js/alpine-persist.min.js"></script>
     <script defer src="assets/js/alpine-ui.min.js"></script>
