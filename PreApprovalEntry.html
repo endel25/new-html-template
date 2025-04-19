@@ -2401,482 +2401,466 @@
     </div>
 
     
+     
      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const tableBody = document.getElementById('visitorTableBody');
-            const errorMessage = document.createElement('div');
-            errorMessage.className = 'text-red-500 text-sm mt-2 text-center hidden';
-            document.querySelector('.table-container').appendChild(errorMessage);
-        
-            let originalVisitorData = null;
-        
-            async function fetchVisitorData(retries = 3) {
-                for (let attempt = 1; attempt <= retries; attempt++) {
-                    try {
-                        const response = await fetch('http://192.168.3.74:3001/appointment', {
-                            method: 'GET',
-                            headers: { 'Content-Type': 'application/json' },
-                        });
-        
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
-                        }
-        
-                        const data = await response.json();
-                        console.log('📥 Raw API response:', JSON.stringify(data, null, 2));
-                        return Array.isArray(data) ? data : data.data || [];
-                    } catch (error) {
-                        console.error(`Attempt ${attempt} failed to fetch visitor data:`, error);
-                        if (attempt === retries) {
-                            errorMessage.textContent = 'Failed to load visitor data after multiple attempts. Please check server status.';
-                            errorMessage.classList.remove('hidden');
-                            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                            return [];
-                        }
-                        await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
-                    }
-                }
-            }
-        
-            async function loadVisitorData() {
-                try {
-                    const visitors = await fetchVisitorData();
-                    tableBody.innerHTML = '';
-        
-                    if (visitors.length === 0) {
-                        tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
-                        return;
-                    }
-        
-                    visitors.forEach(visitor => {
-                        const row = document.createElement('tr');
-                        row.setAttribute('data-id', visitor.id);
-                        row.innerHTML = `
-                            <td>${visitor.id || '-'}</td>
-                            <td>${visitor.firstname || '-'}</td>
-                            <td>${visitor.lastname || '-'}</td>
-                            <td>${visitor.contactnumber || '-'}</td>
-                            <td>${visitor.nationalid || '-'}</td>
-                            <td class="center-checkbox">
-                                <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
-                            </td>
-                            <td class="center-checkbox">
-                                <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
-                            </td>
-                            <td class="center-checkbox">
-                                <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
-                                <label for="gatepass-${visitor.id}"></label>
-                            </td>
-                            <td><button class="btn btn-sm btn-primary rounded-full details-btn" data-id="${visitor.id}">Details</button></td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-        
-                    console.log('✅ Table rows created with Details buttons:', tableBody.querySelectorAll('.details-btn').length);
-        
-                    tableBody.addEventListener('click', async (e) => {
-                        const button = e.target.closest('.details-btn');
-                        if (button) {
-                            const visitorId = button.getAttribute('data-id');
-                            console.log('🔍 Details button clicked for visitor ID:', visitorId);
-                            await openVisitorModal(visitorId);
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error loading visitor data:', error);
-                    tableBody.innerHTML = '<tr><td colspan="9" class="no-data">Error loading data</td></tr>';
-                }
-            }
-        
-            async function fetchVisitorById(visitorId, retries = 3) {
-                for (let attempt = 1; attempt <= retries; attempt++) {
-                    try {
-                        const response = await fetch(`http://192.168.3.74:3001/appointment/${visitorId}`, {
-                            method: 'GET',
-                            headers: { 'Content-Type': 'application/json' },
-                        });
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch visitor: ${response.statusText}`);
-                        }
-                        const visitor = await response.json();
-                        console.log('📋 Fetched visitor data for ID', visitorId, ':', JSON.stringify(visitor, null, 2));
-                        return visitor;
-                    } catch (error) {
-                        console.error(`Attempt ${attempt} failed to fetch visitor ${visitorId}:`, error);
-                        if (attempt === retries) {
-                            errorMessage.textContent = `Failed to load visitor ${visitorId} details after multiple attempts. Please check server status.`;
-                            errorMessage.classList.remove('hidden');
-                            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                            return null;
-                        }
-                        await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
-                    }
-                }
-            }
-        
-            function previewImage(input, previewId) {
-                const preview = document.getElementById(previewId);
-                const file = input.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        preview.src = reader.result;
-                        preview.style.display = 'block';
-                        console.log(`📸 Previewing new ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo`);
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    console.log(`📸 No new ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo selected, retaining old photo`);
-                }
-            }
-        
-            async function openVisitorModal(visitorId) {
-                const visitor = await fetchVisitorById(visitorId);
-                if (!visitor) {
-                    console.error('❌ No visitor data found for ID:', visitorId);
-                    return;
-                }
-        
-                originalVisitorData = { ...visitor };
-        
-                const populateField = (id, value, defaultValue = '') => {
-                    const element = document.getElementById(`edit-${id}`);
-                    if (element) {
-                        const finalValue = value ?? defaultValue;
-                        if (element.tagName === 'SELECT') {
-                            element.value = finalValue;
-                        } else {
-                            element.value = finalValue;
-                        }
-                    } else {
-                        console.warn(`⚠️ Element with ID edit-${id} not found`);
-                    }
-                };
-        
-                populateField('firstname', visitor.firstname);
-                populateField('lastname', visitor.lastname);
-                populateField('gender', visitor.gender);
-                populateField('contactnumber', visitor.contactnumber);
-                populateField('email', visitor.email);
-                populateField('date', visitor.date);
-                populateField('time', visitor.time);
-                populateField('nationalid', visitor.nationalid);
-                populateField('visit', visitor.visit);
-                populateField('personname', visitor.personname);
-                populateField('department', visitor.department);
-                populateField('durationtime', visitor.durationtime);
-                populateField('durationUnit', visitor.durationunit);
-                populateField('visitortype', visitor.visitortype);
-                populateField('vehicletype', visitor.vehicletype);
-                populateField('vehiclenumber', visitor.vehiclenumber);
-                populateField('drivername', visitor.drivername);
-                populateField('drivermobile', visitor.drivermobile);
-                populateField('drivernationalid', visitor.drivernationalid);
-                populateField('notes', visitor.notes);
-        
-                const setPhotoPreview = async (previewId, path, visitorId, type) => {
-                    const preview = document.getElementById(previewId);
-                    if (!preview) {
-                        console.warn(`⚠️ Preview element with ID ${previewId} not found`);
-                        return;
-                    }
-                    preview.classList.remove('hidden');
-        
-                    if (path && path.trim() !== '') {
-                        const photoUrl = `http://192.168.3.74:3001/appointment/${visitorId}/photo?type=${type}`;
-                        console.log(`📸 Attempting to fetch ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo from: ${photoUrl} (Original path: ${path})`);
-        
-                        try {
-                            const response = await fetch(photoUrl, { method: 'GET', mode: 'cors' });
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
-                            }
-                            const blob = await response.blob();
-                            const reader = new FileReader();
-                            reader.onloadend = () => {
-                                preview.src = reader.result;
-                                console.log(`📸 Successfully set ${previewId} preview from: ${photoUrl}`);
-                            };
-                            reader.onerror = () => {
-                                throw new Error('Failed to read image data');
-                            };
-                            reader.readAsDataURL(blob);
-                        } catch (error) {
-                            console.error(`❌ Failed to fetch ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo from: ${photoUrl}`, error);
-                            preview.src = 'http://192.168.3.74:3001/assets/placeholder.jpg';
-                            console.log(`📸 Using placeholder for ${previewId}. Original path: ${path}`);
-                        }
-                    } else {
-                        preview.src = 'http://192.168.3.74:3001/assets/placeholder.jpg';
-                        console.log(`📸 No ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo available, using placeholder. Path was: ${path}`);
-                    }
-                };
-        
-                console.log('📋 Visitor data received:', JSON.stringify(visitor, null, 2));
-                await setPhotoPreview('mainPreview', visitor.photo, visitorId, 'photo');
-                await setPhotoPreview('driverPreview', visitor.driverphoto, visitorId, 'driverphoto');
-        
-                const photoInput = document.getElementById('edit-photo');
-                const driverPhotoInput = document.getElementById('edit-driverphoto');
-                if (photoInput) photoInput.value = '';
-                if (driverPhotoInput) driverPhotoInput.value = '';
-                document.getElementById('visitorForm').setAttribute('data-id', visitorId);
-                const modal = document.getElementById('visitorModal');
-                if (modal) {
-                    modal.style.display = 'block';
-                } else {
-                    console.warn('⚠️ Modal element with ID "visitorModal" not found');
-                }
-            }
-        
-            document.getElementById('visitorForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const visitorId = e.target.getAttribute('data-id');
-                const errorMessage = document.querySelector('.text-red-500.text-sm.mt-2.text-center');
-        
-                if (!originalVisitorData) {
-                    errorMessage.textContent = 'Original data not loaded.';
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                    return;
-                }
-        
-                const requiredFields = ['firstname', 'gender', 'email', 'date', 'time', 'nationalid', 'visit', 'personname', 'department', 'durationtime', 'visitortype'];
-                const missingFields = requiredFields.filter(field => !document.getElementById(`edit-${field}`).value.trim());
-                if (missingFields.length > 0) {
-                    errorMessage.textContent = `Please fill in the following required fields: ${missingFields.join(', ')}`;
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                    return;
-                }
-        
-                const changedData = {};
-                const fields = [
-                    'firstname', 'lastname', 'gender', 'contactnumber', 'email', 'date', 'time', 'nationalid', 'visit', 'personname',
-                    'department', 'durationtime', 'durationUnit', 'visitortype', 'vehicletype', 'vehiclenumber', 'drivername', 'drivermobile', 'drivernationalid', 'notes'
-                ];
-        
-                fields.forEach(field => {
-                    const currentValue = document.getElementById(`edit-${field}`).value;
-                    const originalValue = originalVisitorData[field];
-                    if (currentValue !== originalValue) {
-                        console.log(`📝 Changed field ${field}: ${currentValue} (was ${originalValue})`);
-                        changedData[field] = currentValue;
-                    }
-                });
-        
-                const photoFile = document.getElementById('edit-photo').files[0];
-                const driverPhotoFile = document.getElementById('edit-driverphoto').files[0];
-                if (photoFile) {
-                    console.log('📸 Uploading new visitor photo:', photoFile.name);
-                    changedData.photo = photoFile;
-                } else {
-                    console.log('📸 Retaining old visitor photo');
-                    changedData.photo = originalVisitorData.photo;
-                }
-                if (driverPhotoFile) {
-                    console.log('📸 Uploading new driver photo:', driverPhotoFile.name);
-                    changedData.driverphoto = driverPhotoFile;
-                } else {
-                    console.log('📸 Retaining old driver photo');
-                    changedData.driverphoto = originalVisitorData.driverphoto;
-                }
-        
-                const driverFields = ['drivername', 'drivermobile', 'drivernationalid'];
-                console.log('📋 Driver details submitted:', JSON.stringify(driverFields.reduce((acc, field) => {
-                    acc[field] = document.getElementById(`edit-${field}`).value;
-                    return acc;
-                }, {}), null, 2));
-        
-                if (Object.keys(changedData).length === 0) {
-                    errorMessage.textContent = 'No changes detected to update.';
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                    return;
-                }
-        
-                const hasDriverDetails = driverFields.some(field => changedData[field] || originalVisitorData[field]);
-                if (hasDriverDetails && !changedData.driverphoto && !originalVisitorData.driverphoto) {
-                    errorMessage.textContent = 'Driver photo is required when driver details are provided.';
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                    return;
-                }
-        
-                let body;
-                const hasFiles = photoFile || driverPhotoFile;
-                if (hasFiles) {
-                    body = new FormData();
-                    Object.entries(changedData).forEach(([key, value]) => {
-                        if (key === 'photo' || key === 'driverphoto') {
-                            if (value instanceof File) {
-                                body.append(key, value);
-                            } else {
-                                body.append(key, value || '');
-                            }
-                        } else {
-                            body.append(key, value);
-                        }
-                    });
-                    console.log('📤 FormData entries:', Array.from(body.entries()));
-                } else {
-                    body = changedData;
-                }
-        
-                async function attemptUpdate(attempt = 1, maxAttempts = 3) {
-                    try {
-                        const url = hasFiles ? `http://192.168.3.74:3001/appointment/${visitorId}` : `http://192.168.3.74:3001/appointment/${visitorId}/text-update`;
-                        const options = {
-                            method: 'PUT',
-                            ...(hasFiles ? { body } : { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
-                        };
-        
-                        const response = await fetch(url, options);
-        
-                        if (!response.ok) {
-                            const errorData = await response.json();
-                            throw new Error(errorData.message || `Failed to update visitor: ${response.statusText}`);
-                        }
-        
-                        const updatedData = await response.json();
-                        console.log('✅ Updated data from server:', JSON.stringify(updatedData, null, 2));
-                        // alert('Details updated successfully.');
-                        closeModal();
-                        await loadVisitorData();
-                        return true;
-                    } catch (error) {
-                        console.error(`Attempt ${attempt} failed to update visitor ${visitorId}:`, error);
-                        if (attempt === maxAttempts) {
-                            errorMessage.textContent = 'Failed to update details after multiple attempts: ' + (error.message || 'Unknown error');
-                            errorMessage.classList.remove('hidden');
-                            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                            return false;
-                        }
-                        await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
-                        return await attemptUpdate(attempt + 1, maxAttempts);
-                    }
-                }
-        
-                await attemptUpdate();
-            });
-        
-            document.getElementById('approveGatepass').addEventListener('click', async () => {
-                const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
-                async function attemptApprove(attempt = 1, maxAttempts = 3) {
-                    try {
-                        const response = await fetch(`http://192.168.3.74:3001/appointment/${visitorId}/gatepass`, {
-                            method: 'PATCH',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ gatepassApproved: true }),
-                        });
-        
-                        if (!response.ok) {
-                            throw new Error(`Failed to approve gatepass: ${response.statusText}`);
-                        }
-        
-                        const data = await response.json();
-                        const row = document.querySelector(`tr[data-id="${visitorId}"]`);
-                        if (row) {
-                            const checkbox = row.querySelector('.gatepass-approve');
-                            checkbox.checked = data.gatepassApproved;
-                            checkbox.classList.remove('unset');
-                        }
-                        alert('Gatepass approved successfully.');
-                        closeModal();
-                        await loadVisitorData();
-                        return true;
-                    } catch (error) {
-                        console.error(`Attempt ${attempt} failed to approve gatepass for ${visitorId}:`, error);
-                        if (attempt === maxAttempts) {
-                            errorMessage.textContent = 'Failed to approve gatepass after multiple attempts: ' + error.message;
-                            errorMessage.classList.remove('hidden');
-                            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                            return false;
-                        }
-                        await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
-                        return await attemptApprove(attempt + 1, maxAttempts);
-                    }
-                }
-                await attemptApprove();
-            });
-        
-            document.getElementById('disapproveGatepass').addEventListener('click', async () => {
-                const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
-                async function attemptDisapprove(attempt = 1, maxAttempts = 3) {
-                    try {
-                        const response = await fetch(`http://192.168.3.74:3001/appointment/${visitorId}/gatepass`, {
-                            method: 'PATCH',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ gatepassApproved: false }),
-                        });
-        
-                        if (!response.ok) {
-                            throw new Error(`Failed to disapprove gatepass: ${response.statusText}`);
-                        }
-        
-                        const data = await response.json();
-                        const row = document.querySelector(`tr[data-id="${visitorId}"]`);
-                        if (row) {
-                            const checkbox = row.querySelector('.gatepass-approve');
-                            checkbox.checked = data.gatepassApproved;
-                            checkbox.classList.remove('unset');
-                        }
-                        alert('Gatepass disapproved successfully.');
-                        closeModal();
-                        await loadVisitorData();
-                        return true;
-                    } catch (error) {
-                        console.error(`Attempt ${attempt} failed to disapprove gatepass for ${visitorId}:`, error);
-                        if (attempt === maxAttempts) {
-                            errorMessage.textContent = 'Failed to disapprove gatepass after multiple attempts: ' + error.message;
-                            errorMessage.classList.remove('hidden');
-                            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                            return false;
-                        }
-                        await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
-                        return await attemptDisapprove(attempt + 1, maxAttempts);
-                    }
-                }
-                await attemptDisapprove();
-            });
-        
-            function closeModal() {
-                const modal = document.getElementById('visitorModal');
-                if (modal) {
-                    modal.style.display = 'none';
-                } else {
-                    console.warn('⚠️ Modal element with ID "visitorModal" not found');
-                }
-                const errorMessage = document.querySelector('.text-red-500.text-sm.mt-2.text-center');
-                if (errorMessage) {
-                    errorMessage.classList.add('hidden');
-                }
-                originalVisitorData = null;
-            }
-        
-            document.querySelector('.modal .close')?.addEventListener('click', closeModal);
-        
-            loadVisitorData();
-        
-            window.previewImage = previewImage;
-        
-            window.toggleDriverDetails = function() {
-                const driverDetails = document.getElementById('driverDetails');
-                const driverToggle = document.getElementById('edit-driverToggle');
-                if (driverDetails && driverToggle) {
-                    driverDetails.classList.toggle('hidden', !driverToggle.checked);
-                }
-            };
-        
-            window.showModal = function(inputId) {
-                const input = document.getElementById(inputId);
-                if (input) {
-                    input.click();
-                }
-            };
-        });
-        </script>
+
+let currentFileInputId = '';
+      
+      function showModal(fileInputId) {
+        currentFileInputId = fileInputId;
+        const modal = document.getElementById('photoModal');
+        if (modal) modal.style.display = 'flex';
+      }
     
+      function closeModal1() {
+        const modal = document.getElementById('photoModal');
+        if (modal) modal.style.display = 'none';
+        stopCamera();
+      }
+    
+      function openGallery() {
+        const fileInput = document.getElementById(currentFileInputId);
+        if (fileInput) {
+          fileInput.removeAttribute('capture');
+          fileInput.click();
+        }
+        closeModal();
+      }
+    
+      function openCamera() {
+        const fileInput = document.getElementById(currentFileInputId);
+        if (fileInput) {
+          fileInput.setAttribute('capture', 'environment');
+          fileInput.click();
+        }
+        closeModal();
+      }
+    
+      function startCamera(fileInput) {
+        const video = document.getElementById('cameraPreview');
+        const canvas = document.getElementById('cameraCanvas');
+        if (!video || !canvas) return;
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+          .then(stream => {
+            video.srcObject = stream;
+            video.style.display = 'block';
+            video.play();
+            const captureBtn = document.createElement('button');
+            captureBtn.textContent = 'Capture Photo';
+            captureBtn.className = 'btn-outline-primary';
+            captureBtn.onclick = () => {
+              canvas.width = video.videoWidth;
+              canvas.height = video.videoHeight;
+              canvas.getContext('2d').drawImage(video, 0, 0);
+              canvas.toBlob(blob => {
+                const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+                fileInput.dispatchEvent(new Event('change'));
+                stopCamera();
+              }, 'image/jpeg');
+            };
+            document.body.appendChild(captureBtn);
+          })
+          .catch(err => {
+            console.error('Camera access denied:', err);
+            showError('error-' + currentFileInputId, 'Unable to access camera');
+          });
+      }
+    
+      function stopCamera() {
+        const video = document.getElementById('cameraPreview');
+        if (video && video.srcObject) {
+          video.srcObject.getTracks().forEach(track => track.stop());
+          video.style.display = 'none';
+        }
+        const captureBtn = document.querySelector('button[onclick*="capture"]');
+        if (captureBtn) captureBtn.remove();
+      }
+    
+      function previewImage(input, id) {
+        const file = input.files[0];
+        const img = document.getElementById(id);
+        if (file && img) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            img.src = e.target.result;
+            img.classList.remove('hidden');
+          };
+          reader.readAsDataURL(file);
+        } else if (img) {
+          img.classList.add('hidden');
+        }
+      }
+ 
+       document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.getElementById('visitorTableBody');
+    const errorMessage = document.createElement('div');
+    errorMessage.className = 'text-red-500 text-sm mt-2 text-center hidden';
+    document.querySelector('.table-container').appendChild(errorMessage);
+
+    let originalVisitorData = null;
+
+    async function fetchVisitorData(retries = 3) {
+        for (let attempt = 1; attempt <= retries; attempt++) {
+            try {
+                const response = await fetch('http://192.168.3.73:3001/appointment', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                return Array.isArray(data) ? data : data.data || [];
+            } catch (error) {
+                console.error(`Attempt ${attempt} failed to fetch visitor data:`, error);
+                if (attempt === retries) {
+                    errorMessage.textContent = 'Failed to load visitor data after multiple attempts. Please check server status.';
+                    errorMessage.classList.remove('hidden');
+                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+                    return [];
+                }
+                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
+            }
+        }
+    }
+
+    async function loadVisitorData() {
+        try {
+            const visitors = await fetchVisitorData();
+            tableBody.innerHTML = '';
+
+            if (visitors.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
+                return;
+            }
+
+            visitors.forEach(visitor => {
+                const row = document.createElement('tr');
+                row.setAttribute('data-id', visitor.id);
+                row.innerHTML = `
+                    <td>${visitor.id || '-'}</td>
+                    <td>${visitor.firstname || '-'}</td>
+                    <td>${visitor.lastname || '-'}</td>
+                    <td>${visitor.contactnumber || '-'}</td>
+                    <td>${visitor.nationalid || '-'}</td>
+                    <td class="center-checkbox">
+                        <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
+                    </td>
+                    <td class="center-checkbox">
+                        <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
+                    </td>
+                    <td class="center-checkbox">
+                        <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
+                        <label for="gatepass-${visitor.id}"></label>
+                    </td>
+                    <td><button class="btn btn-sm btn-primary rounded-full details-btn" data-id="${visitor.id}">Details</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            tableBody.addEventListener('click', async (e) => {
+                const button = e.target.closest('.details-btn');
+                if (button) {
+                    const visitorId = button.getAttribute('data-id');
+                    await openVisitorModal(visitorId);
+                }
+            });
+        } catch (error) {
+            console.error('Error loading visitor data:', error);
+            tableBody.innerHTML = '<tr><td colspan="9" class="no-data">Error loading data</td></tr>';
+        }
+    }
+
+    async function fetchVisitorById(visitorId, retries = 3) {
+        for (let attempt = 1; attempt <= retries; attempt++) {
+            try {
+                const response = await fetch(`http://192.168.3.73:3001/appointment/${visitorId}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch visitor: ${response.statusText}`);
+                }
+                const visitor = await response.json();
+                return visitor;
+            } catch (error) {
+                console.error(`Attempt ${attempt} failed to fetch visitor ${visitorId}:`, error);
+                if (attempt === retries) {
+                    errorMessage.textContent = `Failed to load visitor ${visitorId} details after multiple attempts. Please check server status.`;
+                    errorMessage.classList.remove('hidden');
+                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+                    return null;
+                }
+                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
+            }
+        }
+    }
+
+    function previewImage(input, previewId) {
+        const preview = document.getElementById(previewId);
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                console.log(`📸 Previewing new ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo`);
+            };
+            reader.onerror = () => {
+                preview.src = 'https://via.placeholder.com/150';
+                preview.classList.add('hidden');
+                console.error(`📸 Error loading ${previewId} photo`);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            console.log(`📸 No new ${previewId === 'mainPreview' ? 'visitor' : 'driver'} photo selected`);
+            preview.src = 'https://via.placeholder.com/150';
+            preview.classList.add('hidden');
+        }
+    }
+
+    async function openVisitorModal(visitorId) {
+        const visitor = await fetchVisitorById(visitorId);
+        if (!visitor) return;
+
+        originalVisitorData = { ...visitor };
+
+        const populateField = (id, value, defaultValue = '') => {
+            const element = document.getElementById(`edit-${id}`);
+            if (element) element.value = value ?? defaultValue;
+        };
+
+        populateField('firstname', visitor.firstname);
+        populateField('lastname', visitor.lastname);
+        populateField('gender', visitor.gender);
+        populateField('contactnumber', visitor.contactnumber);
+        populateField('email', visitor.email);
+        populateField('date', visitor.date);
+        populateField('time', visitor.time);
+        populateField('nationalid', visitor.nationalid);
+        populateField('visit', visitor.visit);
+        populateField('personname', visitor.personname);
+        populateField('department', visitor.department);
+        populateField('durationtime', visitor.durationtime);
+        populateField('durationUnit', visitor.durationunit);
+        populateField('visitortype', visitor.visitortype);
+        populateField('vehicletype', visitor.vehicletype);
+        populateField('vehiclenumber', visitor.vehiclenumber);
+        populateField('drivername', visitor.drivername);
+        populateField('drivermobile', visitor.drivermobile);
+        populateField('drivernationalid', visitor.drivernationalid);
+        populateField('notes', visitor.notes);
+
+        const setPhotoPreview = async (previewId, path, visitorId, type) => {
+            const preview = document.getElementById(previewId);
+            if (!preview) return;
+
+            preview.classList.remove('hidden');
+
+            if (path && path.trim() !== '') {
+                try {
+                    const photoUrl = `http://192.168.3.73:3001/appointment/${visitorId}/photo?type=${type}`;
+                    const response = await fetch(photoUrl, { method: 'GET', mode: 'cors' });
+                    if (!response.ok) throw new Error('Photo fetch failed');
+                    const blob = await response.blob();
+                    const reader = new FileReader();
+                    reader.onloadend = () => preview.src = reader.result;
+                    reader.readAsDataURL(blob);
+                } catch (error) {
+                    preview.src = 'https://via.placeholder.com/150';
+                    console.error(`📸 Failed to fetch ${previewId} photo:`, error);
+                }
+            } else {
+                preview.src = 'https://via.placeholder.com/150';
+            }
+        };
+
+        await setPhotoPreview('mainPreview', visitor.photo, visitorId, 'photo');
+        await setPhotoPreview('driverPreview', visitor.driverphoto, visitorId, 'driverphoto');
+
+        document.getElementById('visitorForm').setAttribute('data-id', visitorId);
+        document.getElementById('visitorModal').style.display = 'block';
+    }
+
+    document.getElementById('visitorForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const visitorId = e.target.getAttribute('data-id');
+
+        if (!originalVisitorData) {
+            errorMessage.textContent = 'Original data not loaded.';
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+            return;
+        }
+
+        const requiredFields = ['firstname', 'gender', 'email', 'date', 'time', 'nationalid', 'visit', 'personname', 'department', 'durationtime', 'visitortype'];
+        const missingFields = requiredFields.filter(field => !document.getElementById(`edit-${field}`).value.trim());
+        if (missingFields.length > 0) {
+            errorMessage.textContent = `Please fill in: ${missingFields.join(', ')}`;
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+            return;
+        }
+
+        const changedData = {};
+        const fields = ['firstname', 'lastname', 'gender', 'contactnumber', 'email', 'date', 'time', 'nationalid', 'visit', 'personname', 'department', 'durationtime', 'durationUnit', 'visitortype', 'vehicletype', 'vehiclenumber', 'drivername', 'drivermobile', 'drivernationalid', 'notes'];
+        fields.forEach(field => {
+            const currentValue = document.getElementById(`edit-${field}`).value;
+            if (currentValue !== originalVisitorData[field]) changedData[field] = currentValue;
+        });
+
+        const photoFile = document.getElementById('edit-photo').files[0];
+        const driverPhotoFile = document.getElementById('edit-driverphoto').files[0];
+        if (photoFile) changedData.photo = photoFile;
+        if (driverPhotoFile) changedData.driverphoto = driverPhotoFile;
+
+        if (Object.keys(changedData).length === 0) {
+            errorMessage.textContent = 'No changes detected.';
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+            return;
+        }
+
+        const hasDriverDetails = ['drivername', 'drivermobile', 'drivernationalid'].some(field => changedData[field] || originalVisitorData[field]);
+        if (hasDriverDetails && !changedData.driverphoto && !originalVisitorData.driverphoto) {
+            errorMessage.textContent = 'Driver photo is required.';
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+            return;
+        }
+
+        let body = new FormData();
+        Object.entries(changedData).forEach(([key, value]) => {
+            if (key === 'photo' || key === 'driverphoto') {
+                body.append(key, value instanceof File ? value : '');
+            } else {
+                body.append(key, value || '');
+            }
+        });
+
+        async function attemptUpdate(attempt = 1, maxAttempts = 3) {
+            try {
+                const response = await fetch(`http://192.168.3.73:3001/appointment/${visitorId}`, {
+                    method: 'PUT',
+                    body,
+                });
+
+                if (!response.ok) throw new Error('Update failed');
+                await response.json();
+                closeModal();
+                await loadVisitorData();
+                return true;
+            } catch (error) {
+                if (attempt === maxAttempts) {
+                    errorMessage.textContent = 'Failed to update: ' + error.message;
+                    errorMessage.classList.remove('hidden');
+                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+                    return false;
+                }
+                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
+                return await attemptUpdate(attempt + 1);
+            }
+        }
+
+        await attemptUpdate();
+    });
+
+    document.getElementById('approveGatepass').addEventListener('click', async () => {
+        const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
+        async function attemptApprove(attempt = 1, maxAttempts = 3) {
+            try {
+                const response = await fetch(`http://192.168.3.73:3001/appointment/${visitorId}/gatepass`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ gatepassApproved: true }),
+                });
+
+                if (!response.ok) throw new Error('Approval failed');
+                const data = await response.json();
+                const row = document.querySelector(`tr[data-id="${visitorId}"]`);
+                if (row) {
+                    row.querySelector('.gatepass-approve').checked = data.gatepassApproved;
+                }
+                alert('Gatepass approved.');
+                closeModal();
+                await loadVisitorData();
+                return true;
+            } catch (error) {
+                if (attempt === maxAttempts) {
+                    errorMessage.textContent = 'Failed to approve: ' + error.message;
+                    errorMessage.classList.remove('hidden');
+                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+                    return false;
+                }
+                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
+                return await attemptApprove(attempt + 1);
+            }
+        }
+        await attemptApprove();
+    });
+
+    document.getElementById('disapproveGatepass').addEventListener('click', async () => {
+        const visitorId = document.getElementById('visitorForm').getAttribute('data-id');
+        async function attemptDisapprove(attempt = 1, maxAttempts = 3) {
+            try {
+                const response = await fetch(`http://192.168.3.73:3001/appointment/${visitorId}/gatepass`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ gatepassApproved: false }),
+                });
+
+                if (!response.ok) throw new Error('Disapproval failed');
+                const data = await response.json();
+                const row = document.querySelector(`tr[data-id="${visitorId}"]`);
+                if (row) {
+                    row.querySelector('.gatepass-approve').checked = data.gatepassApproved;
+                }
+                alert('Gatepass disapproved.');
+                closeModal();
+                await loadVisitorData();
+                return true;
+            } catch (error) {
+                if (attempt === maxAttempts) {
+                    errorMessage.textContent = 'Failed to disapprove: ' + error.message;
+                    errorMessage.classList.remove('hidden');
+                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+                    return false;
+                }
+                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
+                return await attemptDisapprove(attempt + 1);
+            }
+        }
+        await attemptDisapprove();
+    });
+
+    function closeModal() {
+        document.getElementById('visitorModal').style.display = 'none';
+        errorMessage.classList.add('hidden');
+        originalVisitorData = null;
+    }
+
+    document.querySelector('.modal .close')?.addEventListener('click', closeModal);
+
+    // window.previewImage = previewImage;
+    window.toggleDriverDetails = function() {
+        const driverDetails = document.getElementById('driverDetails');
+        const driverToggle = document.getElementById('edit-driverToggle');
+        if (driverDetails && driverToggle) {
+            driverDetails.classList.toggle('hidden', !driverToggle.checked);
+        }
+    };
+    // window.showModal = function(inputId) {
+    //     document.getElementById(inputId).click();
+    // };
+
+    loadVisitorData();
+});
+        </script>
     
     <script src="assets/js/alpine-collaspe.min.js"></script>
     <script src="assets/js/alpine-persist.min.js"></script>
