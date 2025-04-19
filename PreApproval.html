@@ -2446,12 +2446,6 @@
             <!-- end footer section -->
         </div>
     </div>
-
-    <script src="assets/js/alpine-collaspe.min.js"></script>
-    <script src="assets/js/alpine-persist.min.js"></script>
-    <script defer src="assets/js/alpine-ui.min.js"></script>
-    <script defer src="assets/js/alpine-focus.min.js"></script>
-    <script defer src="assets/js/alpine.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('appointmentForm');
@@ -2467,7 +2461,14 @@
                 if (loading) return;
         
                 loading = true;
-                submitBtn.textContent = 'Creating...';
+                submitBtn.innerHTML = `
+        <svg style="width: 20px; height: 20px; color: #4361ee; display: inline-block; margin-right: 8px; animation: spin 1s linear infinite;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle style="opacity: 0.25;" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path style="opacity: 0.75;" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+        </svg>
+        Creating..
+        `;
+        
                 submitBtn.disabled = true;
         
                 const formData = new FormData();
@@ -2527,7 +2528,10 @@
                         throw new Error(result.message || 'Failed to create appointment.');
                     }
         
-                    showMessage('Appointment created successfully!');
+                    // Store success message in localStorage
+                    localStorage.setItem('appointmentSuccessMessage', 'Appointment created successfully!');
+                    // Navigate to PreApprovalEntry.html
+                    window.location.href = 'PreApprovalEntry.html';
                     form.reset();
                 } catch (error) {
                     errorMessage.textContent = error.message;
@@ -2538,17 +2542,15 @@
                     submitBtn.disabled = false;
                 }
             });
-        
-            function showMessage(message) {
-                const msgDiv = document.createElement('div');
-                msgDiv.className = 'text-green-500 text-xs mt-2';
-                msgDiv.textContent = message;
-                form.appendChild(msgDiv);
-                setTimeout(() => msgDiv.remove(), 3000);
-            }
         });
         </script>
         
+    <script src="assets/js/alpine-collaspe.min.js"></script>
+    <script src="assets/js/alpine-persist.min.js"></script>
+    <script defer src="assets/js/alpine-ui.min.js"></script>
+    <script defer src="assets/js/alpine-focus.min.js"></script>
+    <script defer src="assets/js/alpine.min.js"></script>
+
     <script src="assets/js/custom.js"></script>
     <script>
         document.addEventListener('alpine:init', () => {

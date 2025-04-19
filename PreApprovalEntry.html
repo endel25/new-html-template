@@ -257,26 +257,49 @@
  
         .modal-content1 button {
             margin: 10px;
-            padding: 10px 20px;
+            padding: 5px 10px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
  
         .modal-content1 .gallery-btn {
+            color: #4361ee;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            outline: 1px solid #4361ee; /* Added outline */
+                   /* Optional: adds space between button edge and outline */
+        }
+        .modal-content1 .gallery-btn:hover {
             background-color: #4361ee;
-            color: white;
+            color: #fff;
         }
  
         .modal-content1 .camera-btn {
-            background-color: #28a745;
-            color: white;
+            color: #16a34a;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            outline: 1px solid #16a34a;
+        }
+        .modal-content1 .camera-btn:hover {
+            background-color: #16a34a;
+            color: #fff;
         }
  
         .modal-content1 .close-btn {
-            background-color: #dc3545;
-            color: white;
+            color: #dc3545;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            outline: 1px solid #dc3545
         }
+        .modal-content1 .close-btn:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
  
         .close {
             color: #aaa;
@@ -466,6 +489,17 @@
  
         .cancel-icon:hover {
             color: #333;
+        }
+
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 
@@ -2364,12 +2398,12 @@
                                 </div>
                             </div>
                             <div class="button-group">
-                                <button type="submit" class="btn btn-sm btn-primary rounded-full">Save Details</button>
+                                <button type="submit" class="btn btn-outline-primary btn-sm rounded-full !mt-6" id="save-details">Save Details</button>
                                 <button type="button" id="approveGatepass"
-                                    class="btn btn-sm btn-success rounded-full">Approve
+                                    class="btn btn-outline-success btn-sm rounded-full !mt-6">Approve
                                     Gatepass</button>
                                 <button type="button" id="disapproveGatepass"
-                                    class="btn btn-sm btn-danger rounded-full">Disapprove
+                                    class="btn btn-outline-danger btn-sm rounded-full !mt-6">Disapprove
                                     Gatepass</button>
                             </div>
                         </form>
@@ -2403,6 +2437,37 @@
     
      
      <script>
+
+
+
+
+// Toast message function
+const showMessage = (msg = 'Example notification text.', type = 'success', position = 'top-right', showCloseButton = true, duration = 2000) => {
+            const toast = window.Swal.mixin({
+                toast: true,
+                position: position,
+                showConfirmButton: false,
+                timer: duration,
+                showCloseButton: showCloseButton,
+                padding: '10px 20px',
+            });
+
+            toast.fire({
+                icon: type,
+                title: msg,
+            });
+        };
+
+        // Check for message from previous page
+        document.addEventListener('DOMContentLoaded', () => {
+            const message = localStorage.getItem('appointmentSuccessMessage');
+            if (message) {
+                showMessage(message);
+                localStorage.removeItem('appointmentSuccessMessage');
+            }
+        });
+
+
 
 let currentFileInputId = '';
       
@@ -2744,29 +2809,52 @@ let currentFileInputId = '';
         });
 
         async function attemptUpdate(attempt = 1, maxAttempts = 3) {
-            try {
-                const response = await fetch(`http://192.168.3.73:3001/appointment/${visitorId}`, {
-                    method: 'PUT',
-                    body,
-                });
+    const submitBtn = document.querySelector('#save-details'); // Select the Save Details button
+    const originalBtnContent = submitBtn.innerHTML; // Store original button content
 
-                if (!response.ok) throw new Error('Update failed');
-                await response.json();
-                closeModal();
-                await loadVisitorData();
-                return true;
-            } catch (error) {
-                if (attempt === maxAttempts) {
-                    errorMessage.textContent = 'Failed to update: ' + error.message;
-                    errorMessage.classList.remove('hidden');
-                    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                    return false;
-                }
-                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
-                return await attemptUpdate(attempt + 1);
-            }
+    // Disable button and show loader
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+        <svg style="width: 20px; height: 20px; color: #4361ee; display: inline-block; margin-right: 8px; animation: spin 1s linear infinite;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle style="opacity: 0.25;" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path style="opacity: 0.75;" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+        </svg>
+        Saving...
+    `;
+
+    try {
+        const response = await fetch(`http://192.168.3.73:3001/appointment/${visitorId}`, {
+            method: 'PUT',
+            body,
+        });
+
+        if (!response.ok) throw new Error('Update failed');
+        await response.json();
+        closeModal(); // Assuming this is defined somewhere to close the visitor modal
+        await loadVisitorData();
+        showMessage('Appointment Details saved successfully!', 'success');
+
+        // Restore button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnContent;
+        return true;
+    } catch (error) {
+        console.error(`Attempt ${attempt} failed:`, error);
+        if (attempt < maxAttempts) {
+            await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
+            return attemptUpdate(attempt + 1, maxAttempts);
+        } else {
+            errorMessage.textContent = 'Failed to update visitor. Please try again later.';
+            errorMessage.classList.remove('hidden');
+            setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+
+            // Restore button state on failure
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnContent;
+            return false;
         }
-
+    }
+}
         await attemptUpdate();
     });
 
@@ -2786,7 +2874,7 @@ let currentFileInputId = '';
                 if (row) {
                     row.querySelector('.gatepass-approve').checked = data.gatepassApproved;
                 }
-                alert('Gatepass approved.');
+                showMessage('Gatepass Approved successfully!', 'success');
                 closeModal();
                 await loadVisitorData();
                 return true;
@@ -2820,7 +2908,7 @@ let currentFileInputId = '';
                 if (row) {
                     row.querySelector('.gatepass-approve').checked = data.gatepassApproved;
                 }
-                alert('Gatepass disapproved.');
+                showMessage('Gatepass disapproved successfully!', 'success');
                 closeModal();
                 await loadVisitorData();
                 return true;
@@ -2838,10 +2926,18 @@ let currentFileInputId = '';
         await attemptDisapprove();
     });
 
+    // Modal close function
     function closeModal() {
         document.getElementById('visitorModal').style.display = 'none';
-        errorMessage.classList.add('hidden');
         originalVisitorData = null;
+        document.getElementById('visitorForm').reset();
+        ['mainPreview', 'driverPreview'].forEach(id => {
+            const img = document.getElementById(id);
+            if (img) {
+                img.src = 'https://via.placeholder.com/150';
+                img.classList.add('hidden');
+            }
+        });
     }
 
     document.querySelector('.modal .close')?.addEventListener('click', closeModal);
