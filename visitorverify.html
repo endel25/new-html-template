@@ -70,10 +70,12 @@
             border-color: #4361ee;
         }
 
+        /* Hide default file input */
         input[type="file"] {
             display: none;
         }
 
+        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -128,82 +130,86 @@
                     style="font-family: 'Nunito', sans-serif;">
                     Visitor Registration Form
                 </div>
-                <form class="flex-1 overflow-y-auto p-6 space-y-4 form-scroll" id="visitorForm" enctype="multipart/form-data">
+                <form id="visitorForm" class="flex-1 overflow-y-auto p-6 space-y-4 form-scroll">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="firstname" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">First Name</label>
                             <div class="form-group">
                                 <input type="text" id="firstname" name="firstname" placeholder="Enter first name"
-                                    class="w-full text-xs px-3 py-2 border rounded" disabled />
+                                    class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-firstname"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="lastname" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Last Name</label>
                             <div class="form-group">
                                 <input type="text" id="lastname" name="lastname" placeholder="Enter last name"
-                                    class="w-full text-xs px-3 py-2 border rounded" disabled />
+                                    class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-lastname"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="gender" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Gender</label>
                             <div class="form-group">
-                                <select id="gender" name="gender" class="w-full text-xs px-3 py-2 border rounded" disabled>
+                                <select id="gender" name="gender" class="w-full text-xs px-3 py-2 border rounded">
                                     <option value="">Select gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
                                 </select>
                                 <span class="error text-xs text-red-500" id="error-gender"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
-                            <label for="contactnumber" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Contact Number</label>
+                            <label for="contactnumber" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Contact
+                                Number</label>
                             <div class="form-group">
-                                <input type="text" id="contactnumber" name="contactnumber" placeholder="Enter contact number"
-                                    class="w-full text-xs px-3 py-2 border rounded" disabled />
+                                <input type="text" id="contactnumber" name="contactnumber"
+                                    placeholder="Enter contact number"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-contactnumber"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="email" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Email Address</label>
                             <div class="form-group">
                                 <input type="email" id="email" name="email" placeholder="Enter email address"
-                                    class="w-full text-xs px-3 py-2 border rounded" disabled />
+                                    class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-email"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="date" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Date</label>
                             <div class="form-group">
-                                <input type="date" id="date" name="date" class="w-full text-xs px-3 py-2 border rounded" disabled />
+                                <input type="date" id="date" name="date"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-date"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="time" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Time</label>
                             <div class="form-group">
-                                <input type="time" id="time" name="time" class="w-full text-xs px-3 py-2 border rounded" disabled />
+                                <input type="time" id="time" name="time"
+                                    class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-time"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="nationalid" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">National ID</label>
                             <div class="form-group">
-                                <input type="text" id="nationalid" name="nationalid" placeholder="Enter national ID"
-                                    class="w-full text-xs px-3 py-2 border rounded" />
-                                <span class="error text-xs text-red-500" id="error-nationalid"></span>
+                              <input type="text" id="nationalid" name="nationalid" placeholder="Enter national ID"
+                                class="w-full text-xs px-3 py-2 border rounded" />
+                              <span class="error text-xs text-red-500" id="error-nationalid"></span>
                             </div>
-                        </div>
-            
+                          </div>
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="photo" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Photo</label>
                             <div class="form-group">
@@ -217,7 +223,7 @@
                                 </div>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="visit" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Purpose of Visit</label>
                             <div class="form-group">
@@ -226,48 +232,62 @@
                                 <span class="error text-xs text-red-500" id="error-visit"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="personname" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Person Name</label>
                             <div class="form-group">
-                                <input type="text" id="personname" name="personname" placeholder="Enter name of person to meet"
+                                <input type="text" id="personname" name="personname"
+                                    placeholder="Enter name of person to meet"
                                     class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-personname"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
                             <label for="department" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Department</label>
                             <div class="form-group">
-                                <input type="text" id="department" name="department" placeholder="Enter the visiting department"
+                                <input type="text" id="department" name="department"
+                                    placeholder="Enter the visiting department"
                                     class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-department"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center max-w-md w-full">
-                            <label for="durationtime" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium w-32">Expected Duration</label>
+                            <label for="durationtime" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium w-32">
+                                Expected Duration
+                            </label>
                             <div class="form-group flex sm:flex-row flex-col sm:space-x-2 space-y-2 sm:space-y-0 w-full">
+                                <!-- Duration Unit Select -->
                                 <div class="w-full sm:w-1/3">
-                                    <select id="durationunit" name="durationunit" class="w-full text-xs px-3 py-2 border rounded">
+                                    <select id="durationUnit" name="durationUnit"
+                                        class="w-full text-xs px-3 py-2 border rounded">
                                         <option value="">Select unit</option>
                                         <option value="Hours">Hours</option>
                                         <option value="Minutes">Minutes</option>
                                         <option value="Days">Days</option>
                                     </select>
                                 </div>
+                        
+                                <!-- Duration Time Input -->
                                 <div class="w-full sm:w-2/3">
-                                    <input type="number" id="durationtime" name="durationtime" placeholder="Enter expected duration"
+                                    <input type="number" id="durationtime" name="durationtime"
+                                        placeholder="Enter expected duration"
                                         class="w-full text-xs px-3 py-2 border rounded" min="1" />
+                                    <!-- Correctly positioned error message -->
                                     <span class="error text-xs text-red-500 mt-1 block" id="error-durationtime"></span>
                                 </div>
                             </div>
-                        </div>
-            
+                        </div>                          
+
+
+
                         <div class="flex sm:flex-row flex-col items-center">
-                            <label for="visitortype" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Visitor Type</label>
+                            <label for="visitortype" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Visitor
+                                Type</label>
                             <div class="form-group">
-                                <select id="visitortype" name="visitortype" class="w-full text-xs px-3 py-2 border rounded">
+                                <select id="visitortype" name="visitortype"
+                                    class="w-full text-xs px-3 py-2 border rounded">
                                     <option value="">Select visitor type</option>
                                     <option>Vendor</option>
                                     <option>Client</option>
@@ -277,35 +297,39 @@
                                 <span class="error text-xs text-red-500" id="error-visitortype"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
-                            <label for="vehicletype" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Vehicle Type</label>
+                            <label for="vehicletype" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Vehicle
+                                Type</label>
                             <div class="form-group">
                                 <input type="text" id="vehicletype" name="vehicletype" placeholder="Enter vehicle type"
                                     class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-vehicletype"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center">
-                            <label for="vehiclenumber" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Vehicle Number</label>
+                            <label for="vehiclenumber" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Vehicle
+                                Number</label>
                             <div class="form-group">
-                                <input type="text" id="vehiclenumber" name="vehiclenumber" placeholder="Enter vehicle number"
+                                <input type="text" id="vehiclenumber" name="vehiclenumber"
+                                    placeholder="Enter vehicle number"
                                     class="w-full text-xs px-3 py-2 border rounded" />
                                 <span class="error text-xs text-red-500" id="error-vehiclenumber"></span>
                             </div>
                         </div>
-            
+
                         <div class="flex sm:flex-row flex-col items-center sm:col-span-2">
                             <label class="sm:mr-2 text-sm font-medium">Include Driver?</label>
                             <input type="checkbox" id="driverToggle" onchange="toggleDriverDetails()" />
                         </div>
                     </div>
-            
+
                     <div id="driverDetails" class="hidden mt-4 space-y-4 border-t pt-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="flex sm:flex-row flex-col items-center">
-                                <label for="drivername" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver Name</label>
+                                <label for="drivername" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver
+                                    Name</label>
                                 <div class="form-group">
                                     <input type="text" id="drivername" name="drivername" placeholder="Enter driver name"
                                         class="w-full text-xs px-3 py-2 border rounded" />
@@ -313,25 +337,31 @@
                                 </div>
                             </div>
                             <div class="flex sm:flex-row flex-col items-center">
-                                <label for="drivermobile" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver Mobile</label>
+                                <label for="drivermobile" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver
+                                    Mobile</label>
                                 <div class="form-group">
-                                    <input type="text" id="drivermobile" name="drivermobile" placeholder="Enter driver mobile"
+                                    <input type="text" id="drivermobile" name="drivermobile"
+                                        placeholder="Enter driver mobile"
                                         class="w-full text-xs px-3 py-2 border rounded" />
                                     <span class="error text-xs text-red-500" id="error-drivermobile"></span>
                                 </div>
                             </div>
                             <div class="flex sm:flex-row flex-col items-center">
-                                <label for="drivernationalid" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver National ID</label>
+                                <label for="drivernationalid" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver
+                                    National ID</label>
                                 <div class="form-group">
                                     <input type="text" id="drivernationalid" name="drivernationalid"
-                                        placeholder="Enter driver national ID" class="w-full text-xs px-3 py-2 border rounded" />
+                                        placeholder="Enter driver national ID"
+                                        class="w-full text-xs px-3 py-2 border rounded" />
                                     <span class="error text-xs text-red-500" id="error-drivernationalid"></span>
                                 </div>
                             </div>
                             <div class="flex sm:flex-row flex-col items-center">
-                                <label for="driverphoto" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver Photo</label>
+                                <label for="driverphoto" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Driver
+                                    Photo</label>
                                 <div class="form-group">
-                                    <input type="file" id="driverphoto" name="driverphoto" accept="image/*" onchange="previewImage(this, 'driverPreview')" />
+                                    <input type="file" id="driverphoto" name="driverphoto" accept="image/*"
+                                        onchange="previewImage(this, 'driverPreview')" />
                                     <button type="button" class="w-full text-xs px-3 py-2 border rounded"
                                         onclick="showModal('driverphoto')">Choose Photo</button>
                                     <span class="error text-xs text-red-500" id="error-driverphoto"></span>
@@ -342,7 +372,7 @@
                             </div>
                         </div>
                     </div>
-            
+
                     <div class="flex sm:flex-row flex-col items-center">
                         <label for="notes" class="sm:mb-0 mb-1 sm:mr-2 text-sm font-medium">Notes</label>
                         <div class="form-group">
@@ -351,15 +381,16 @@
                             <span class="error text-xs text-red-500" id="error-notes"></span>
                         </div>
                     </div>
-            
+
                     <div class="flex justify-end mt-6">
                         <button type="submit" id="submitBtn" class="btn-outline-primary rounded-full text-sm">Submit</button>
-                    </div>
+                      </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- Modal for Gallery/Camera selection -->
     <div id="photoModal" class="modal">
         <div class="modal-content">
             <h3>Select Photo Source</h3>
@@ -369,570 +400,50 @@
         </div>
     </div>
 
+    <!-- Hidden video element for camera preview -->
     <video id="cameraPreview" style="display: none;"></video>
     <canvas id="cameraCanvas" style="display: none;"></canvas>
 
-    <!-- <script>
-        let currentFileInputId = '';
 
-        function showModal(fileInputId) {
-            currentFileInputId = fileInputId;
-            document.getElementById('photoModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('photoModal').style.display = 'none';
-            stopCamera();
-        }
-
-        function openGallery() {
-            const fileInput = document.getElementById(currentFileInputId);
-            fileInput.removeAttribute('capture');
-            fileInput.click();
-            closeModal();
-        }
-
-        function openCamera() {
-            const fileInput = document.getElementById(currentFileInputId);
-            fileInput.setAttribute('capture', 'environment');
-            fileInput.click();
-            closeModal();
-        }
-
-        function startCamera(fileInput) {
-            const video = document.getElementById('cameraPreview');
-            const canvas = document.getElementById('cameraCanvas');
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-                .then(stream => {
-                    video.srcObject = stream;
-                    video.style.display = 'block';
-                    video.play();
-                    const captureBtn = document.createElement('button');
-                    captureBtn.textContent = 'Capture Photo';
-                    captureBtn.className = 'btn-outline-primary';
-                    captureBtn.onclick = () => {
-                        canvas.width = video.videoWidth;
-                        canvas.height = video.videoHeight;
-                        canvas.getContext('2d').drawImage(video, 0, 0);
-                        canvas.toBlob(blob => {
-                            const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' });
-                            const dataTransfer = new DataTransfer();
-                            dataTransfer.items.add(file);
-                            fileInput.files = dataTransfer.files;
-                            fileInput.dispatchEvent(new Event('change'));
-                            stopCamera();
-                        }, 'image/jpeg');
-                    };
-                    document.body.appendChild(captureBtn);
-                })
-                .catch(err => {
-                    console.error('Camera access denied:', err);
-                    showError('error-' + currentFileInputId, 'Unable to access camera');
-                });
-        }
-
-        function stopCamera() {
-            const video = document.getElementById('cameraPreview');
-            const stream = video.srcObject;
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-            video.style.display = 'none';
-            const captureBtn = document.querySelector('button[onclick*="capture"]');
-            if (captureBtn) captureBtn.remove();
-        }
-
-        function previewImage(input, id) {
-            const file = input.files[0];
-            const img = document.getElementById(id);
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    img.src = e.target.result;
-                    img.classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            } else {
-                img.classList.add('hidden');
-            }
-        }
-
-        function toggleDriverDetails() {
-            document.getElementById('driverDetails').classList.toggle('hidden');
-        }
-
-        function showError(id, msg) {
-            document.getElementById(id).innerText = msg;
-        }
-
-        function clearErrors() {
-            document.querySelectorAll(".error").forEach(el => el.innerText = '');
-        }
-
-        const validateField = (name, value, formData = {}) => {
-            let error = '';
-            const requiredFields = ['firstname', 'lastname', 'gender', 'contactnumber', 'email', 'date', 'time', 'nationalid', 'photo', 'visit', 'personname', 'department', 'durationtime', 'visitortype'];
-            if (requiredFields.includes(name) && !value && name !== 'photo') {
-                error = `${name.charAt(0).toUpperCase() + name.slice(1).replace(/([A-Z])/g, ' $1')} is required`;
-            } else if (name === 'photo' && !document.getElementById(name).files.length) {
-                error = 'Photo is required';
-            }
-            switch (name) {
-                case 'firstname':
-                case 'lastname':
-                    if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
-                        error = `${name === 'firstname' ? 'First' : 'Last'} name must be at least 2 characters and contain only letters`;
-                    }
-                    break;
-                case 'personname':
-                    if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
-                        error = 'Person name must be at least 2 characters and contain only letters';
-                    }
-                    break;
-                case 'drivername':
-                    if (value && !/^[a-zA-Z\s]{2,}$/.test(value)) {
-                        error = 'Driver name must be at least 2 characters and contain only letters';
-                    }
-                    break;
-                case 'contactnumber':
-                    if (value && !/^\d+$/.test(value)) {
-                        error = 'Phone number must contain only digits';
-                    }
-                    break;
-                case 'drivermobile':
-                    if (value && !/^\d+$/.test(value)) {
-                        error = 'Phone number must contain only digits';
-                    }
-                    break;
-                case 'nationalid':
-                    if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
-                        error = 'National ID must be at least 4 characters (letters and numbers allowed)';
-                    }
-                    break;
-                case 'drivernationalid':
-                    if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
-                        error = 'National ID must be at least 4 characters (letters and numbers allowed)';
-                    }
-                    break;
-                case 'email':
-                    if (value && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
-                        error = 'Please enter a valid email address';
-                    }
-                    break;
-                case 'gender':
-                    if (!value) {
-                        error = 'Please select a gender';
-                    }
-                    break;
-                case 'visitortype':
-                    if (!value) {
-                        error = 'Please select a visitor type';
-                    }
-                    break;
-                case 'time':
-                    if (value && formData.date) {
-                        const selectedDate = new Date(formData.date);
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        selectedDate.setHours(0, 0, 0, 0);
-                        if (selectedDate.getTime() === today.getTime()) {
-                            const [hours, minutes] = value.split(':').map(Number);
-                            const now = new Date();
-                            if (hours < now.getHours() || (hours === now.getHours() && minutes <= now.getMinutes())) {
-                                error = 'Allocation time cannot be in the past for today';
-                            }
-                        }
-                    }
-                    break;
-                case 'durationtime':
-                    if (value && !/^(\d{1,3}|[0-9]{1,2}:[0-5][0-9])$/.test(value)) {
-                        error = 'Duration must be in minutes (e.g. 90) or HH:MM format (e.g. 01:30)';
-                    }
-                    break;
-                case 'date':
-                    if (value) {
-                        const selectedDate = new Date(value);
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        if (selectedDate < today) {
-                            error = 'Date must be today or later';
-                        }
-                    }
-                    break;
-            }
-            return error;
-        };
-
-        const attachLiveValidation = () => {
-            document.querySelectorAll("input, select, textarea").forEach(input => {
-                input.addEventListener("input", () => {
-                    const formData = {
-                        date: document.getElementById("date").value,
-                        time: document.getElementById("time").value
-                    };
-                    const error = validateField(input.id, input.value, formData);
-                    const errorId = "error-" + input.id;
-                    showError(errorId, error);
-                });
-            });
-        };
-
-        document.addEventListener("DOMContentLoaded", attachLiveValidation);
-
-        document.querySelector("form").addEventListener("submit", function (e) {
-            clearErrors();
-            let valid = true;
-
-            const get = id => document.getElementById(id).value.trim();
-
-            const fieldsToValidate = [
-                "firstname", "lastname", "gender", "contactnumber", "email",
-                "date", "time", "nationalid", "photo", "visit", "personname",
-                "department", "durationtime", "visitortype", "vehicletype",
-                "vehiclenumber", "drivername", "drivermobile", "drivernationalid", "driverphoto"
-            ];
-
-            const formData = {
-                date: get("date"),
-                time: get("time")
-            };
-
-            fieldsToValidate.forEach(id => {
-                const value = get(id);
-                const errorMsg = validateField(id, value, formData);
-                if (errorMsg) {
-                    showError("error-" + id, errorMsg);
-                    valid = false;
-                }
-            });
-
-            const photo = document.getElementById("photo").files[0];
-            if (!photo || !/\.(jpg|jpeg|png)$/i.test(photo.name)) {
-                showError("error-photo", "Upload .jpg/.png image");
-                valid = false;
-            }
-
-            const vehType = get("vehicletype");
-            const vehNum = get("vehiclenumber");
-            if (vehType && !/^.{2,20}$/.test(vehType)) {
-                showError("error-vehicletype", "Enter valid vehicle type");
-                valid = false;
-            }
-            if (vehType && !/^[A-Za-z0-9]{6,12}$/.test(vehNum)) {
-                showError("error-vehiclenumber", "Enter valid vehicle number");
-                valid = false;
-            }
-
-            if (document.getElementById("driverToggle").checked) {
-                const dName = get("drivername");
-                const dMob = get("drivermobile");
-                const dNid = get("drivernationalid");
-                const dPhoto = document.getElementById("driverphoto").files[0];
-
-                if (!/^[A-Za-z\s]{2,50}$/.test(dName)) {
-                    showError("error-drivername", "Enter valid driver name");
-                    valid = false;
-                }
-                if (!/^\d{5,15}$/.test(dMob)) {
-                    showError("error-drivermobile", "Enter valid mobile");
-                    valid = false;
-                }
-                if (!/^[a-zA-Z0-9]{4,}$/.test(dNid)) {
-                    showError("error-drivernationalid", "Enter valid ID");
-                    valid = false;
-                }
-                if (!dPhoto || !/\.(jpg|jpeg|png)$/i.test(dPhoto.name)) {
-                    showError("error-driverphoto", "Upload driver image");
-                    valid = false;
-                }
-            }
-
-            const notes = get("notes");
-            if (notes.length > 500 || /<script/i.test(notes)) {
-                showError("error-notes", "Invalid notes content");
-                valid = false;
-            }
-
-            if (!valid) e.preventDefault();
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const fields = ['firstname', 'lastname', 'gender', 'contactnumber', 'email', 'date', 'time'];
-
-            // Log raw and cleaned query parameters
-            const rawParams = Object.fromEntries(urlParams);
-            console.log('🔍 Raw Query Parameters:', rawParams);
-            const cleanedParams = {};
-            fields.forEach(field => {
-                let value = urlParams.get(field) || '';
-                // Remove leading commas and decode
-                value = decodeURIComponent(value.replace(/^,+/, ''));
-                cleanedParams[field] = value;
-            });
-            console.log('🧼 Cleaned Query Parameters:', cleanedParams);
-
-            // Check form completion status
-            async function checkFormStatus(email, date, time) {
-                try {
-                    const response = await fetch(`http://192.168.3.75:3001/appointment/check-status?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`, {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/json' },
-                    });
-                    if (!response.ok) {
-                        throw new Error(`Failed to check form status: ${response.statusText}`);
-                    }
-                    const { isFormCompleted } = await response.json();
-                    console.log(`📋 Form completion status: ${isFormCompleted}`);
-                    return isFormCompleted;
-                } catch (error) {
-                    console.error('Error checking form status:', error);
-                    return false; // Allow form access if check fails
-                }
-            }
-
-            // Initialize form
-            async function initializeForm() {
-                const email = cleanedParams.email;
-                const date = cleanedParams.date;
-                const time = cleanedParams.time;
-
-                // Check if form is already completed
-                if (email && date && time) {
-                    const isFormCompleted = await checkFormStatus(email, date, time);
-                    if (isFormCompleted) {
-                        // Hide form and show message
-                        const formContainer = document.querySelector('.absolute.top-1\\/2');
-                        formContainer.innerHTML = `
-                            <div class="w-full max-w-5xl bg-white rounded-lg shadow-md p-6 text-center">
-                                <h2 class="text-xl font-semibold mb-4" style="font-family: 'Nunito', sans-serif;">Form Already Submitted</h2>
-                                <p class="text-sm text-gray-600">You have submitted form already.</p>
-                            </div>
-                        `;
-                        return;
-                    }
-                }
-
-                // Populate form fields
-                fields.forEach(field => {
-                    const input = document.getElementById(field);
-                    let value = cleanedParams[field];
-                    if (value) {
-                        if (field === 'time') {
-                            // Ensure time is HH:mm
-                            value = value.split(':').slice(0, 2).join(':');
-                            // Validate time format (e.g., "17:31")
-                            if (!/^\d{2}:\d{2}$/.test(value)) {
-                                console.warn(`⚠️ Invalid time format for ${field}: ${value}`);
-                                value = '';
-                            }
-                        }
-                        if (field === 'gender') {
-                            // Normalize gender
-                            value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
-                            if (!['Male', 'Female', 'Other'].includes(value)) {
-                                console.warn(`⚠️ Invalid gender value: ${value}`);
-                                value = '';
-                            }
-                        }
-                        input.value = value;
-                        input.disabled = true;
-                        console.log(`✅ Set ${field} to ${value}`);
-                    } else {
-                        console.log(`⚠️ No valid value for ${field}`);
-                    }
-                });
-
-                const form = document.getElementById('visitorForm');
-                const submitBtn = document.getElementById('submitBtn');
-                const errorMessage = document.createElement('div');
-                errorMessage.className = 'text-red-500 text-xs mt-2 hidden';
-                form.appendChild(errorMessage);
-
-                let formData = {
-                    firstname: '',
-                    lastname: '',
-                    gender: '',
-                    contactnumber: '',
-                    email: '',
-                    date: '',
-                    time: '',
-                    nationalid: '',
-                    photo: null,
-                    visit: '',
-                    personname: '',
-                    department: '',
-                    durationtime: '',
-                    durationunit: '',
-                    visitortype: '',
-                    vehicletype: '',
-                    vehiclenumber: '',
-                    drivername: '',
-                    drivermobile: '',
-                    drivernationalid: '',
-                    driverphoto: null,
-                    notes: '',
-                };
-                let loading = false;
-
-                function toggleDriverDetails() {
-                    const driverDetails = document.getElementById('driverDetails');
-                    const driverToggle = document.getElementById('driverToggle');
-                    driverDetails.classList.toggle('hidden', !driverToggle.checked);
-                    if (!driverToggle.checked) {
-                        ['drivername', 'drivermobile', 'drivernationalid', 'driverphoto'].forEach(field => {
-                            formData[field] = field === 'driverphoto' ? null : '';
-                            const input = document.getElementById(field);
-                            if (input.type === 'file') input.value = '';
-                            else input.value = '';
-                        });
-                        document.getElementById('driverPreview').classList.add('hidden');
-                    }
-                }
-
-                function previewImage(input, previewId) {
-                    const preview = document.getElementById(previewId);
-                    const file = input.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                            preview.src = reader.result;
-                            preview.classList.remove('hidden');
-                        };
-                        reader.readAsDataURL(file);
-                        formData[input.name] = file;
-                    } else {
-                        preview.src = '';
-                        preview.classList.add('hidden');
-                        formData[input.name] = null;
-                    }
-                }
-
-                function showModal(field) {
-                    const input = document.getElementById(field);
-                    input.click();
-                }
-
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    if (loading) return;
-
-                    loading = true;
-                    submitBtn.textContent = 'Submitting...';
-                    submitBtn.disabled = true;
-
-                    const formattedData = new FormData();
-
-                    form.querySelectorAll('input:not([type="checkbox"]), select, textarea').forEach(input => {
-                        if (input.type === 'file' && input.files[0]) {
-                            formattedData.append(input.name, input.files[0]);
-                        } else if (!input.disabled) {
-                            formattedData.append(input.name, input.value || '');
-                        }
-                    });
-
-                    fields.forEach(field => {
-                        const input = document.getElementById(field);
-                        formattedData.append(field, input.value || '');
-                    });
-
-                    const driverFields = ['drivername', 'drivermobile', 'drivernationalid'];
-                    const hasDriverDetails = driverFields.some(field => {
-                        const value = formattedData.get(field);
-                        return value && value.trim() !== '';
-                    });
-                    const driverPhoto = formattedData.get('driverphoto');
-                    if (hasDriverDetails && !driverPhoto) {
-                        errorMessage.textContent = 'Driver photo is required when driver details are provided.';
-                        errorMessage.classList.remove('hidden');
-                        loading = false;
-                        submitBtn.textContent = 'Submit';
-                        submitBtn.disabled = false;
-                        return;
-                    }
-
-                    console.log('📤 Submitting FormData with fields:');
-                    for (const [key, value] of formattedData.entries()) {
-                        console.log(`  ${key}: ${value instanceof File ? value.name : value}`);
-                    }
-
-                    try {
-                        const response = await fetch('http://192.168.3.75:3001/appointment/create', {
-                            method: 'POST',
-                            body: formattedData,
-                        });
-
-                        if (!response.ok) {
-                            const errorData = await response.json();
-                            throw new Error(errorData.message || 'Failed to verify appointment. Please try again.');
-                        }
-
-                        const result = await response.json();
-                        showMessage('Appointment verified successfully!');
-                        const formContainer = document.querySelector('.absolute.top-1\\/2');
-                        formContainer.innerHTML = `
-                            <div class="w-full max-w-5xl bg-white rounded-lg shadow-md p-6 text-center">
-                                <h2 class="text-xl font-semibold mb-4" style="font-family: 'Nunito', sans-serif;">Submission Successful</h2>
-                                <p class="text-sm text-gray-600">Your visitor registration has been submitted successfully.</p>
-                            </div>
-                        `;
-                    } catch (error) {
-                        errorMessage.textContent = error.message;
-                        errorMessage.classList.remove('hidden');
-                    } finally {
-                        loading = false;
-                        submitBtn.textContent = 'Submit';
-                        submitBtn.disabled = false;
-                    }
-                });
-
-                function showMessage(message) {
-                    const msgDiv = document.createElement('div');
-                    msgDiv.className = 'text-green-500 text-xs mt-2';
-                    msgDiv.textContent = message;
-                    form.appendChild(msgDiv);
-                    setTimeout(() => msgDiv.remove(), 3000);
-                }
-
-                window.toggleDriverDetails = toggleDriverDetails;
-                window.previewImage = previewImage;
-                window.showModal = showModal;
-            }
-
-            initializeForm();
-        });
-    </script> -->
 
     <script>
+        // Visitor Form Logic
         let currentFileInputId = '';
       
         function showModal(fileInputId) {
           currentFileInputId = fileInputId;
-          document.getElementById('photoModal').style.display = 'flex';
+          const modal = document.getElementById('photoModal');
+          if (modal) modal.style.display = 'flex';
         }
       
         function closeModal() {
-          document.getElementById('photoModal').style.display = 'none';
+          const modal = document.getElementById('photoModal');
+          if (modal) modal.style.display = 'none';
           stopCamera();
         }
       
         function openGallery() {
           const fileInput = document.getElementById(currentFileInputId);
-          fileInput.removeAttribute('capture');
-          fileInput.click();
+          if (fileInput) {
+            fileInput.removeAttribute('capture');
+            fileInput.click();
+          }
           closeModal();
         }
       
         function openCamera() {
           const fileInput = document.getElementById(currentFileInputId);
-          fileInput.setAttribute('capture', 'environment');
-          fileInput.click();
+          if (fileInput) {
+            fileInput.setAttribute('capture', 'environment');
+            fileInput.click();
+          }
           closeModal();
         }
       
         function startCamera(fileInput) {
           const video = document.getElementById('cameraPreview');
           const canvas = document.getElementById('cameraCanvas');
+          if (!video || !canvas) return;
           navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
             .then(stream => {
               video.srcObject = stream;
@@ -964,11 +475,10 @@
       
         function stopCamera() {
           const video = document.getElementById('cameraPreview');
-          const stream = video.srcObject;
-          if (stream) {
-            stream.getTracks().forEach(track => track.stop());
+          if (video && video.srcObject) {
+            video.srcObject.getTracks().forEach(track => track.stop());
+            video.style.display = 'none';
           }
-          video.style.display = 'none';
           const captureBtn = document.querySelector('button[onclick*="capture"]');
           if (captureBtn) captureBtn.remove();
         }
@@ -976,36 +486,42 @@
         function previewImage(input, id) {
           const file = input.files[0];
           const img = document.getElementById(id);
-          if (file) {
+          if (file && img) {
             const reader = new FileReader();
             reader.onload = e => {
               img.src = e.target.result;
               img.classList.remove('hidden');
             };
             reader.readAsDataURL(file);
-          } else {
+          } else if (img) {
             img.classList.add('hidden');
           }
         }
       
         function toggleDriverDetails() {
-          document.getElementById('driverDetails').classList.toggle('hidden');
+          const driverDetails = document.getElementById('driverDetails');
+          if (driverDetails) driverDetails.classList.toggle('hidden');
         }
       
         function showError(id, msg) {
-          document.getElementById(id).innerText = msg;
+          const element = document.getElementById(id);
+          if (element) element.innerText = msg;
         }
       
         function clearErrors() {
-          document.querySelectorAll(".error").forEach(el => el.innerText = '');
+          document.querySelectorAll('.error').forEach(el => el.innerText = '');
         }
       
         const validateField = (name, value, formData = {}) => {
           let error = '';
-          const requiredFields = ['firstname', 'lastname', 'gender', 'contactnumber', 'email', 'date', 'time', 'nationalid', 'photo', 'visit', 'personname', 'department', 'durationtime', 'visitortype'];
+          const requiredFields = [
+            'firstname', 'lastname', 'gender', 'contactnumber', 'email',
+            'date', 'time', 'nationalid', 'photo', 'visit', 'personname',
+            'department', 'durationtime', 'visitortype'
+          ];
           if (requiredFields.includes(name) && !value && name !== 'photo') {
             error = `${name.charAt(0).toUpperCase() + name.slice(1).replace(/([A-Z])/g, ' $1')} is required`;
-          } else if (name === 'photo' && !document.getElementById(name).files.length) {
+          } else if (name === 'photo' && !document.getElementById(name)?.files.length) {
             error = 'Photo is required';
           }
           switch (name) {
@@ -1036,10 +552,6 @@
               }
               break;
             case 'nationalid':
-              if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
-                error = 'National ID must be at least 4 characters (letters and numbers allowed)';
-              }
-              break;
             case 'drivernationalid':
               if (value && !/^[a-zA-Z0-9]{4,}$/.test(value)) {
                 error = 'National ID must be at least 4 characters (letters and numbers allowed)';
@@ -1051,14 +563,10 @@
               }
               break;
             case 'gender':
-              if (!value) {
-                error = 'Please select a gender';
-              }
+              if (!value) error = 'Please select a gender';
               break;
             case 'visitortype':
-              if (!value) {
-                error = 'Please select a visitor type';
-              }
+              if (!value) error = 'Please select a visitor type';
               break;
             case 'time':
               if (value && formData.date) {
@@ -1076,8 +584,8 @@
               }
               break;
             case 'durationtime':
-              if (value && !/^(\d{1,3}|[0-9]{1,2}:[0-5][0-9])$/.test(value)) {
-                error = 'Duration must be in minutes (e.g. 90) or HH:MM format (e.g. 01:30)';
+              if (value && !/^\d+$/.test(value)) {
+                error = 'Duration must be a positive number';
               }
               break;
             case 'date':
@@ -1095,334 +603,351 @@
         };
       
         const attachLiveValidation = () => {
-          document.querySelectorAll("input, select, textarea").forEach(input => {
-            input.addEventListener("input", () => {
+          document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('input', () => {
               const formData = {
-                date: document.getElementById("date").value,
-                time: document.getElementById("time").value
+                date: document.getElementById('date')?.value,
+                time: document.getElementById('time')?.value
               };
               const error = validateField(input.id, input.value, formData);
-              const errorId = "error-" + input.id;
-              showError(errorId, error);
+              showError('error-' + input.id, error);
             });
           });
         };
       
-        document.addEventListener("DOMContentLoaded", attachLiveValidation);
-      
-        document.querySelector("form").addEventListener("submit", function (e) {
-          clearErrors();
-          let valid = true;
-      
-          const get = id => document.getElementById(id).value.trim();
-      
-          const fieldsToValidate = [
-            "firstname", "lastname", "gender", "contactnumber", "email",
-            "date", "time", "nationalid", "photo", "visit", "personname",
-            "department", "durationtime", "visitortype", "vehicletype",
-            "vehiclenumber", "drivername", "drivermobile", "drivernationalid", "driverphoto"
-          ];
-      
-          const formData = {
-            date: get("date"),
-            time: get("time")
-          };
-      
-          fieldsToValidate.forEach(id => {
-            const value = get(id);
-            const errorMsg = validateField(id, value, formData);
-            if (errorMsg) {
-              showError("error-" + id, errorMsg);
-              valid = false;
-            }
-          });
-      
-          const photo = document.getElementById("photo").files[0];
-          if (!photo || !/\.(jpg|jpeg|png)$/i.test(photo.name)) {
-            showError("error-photo", "Upload .jpg/.png image");
-            valid = false;
+        async function checkFormStatus(email, date, time) {
+          try {
+            const response = await fetch(
+              `http://192.168.3.75:3001/appointment/check-status?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`,
+              {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+              }
+            );
+            if (!response.ok) throw new Error(`Failed to check form status: ${response.statusText}`);
+            const { isFormCompleted } = await response.json();
+            return isFormCompleted;
+          } catch (error) {
+            console.error('Error checking form status:', error);
+            return false;
           }
+        }
       
-          const vehType = get("vehicletype");
-          const vehNum = get("vehiclenumber");
-          if (vehType && !/^.{2,20}$/.test(vehType)) {
-            showError("error-vehicletype", "Enter valid vehicle type");
-            valid = false;
-          }
-          if (vehType && !/^[A-Za-z0-9]{6,12}$/.test(vehNum)) {
-            showError("error-vehiclenumber", "Enter valid vehicle number");
-            valid = false;
-          }
-      
-          if (document.getElementById("driverToggle").checked) {
-            const dName = get("drivername");
-            const dMob = get("drivermobile");
-            const dNid = get("drivernationalid");
-            const dPhoto = document.getElementById("driverphoto").files[0];
-      
-            if (!/^[A-Za-z\s]{2,50}$/.test(dName)) {
-              showError("error-drivername", "Enter valid driver name");
-              valid = false;
-            }
-            if (!/^\d{5,15}$/.test(dMob)) {
-              showError("error-drivermobile", "Enter valid mobile");
-              valid = false;
-            }
-            if (!/^[a-zA-Z0-9]{4,}$/.test(dNid)) {
-              showError("error-drivernationalid", "Enter valid ID");
-              valid = false;
-            }
-            if (!dPhoto || !/\.(jpg|jpeg|png)$/i.test(dPhoto.name)) {
-              showError("error-driverphoto", "Upload driver image");
-              valid = false;
-            }
-          }
-      
-          const notes = get("notes");
-          if (notes.length > 500 || /<script/i.test(notes)) {
-            showError("error-notes", "Invalid notes content");
-            valid = false;
-          }
-      
-          if (!valid) e.preventDefault();
-        });
-      
-        document.addEventListener('DOMContentLoaded', () => {
+        async function initializeForm() {
           const urlParams = new URLSearchParams(window.location.search);
           const fields = ['firstname', 'lastname', 'gender', 'contactnumber', 'email', 'date', 'time'];
-      
-          const rawParams = Object.fromEntries(urlParams);
-          console.log('🔍 Raw Query Parameters:', rawParams);
           const cleanedParams = {};
           fields.forEach(field => {
             let value = urlParams.get(field) || '';
             value = decodeURIComponent(value.replace(/^,+/, ''));
             cleanedParams[field] = value;
           });
-          console.log('🧼 Cleaned Query Parameters:', cleanedParams);
       
-          async function checkFormStatus(email, date, time) {
-            try {
-              const response = await fetch(`http://192.168.3.75:3001/appointment/check-status?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-              });
-              if (!response.ok) {
-                throw new Error(`Failed to check form status: ${response.statusText}`);
-              }
-              const { isFormCompleted } = await response.json();
-              console.log(`📋 Form completion status: ${isFormCompleted}`);
-              return isFormCompleted;
-            } catch (error) {
-              console.error('Error checking form status:', error);
-              return false;
-            }
-          }
+          const email = cleanedParams.email;
+          const date = cleanedParams.date;
+          const time = cleanedParams.time;
       
-          async function initializeForm() {
-            const email = cleanedParams.email;
-            const date = cleanedParams.date;
-            const time = cleanedParams.time;
-      
-            if (email && date && time) {
-              const isFormCompleted = await checkFormStatus(email, date, time);
-              if (isFormCompleted) {
-                const formContainer = document.querySelector('.absolute.top-1/2');
+          if (email && date && time) {
+            const isFormCompleted = await checkFormStatus(email, date, time);
+            if (isFormCompleted) {
+              const formContainer = document.querySelector('.absolute.top-1/2');
+              if (formContainer) {
                 formContainer.innerHTML = `
                   <div class="w-full max-w-5xl bg-white rounded-lg shadow-md p-6 text-center">
                     <h2 class="text-xl font-semibold mb-4" style="font-family: 'Nunito', sans-serif;">Form Already Submitted</h2>
                     <p class="text-sm text-gray-600">You have submitted form already.</p>
                   </div>
                 `;
-                return;
               }
+              return;
             }
+          }
       
-            fields.forEach(field => {
-              const input = document.getElementById(field);
+          fields.forEach(field => {
+            const input = document.getElementById(field);
+            if (input) {
               let value = cleanedParams[field];
               if (value) {
                 if (field === 'time') {
                   value = value.split(':').slice(0, 2).join(':');
-                  if (!/^\d{2}:\d{2}$/.test(value)) {
-                    console.warn(`⚠️ Invalid time format for ${field}: ${value}`);
-                    value = '';
-                  }
+                  if (!/^\d{2}:\d{2}$/.test(value)) value = '';
                 }
                 if (field === 'gender') {
                   value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
-                  if (!['Male', 'Female', 'Other'].includes(value)) {
-                    console.warn(`⚠️ Invalid gender value: ${value}`);
-                    value = '';
-                  }
+                  if (!['Male', 'Female', 'Other'].includes(value)) value = '';
                 }
                 input.value = value;
                 input.disabled = true;
-                console.log(`✅ Set ${field} to ${value}`);
-              } else {
-                console.log(`⚠️ No valid value for ${field}`);
+              }
+            }
+          });
+      
+          const form = document.getElementById('visitorForm');
+          const submitBtn = document.getElementById('submitBtn');
+          if (!form || !submitBtn) return;
+    
+      
+          let loading = false;
+      
+          form.addEventListener('submit', async e => {
+            e.preventDefault();
+            if (loading) return;
+      
+            clearErrors();
+            let valid = true;
+      
+            const get = id => document.getElementById(id)?.value.trim() || '';
+            const fieldsToValidate = [
+              'firstname', 'lastname', 'gender', 'contactnumber', 'email',
+              'date', 'time', 'nationalid', 'photo', 'visit', 'personname',
+              'department', 'durationtime', 'visitortype', 'vehicletype',
+              'vehiclenumber', 'drivername', 'drivermobile', 'drivernationalid', 'driverphoto'
+            ];
+      
+            const formData = { date: get('date'), time: get('time') };
+      
+            fieldsToValidate.forEach(id => {
+              const value = id === 'photo' || id === 'driverphoto' ? document.getElementById(id)?.files[0] : get(id);
+              const errorMsg = validateField(id, value, formData);
+              if (errorMsg) {
+                showError('error-' + id, errorMsg);
+                valid = false;
               }
             });
       
-            const form = document.getElementById('visitorForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const errorMessage = document.createElement('div');
-            errorMessage.className = 'text-red-500 text-xs mt-2 hidden';
-            form.appendChild(errorMessage);
+            const photo = document.getElementById('photo')?.files[0];
+            if (!photo || !/\.(jpg|jpeg|png)$/i.test(photo.name)) {
+              showError('error-photo', 'Upload .jpg/.png image');
+              valid = false;
+            }
       
-            let formData = {
-              firstname: '',
-              lastname: '',
-              gender: '',
-              contactnumber: '',
-              email: '',
-              date: '',
-              time: '',
-              nationalid: '',
-              photo: null,
-              visit: '',
-              personname: '',
-              department: '',
-              durationtime: '',
-              durationunit: '',
-              visitortype: '',
-              vehicletype: '',
-              vehiclenumber: '',
-              drivername: '',
-              drivermobile: '',
-              drivernationalid: '',
-              driverphoto: null,
-              notes: '',
-            };
-            let loading = false;
+        
       
-            function toggleDriverDetails() {
-              const driverDetails = document.getElementById('driverDetails');
-              const driverToggle = document.getElementById('driverToggle');
-              driverDetails.classList.toggle('hidden', !driverToggle.checked);
-              if (!driverToggle.checked) {
-                ['drivername', 'drivermobile', 'drivernationalid', 'driverphoto'].forEach(field => {
-                  formData[field] = field === 'driverphoto' ? null : '';
-                  const input = document.getElementById(field);
-                  if (input.type === 'file') input.value = '';
-                  else input.value = '';
-                });
-                document.getElementById('driverPreview').classList.add('hidden');
+            const driverToggle = document.getElementById('driverToggle')?.checked;
+            if (driverToggle) {
+              const dName = get('drivername');
+              const dMob = get('drivermobile');
+              const dNid = get('drivernationalid');
+              const dPhoto = document.getElementById('driverphoto')?.files[0];
+      
+              if (!/^[A-Za-z\s]{2,50}$/.test(dName)) {
+                showError('error-drivername', 'Enter valid driver name');
+                valid = false;
+              }
+              if (!/^\d{5,15}$/.test(dMob)) {
+                showError('error-drivermobile', 'Enter valid mobile');
+                valid = false;
+              }
+              if (!/^[a-zA-Z0-9]{4,}$/.test(dNid)) {
+                showError('error-drivernationalid', 'Enter valid ID');
+                valid = false;
+              }
+              if (!dPhoto || !/\.(jpg|jpeg|png)$/i.test(dPhoto.name)) {
+                showError('error-driverphoto', 'Upload driver image');
+                valid = false;
               }
             }
       
-            function previewImage(input, previewId) {
-              const preview = document.getElementById(previewId);
-              const file = input.files[0];
-              if (file) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                  preview.src = reader.result;
-                  preview.classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-                formData[input.name] = file;
-              } else {
-                preview.src = '';
-                preview.classList.add('hidden');
-                formData[input.name] = null;
-              }
+            const notes = get('notes');
+            if (notes.length > 500 || /<script/i.test(notes)) {
+              showError('error-notes', 'Invalid notes content');
+              valid = false;
             }
       
-            function showModal(field) {
+            if (!valid) {
+              errorMessage.textContent = 'Please fix the errors above.';
+              errorMessage.classList.remove('hidden');
+              return;
+            }
+      
+            loading = true;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+      
+            const formattedData = new FormData();
+            form.querySelectorAll('input:not([type="checkbox"]), select, textarea').forEach(input => {
+              if (input.type === 'file' && input.files[0]) {
+                formattedData.append(input.name, input.files[0]);
+              } else if (!input.disabled) {
+                formattedData.append(input.name, input.value || '');
+              }
+            });
+      
+            fields.forEach(field => {
               const input = document.getElementById(field);
-              input.click();
+              if (input) formattedData.append(field, input.value || '');
+            });
+      
+            console.log('📤 Submitting FormData:');
+            for (const [key, value] of formattedData.entries()) {
+              console.log(`  ${key}: ${value instanceof File ? value.name : value}`);
             }
       
-            form.addEventListener('submit', async (e) => {
-              e.preventDefault();
-              if (loading) return;
-      
-              loading = true;
-              submitBtn.textContent = 'Submitting...';
-              submitBtn.disabled = true;
-      
-              const formattedData = new FormData();
-      
-              form.querySelectorAll('input:not([type="checkbox"]), select, textarea').forEach(input => {
-                if (input.type === 'file' && input.files[0]) {
-                  formattedData.append(input.name, input.files[0]);
-                } else if (!input.disabled) {
-                  formattedData.append(input.name, input.value || '');
-                }
+            try {
+              const response = await fetch('http://192.168.3.75:3001/appointment/create', {
+                method: 'POST',
+                body: formattedData
               });
       
-              fields.forEach(field => {
-                const input = document.getElementById(field);
-                formattedData.append(field, input.value || '');
-              });
-      
-              const driverFields = ['drivername', 'drivermobile', 'drivernationalid'];
-              const hasDriverDetails = driverFields.some(field => {
-                const value = formattedData.get(field);
-                return value && value.trim() !== '';
-              });
-              const driverPhoto = formattedData.get('driverphoto');
-              if (hasDriverDetails && !driverPhoto) {
-                errorMessage.textContent = 'Driver photo is required when driver details are provided.';
-                errorMessage.classList.remove('hidden');
-                loading = false;
-                submitBtn.textContent = 'Submit';
-                submitBtn.disabled = false;
-                return;
+              if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to submit form. Please try again.');
               }
       
-              console.log('📤 Submitting FormData with fields:');
-              for (const [key, value] of formattedData.entries()) {
-                console.log(`  ${key}: ${value instanceof File ? value.name : value}`);
-              }
-      
-              try {
-                const response = await fetch('http://192.168.3.75:3001/appointment/create', {
-                  method: 'POST',
-                  body: formattedData,
-                });
-      
-                if (!response.ok) {
-                  const errorData = await response.json();
-                  throw new Error(errorData.message || 'Failed to verify appointment. Please try again.');
-                }
-      
-                const result = await response.json();
-                showMessage('Appointment verified successfully!');
-                const formContainer = document.querySelector('.absolute.top-1/2');
+              const formContainer = document.querySelector('.absolute.top-1/2');
+              if (formContainer) {
                 formContainer.innerHTML = `
                   <div class="w-full max-w-5xl bg-white rounded-lg shadow-md p-6 text-center">
                     <h2 class="text-xl font-semibold mb-4" style="font-family: 'Nunito', sans-serif;">Submission Successful</h2>
                     <p class="text-sm text-gray-600">Your visitor registration has been submitted successfully.</p>
                   </div>
                 `;
-              } catch (error) {
-                errorMessage.textContent = error.message;
-                errorMessage.classList.remove('hidden');
-              } finally {
-                loading = false;
-                submitBtn.textContent = 'Submit';
-                submitBtn.disabled = false;
               }
-            });
-      
-            function showMessage(message) {
-              const msgDiv = document.createElement('div');
-              msgDiv.className = 'text-green-500 text-xs mt-2';
-              msgDiv.textContent = message;
-              form.appendChild(msgDiv);
-              setTimeout(() => msgDiv.remove(), 3000);
+            } catch (error) {
+              errorMessage.textContent = error.message;
+              errorMessage.classList.remove('hidden');
+            } finally {
+              loading = false;
+              submitBtn.textContent = 'Submit';
+              submitBtn.disabled = false;
             }
+          });
       
-            window.toggleDriverDetails = toggleDriverDetails;
-            window.previewImage = previewImage;
-            window.showModal = showModal;
-          }
+          window.toggleDriverDetails = toggleDriverDetails;
+          window.previewImage = previewImage;
+          window.showModal = showModal;
       
-          initializeForm();
+          attachLiveValidation();
+        }
+      
+        // Alpine.js Logic
+        document.addEventListener('alpine:init', () => {
+          Alpine.data('scrollToTop', () => ({
+            showTopButton: false,
+            init() {
+              window.onscroll = () => {
+                this.scrollFunction();
+              };
+            },
+            scrollFunction() {
+              if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                this.showTopButton = true;
+              } else {
+                this.showTopButton = false;
+              }
+            },
+            goToTop() {
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            }
+          }));
+      
+          Alpine.data('customizer', () => ({
+            showCustomizer: false
+          }));
+      
+          Alpine.data('sidebar', () => ({
+            init() {
+              const selector = document.querySelector('.sidebar ul a[href="' + window.location.pathname + '"]');
+              if (selector) {
+                selector.classList.add('active');
+                const ul = selector.closest('ul.sub-menu');
+                if (ul) {
+                  let ele = ul.closest('li.menu').querySelectorAll('.nav-link');
+                  if (ele) {
+                    ele = ele[0];
+                    setTimeout(() => {
+                      ele.click();
+                    });
+                  }
+                }
+              }
+            }
+          }));
+      
+          Alpine.data('header', () => ({
+            init() {
+              const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
+              if (selector) {
+                selector.classList.add('active');
+                const ul = selector.closest('ul.sub-menu');
+                if (ul) {
+                  let ele = ul.closest('li.menu').querySelectorAll('.nav-link');
+                  if (ele) {
+                    ele = ele[0];
+                    setTimeout(() => {
+                      ele.classList.add('active');
+                    });
+                  }
+                }
+              }
+            },
+            notifications: [
+              { id: 1, profile: 'user-profile.jpeg', message: '<strong class="text-sm mr-1">John Doe</strong>invite you to <strong>Prototyping</strong>', time: '45 min ago' },
+              { id: 2, profile: 'profile-34.jpeg', message: '<strong class="text-sm mr-1">Adam Nolan</strong>mentioned you to <strong>UX Basics</strong>', time: '9h Ago' },
+              { id: 3, profile: 'profile-16.jpeg', message: '<strong class="text-sm mr-1">Anna Morgan</strong>Upload a file', time: '9h Ago' }
+            ],
+            messages: [
+              {
+                id: 1,
+                image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-success-light dark:bg-success text-success dark:text-success-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>',
+                title: 'Congratulations!',
+                message: 'Your OS has been updated.',
+                time: '1hr'
+              },
+              {
+                id: 2,
+                image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-info-light dark:bg-info text-info dark:text-info-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>',
+                title: 'Did you know?',
+                message: 'You can switch between artboards.',
+                time: '2hr'
+              },
+              {
+                id: 3,
+                image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-danger-light dark:bg-danger text-danger dark:text-danger-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>',
+                title: 'Something went wrong!',
+                message: 'Send Reposrt',
+                time: '2days'
+              },
+              {
+                id: 4,
+                image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-warning-light dark:bg-warning text-warning dark:text-warning-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">    <circle cx="12" cy="12" r="10"></circle>    <line x1="12" y1="8" x2="12" y2="12"></line>    <line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span>',
+                title: 'Warning',
+                message: 'Your password strength is low.',
+                time: '5days'
+              }
+            ],
+            languages: [
+              { id: 1, key: 'Chinese', value: 'zh' },
+              { id: 2, key: 'Danish', value: 'da' },
+              { id: 3, key: 'English', value: 'en' },
+              { id: 4, key: 'French', value: 'fr' },
+              { id: 5, key: 'German', value: 'de' },
+              { id: 6, key: 'Greek', value: 'el' },
+              { id: 7, key: 'Hungarian', value: 'hu' },
+              { id: 8, key: 'Italian', value: 'it' },
+              { id: 9, key: 'Japanese', value: 'ja' },
+              { id: 10, key: 'Polish', value: 'pl' },
+              { id: 11, key: 'Portuguese', value: 'pt' },
+              { id: 12, key: 'Russian', value: 'ru' },
+              { id: 13, key: 'Spanish', value: 'es' },
+              { id: 14, key: 'Swedish', value: 'sv' },
+              { id: 15, key: 'Turkish', value: 'tr' },
+              { id: 16, key: 'Arabic', value: 'ae' }
+            ],
+            removeNotification(value) {
+              this.notifications = this.notifications.filter(d => d.id !== value);
+            },
+            removeMessage(value) {
+              this.messages = this.messages.filter(d => d.id !== value);
+            }
+          }));
         });
+      
+        // Initialize form after DOM content is loaded
+        document.addEventListener('DOMContentLoaded', initializeForm);
       </script>
-
+    
 </body>
+
 </html>
