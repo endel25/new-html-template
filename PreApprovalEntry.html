@@ -458,7 +458,7 @@
  
         .panel-footer {
             padding: 8px 16px;
-            background-color: #f8f9fa;
+            background-color: #fff;
             color: #0e1726;
             font-size: 14px;
             line-height: 20px;
@@ -501,6 +501,37 @@
                 transform: rotate(360deg);
             }
         }
+
+        .pagination {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.pagination button {
+    padding: 8px 16px;
+    border: 1px solid #4361ee;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #4361ee;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.pagination button:hover {
+    background-color: #4361ee;
+    color: white;
+}
+
+.pagination button:disabled {
+    background-color: #f8f9fa;
+    color: #888ea8;
+    border-color: #e0e6ed;
+    cursor: not-allowed;
+}
     </style>
 
 
@@ -2107,8 +2138,13 @@
                     </div>
                     <!-- Panel Footer -->
                     <div class="panel-footer" id="panelFooter">
-                        Showing 0 to 0 of 0 entries
+                        <span id="footerText">Showing 0 to 0 of 0 entries</span>
+                        <div class="pagination" style="display: none; float: right; margin-left: 10px;">
+                            <button id="previousBtn">Previous</button>
+                            <button id="nextBtn">Next</button>
+                        </div>
                     </div>
+
                 </div>
 
                 <!-- Modal for Visitor Details Form -->
@@ -2438,6 +2474,10 @@
      
      <script>
 
+let currentPage = 1;
+let rowsPerPage = 10; // Default from your dropdown
+let totalRows = 0;
+let filteredData = [];
 
 
 
@@ -2568,78 +2608,152 @@ let currentFileInputId = '';
     let originalVisitorData = null;
 
     async function fetchVisitorData(retries = 3) {
-        for (let attempt = 1; attempt <= retries; attempt++) {
-            try {
-                const response = await fetch('http://192.168.3.73:3001/appointment', {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                return Array.isArray(data) ? data : data.data || [];
-            } catch (error) {
-                console.error(`Attempt ${attempt} failed to fetch visitor data:`, error);
-                if (attempt === retries) {
-                    errorMessage.textContent = 'Failed to load visitor data after multiple attempts. Please check server status.';
+    for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+            const response = await fetch('http://192.168.3.73:3001/appointment', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+            }
+            const data = await response.json();
+            console.log('Fetched data:', data); // Debug log
+            return Array.isArray(data) ? data : (data.data || []);
+        } catch (error) {
+            console.error(`Attempt ${attempt} failed to fetch visitor data:`, error);
+            if (attempt === retries) {
+                const errorMessage = document.querySelector('.table-container .text-red-500');
+                if (errorMessage) {
+                    errorMessage.textContent = 'Failed to load visitor data after multiple attempts. Check server status.';
                     errorMessage.classList.remove('hidden');
                     setTimeout(() => errorMessage.classList.add('hidden'), 5000);
-                    return [];
                 }
-                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
+                return [];
             }
+            await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
         }
     }
+}
 
-    async function loadVisitorData() {
-        try {
-            const visitors = await fetchVisitorData();
-            tableBody.innerHTML = '';
+function updatePagination(visitors) {
+    const tableBody = document.getElementById('visitorTableBody');
+    const previousBtn = document.getElementById('previousBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const paginationButtons = document.querySelector('.pagination');
+    const footerText = document.getElementById('footerText');
+    const searchInput = document.getElementById('searchInput');
 
-            if (visitors.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
-                return;
+    totalRows = visitors.length;
+    filteredData = [...visitors]; // Create a copy to avoid mutation issues
+
+    rowsPerPage = parseInt(document.getElementById('entriesPerPage').value) || 10; // Default to 10 if parsing fails
+
+    // Show buttons only if total rows exceed rowsPerPage, and no search is active
+    if (totalRows > rowsPerPage && searchInput.value.trim() === '') {
+        paginationButtons.style.display = 'flex';
+    } else {
+        paginationButtons.style.display = 'none';
+    }
+
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const paginatedData = filteredData.slice(startIndex, endIndex);
+
+    tableBody.innerHTML = '';
+    if (!paginatedData.length) {
+        tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No visitor data available</td></tr>';
+        console.log('No data to display for page', currentPage); // Debug log
+    } else {
+        paginatedData.forEach(visitor => {
+            const row = document.createElement('tr');
+            row.setAttribute('data-id', visitor.id || '');
+            row.innerHTML = `
+                <td>${visitor.id || '-'}</td>
+                <td>${visitor.firstname || '-'}</td>
+                <td>${visitor.lastname || '-'}</td>
+                <td>${visitor.contactnumber || '-'}</td>
+                <td>${visitor.nationalid || '-'}</td>
+                <td class="center-checkbox">
+                    <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
+                </td>
+                <td class="center-checkbox">
+                    <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
+                </td>
+                <td class="center-checkbox">
+                    <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id || ''}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
+                    <label for="gatepass-${visitor.id || ''}"></label>
+                </td>
+                <td><button class="btn btn-sm btn-primary rounded-full details-btn" data-id="${visitor.id || ''}">Details</button></td>
+            `;
+            tableBody.appendChild(row);
+        });
+        console.log('Displayed data for page', currentPage, paginatedData); // Debug log
+    }
+
+    footerText.textContent = `Showing ${startIndex + 1} to ${Math.min(endIndex, totalRows)} of ${totalRows} entries`;
+
+    previousBtn.disabled = currentPage === 1;
+    nextBtn.disabled = endIndex >= totalRows;
+}
+
+async function loadVisitorData() {
+    try {
+        const visitors = await fetchVisitorData();
+        if (visitors.length === 0) {
+            console.log('No visitors fetched:', visitors);
+        }
+        updatePagination(visitors);
+
+        document.getElementById('entriesPerPage').addEventListener('change', (e) => {
+            rowsPerPage = parseInt(e.target.value) || 10;
+            currentPage = 1;
+            updatePagination(visitors);
+        });
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            filteredData = visitors.filter(visitor =>
+                (visitor.id && visitor.id.toString().toLowerCase().includes(searchTerm)) ||
+                (visitor.firstname && visitor.firstname.toLowerCase().includes(searchTerm)) ||
+                (visitor.lastname && visitor.lastname.toLowerCase().includes(searchTerm)) ||
+                (visitor.contactnumber && visitor.contactnumber.toLowerCase().includes(searchTerm)) ||
+                (visitor.nationalid && visitor.nationalid.toLowerCase().includes(searchTerm))
+            );
+            currentPage = 1;
+            updatePagination(filteredData);
+
+            
+        });
+        document.querySelectorAll('.details-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const visitorId = button.getAttribute('data-id');
+        openVisitorModal(visitorId);
+    });
+});
+
+        previousBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination(searchInput.value.trim() === '' ? visitors : filteredData);
             }
+        });
 
-            visitors.forEach(visitor => {
-                const row = document.createElement('tr');
-                row.setAttribute('data-id', visitor.id);
-                row.innerHTML = `
-                    <td>${visitor.id || '-'}</td>
-                    <td>${visitor.firstname || '-'}</td>
-                    <td>${visitor.lastname || '-'}</td>
-                    <td>${visitor.contactnumber || '-'}</td>
-                    <td>${visitor.nationalid || '-'}</td>
-                    <td class="center-checkbox">
-                        <input type="checkbox" class="nda-approve" ${visitor.ndaApproved ? 'checked' : ''} disabled>
-                    </td>
-                    <td class="center-checkbox">
-                        <input type="checkbox" class="safety-approve" ${visitor.safetyApproved ? 'checked' : ''} disabled>
-                    </td>
-                    <td class="center-checkbox">
-                        <input type="checkbox" class="gatepass-approve ${visitor.gatepassApproved == null ? 'unset' : ''}" id="gatepass-${visitor.id}" ${visitor.gatepassApproved === true ? 'checked' : ''} disabled>
-                        <label for="gatepass-${visitor.id}"></label>
-                    </td>
-                    <td><button class="btn btn-sm btn-primary rounded-full details-btn" data-id="${visitor.id}">Details</button></td>
-                `;
-                tableBody.appendChild(row);
-            });
-
-            tableBody.addEventListener('click', async (e) => {
-                const button = e.target.closest('.details-btn');
-                if (button) {
-                    const visitorId = button.getAttribute('data-id');
-                    await openVisitorModal(visitorId);
-                }
-            });
-        } catch (error) {
-            console.error('Error loading visitor data:', error);
+        nextBtn.addEventListener('click', () => {
+            const maxPages = Math.ceil((searchInput.value.trim() === '' ? totalRows : filteredData.length) / rowsPerPage);
+            if (currentPage < maxPages) {
+                currentPage++;
+                updatePagination(searchInput.value.trim() === '' ? visitors : filteredData);
+            }
+        });
+    } catch (error) {
+        console.error('Error loading visitor data:', error);
+        const tableBody = document.getElementById('visitorTableBody');
+        if (tableBody) {
             tableBody.innerHTML = '<tr><td colspan="9" class="no-data">Error loading data</td></tr>';
         }
     }
+}
 
     async function fetchVisitorById(visitorId, retries = 3) {
         for (let attempt = 1; attempt <= retries; attempt++) {

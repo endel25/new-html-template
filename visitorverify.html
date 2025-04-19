@@ -89,6 +89,7 @@
             z-index: 1000;
         }
 
+        /* Modal styles for photo selection */
         .modal-content {
             background-color: white;
             padding: 20px;
@@ -96,29 +97,53 @@
             text-align: center;
             width: 300px;
         }
-
+ 
         .modal-content button {
             margin: 10px;
-            padding: 10px 20px;
+            padding: 5px 10px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
-
+ 
         .modal-content .gallery-btn {
+            color: #4361ee;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            outline: 1px solid #4361ee; /* Added outline */
+                   /* Optional: adds space between button edge and outline */
+        }
+        .modal-content .gallery-btn:hover {
             background-color: #4361ee;
-            color: white;
+            color: #fff;
         }
-
+ 
         .modal-content .camera-btn {
-            background-color: #28a745;
-            color: white;
+            color: #16a34a;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            outline: 1px solid #16a34a;
+        }
+        .modal-content .camera-btn:hover {
+            background-color: #16a34a;
+            color: #fff;
+        }
+ 
+        .modal-content .close-btn {
+            color: #dc3545;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            outline: 1px solid #dc3545
+        }
+        .modal-content .close-btn:hover {
+            background-color: #dc3545;
+            color: #fff;
         }
 
-        .modal-content .close-btn {
-            background-color: #dc3545;
-            color: white;
-        }
+
     </style>
 </head>
 
