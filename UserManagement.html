@@ -27,486 +27,486 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <style>
- 
         /* ========================== */
- /* PANEL STYLES */
- /* ========================== */
- .panel {
-     background: #fff;
-     border-radius: 12px;
-     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-     padding: 15px;
-     padding-bottom: 2px;
-     margin: 0 auto;
- }
-  
- .border-b {
-     border-bottom-width: 1px;
- }
-  
- .panel-header {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     margin-bottom: 10px;
- }
-  
- .panel-header h2 {
-     font-size: 1.5rem;
-     font-weight: 600;
- }
-  
- /* ========================== */
- /* BUTTON STYLES */
- /* ========================== */
- .btn {
-     position: relative;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     border-radius: 1.5rem;
-     border-width: 1px;
-     padding: .5rem 1.25rem;
-     font-size: .875rem;
-     line-height: 1.25rem;
-     font-weight: 600;
-     --tw-shadow: 0 10px 20px -10px;
-     --tw-shadow-colored: 0 10px 20px -10px var(--tw-shadow-color);
-     outline: 2px solid #0000;
-     outline-offset: 2px;
-     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-     transition-duration: .3s
- }
-  
- .btn-primary {
-     --tw-border-opacity: 1;
-     border-color: rgb(67 97 238/var(--tw-border-opacity));
-     --tw-bg-opacity: 1;
-     background-color: rgb(67 97 238/var(--tw-bg-opacity));
-     --tw-text-opacity: 1;
-     color: rgb(255 255 255/var(--tw-text-opacity));
-     --tw-shadow-color: #4361ee99;
-     --tw-shadow: var(--tw-shadow-colored)
- }
-  
- .btn-primary:hover {
-     background-color: #4361ee;
- }
-  
- .btn-outline-primary {
-     --tw-border-opacity: 1;
-     border-color: rgb(67 97 238/var(--tw-border-opacity));
-     --tw-text-opacity: 1;
-     color: rgb(67 97 238/var(--tw-text-opacity));
-     --tw-shadow: 0 0 #0000;
-     --tw-shadow-colored: 0 0 #0000;
-     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
- }
-  
- .btn-outline-primary:hover {
-     --tw-bg-opacity: 1;
-     background-color: rgb(67 97 238/var(--tw-bg-opacity));
-     --tw-text-opacity: 1;
-     color: rgb(255 255 255/var(--tw-text-opacity))
- }
-  
- /* ========================== */
- /* TABLE STYLES */
- /* ========================== */
- table {
-     width: 100%;
-     border-collapse: collapse;
-     font-size: 1rem;
- }
-  
- th, td {
-     padding: 12px;
-     text-align: left;
-    
- }
-  
- th {
-     background-color: #f5f5f5;
-     font-weight: 600;
- }
-  
- /* ========================== */
- /* MODAL STYLES */
- /* ========================== */
- .modal {
-     display: none;
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     background-color: rgba(0, 0, 0, 0.5);
-     z-index: 1000;
-     justify-content: center;
-     align-items: center;
-     padding: 20px;
- }
-  
- .modal-content {
-     background: #fff;
-     border-radius: 12px;
-     padding: 30px;
-     width: 90%;
-     max-width: 900px;
-     max-height: 85vh;
-     overflow-y: auto;
-     position: relative;
-     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
- }
-  
- /* ========================== */
- /* MODAL HEADER */
- /* ========================== */
- .modal-header {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     border-bottom: 2px solid #ddd;
-     padding-bottom: 10px;
-     margin-bottom: 20px;
- }
-  
- .modal-header h5 {
-     font-size: 1.5rem;
-     font-weight: 600;
- }
-  
- .close-btn {
-     font-size: 2rem;
-     color: #666;
-     cursor: pointer;
-     transition: color 0.3s ease;
- }
-  
- .close-btn:hover {
-     color: #333;
- }
-  
- /* ========================== */
- /* FORM LAYOUT & FIELDS */
- /* ========================== */
- .form-container {
-     margin-top: 10px;
- }
-  
- .form-row {
-     display: flex;
-     flex-wrap: wrap;
-     gap: 20px;
- }
-  
- .form-column {
-     flex: 1;
-     min-width: 300px;
- }
-  
- .form-group {
-     width: 100%;
-     margin-bottom: 15px;
- }
-  
- .form-group label {
-     font-weight: 500;
-     display: block;
-     margin-bottom: 5px;
-     color: #333;
- }
-  
- .form-group input,
- .form-group select,
- .form-group textarea {
-     width: 100%;
-     padding: 12px;
-     font-size: 0.9rem;
-     border: 1px solid #ddd;
-     border-radius: 8px;
-     outline: none;
-     transition: border 0.3s ease-in-out;
- }
-  
- .form-group input:focus,
- .form-group select:focus,
- .form-group textarea:focus {
-     border-color: #007bff;
-     box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
- }
-  
- /* ========================== */
- /* TEXTAREA STYLES */
- /* ========================== */
- .form-group textarea {
-     resize: vertical;
-     min-height: 100px;
- }
-  
- /* ========================== */
- /* FORM SELECT DROPDOWN */
- /* ========================== */
- .form-select {
-     padding: 12px;
-     border: 1px solid #ddd;
-     border-radius: 8px;
-     font-size: 0.9rem;
-     width: 100%;
-     transition: border-color 0.3s ease;
- }
-  
- .form-select:focus {
-     border-color: #007bff;
-     box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
- }
-  
- #UserRoleId,
- #editUserRoleId {
-     margin-bottom: 20px;
- }
-  
- /* ========================== */
- /* FORM ACTION BUTTONS */
- /* ========================== */
- .form-actions {
-     display: flex;
-     justify-content: flex-end;
-     gap: 15px;
- }
-  
- /* ========================== */
- /* ADD USER BUTTON */
- /* ========================== */
- .add-user-btn {
-     margin-bottom: 30px;
-     display: flex;
-     justify-content: flex-end;
- }
-  
- /* ========================== */
- /* RESPONSIVE DESIGN */
- /* ========================== */
- @media (max-width: 768px) {
-     .form-row {
-         flex-direction: column;
-     }
-  
-     .modal-content {
-         width: 95%;
-         max-height: 90vh;
-     }
- }
-  
- /* ========================== */
- /* ICON TOGGLE STYLES */
- /* ========================== */
- .toggle-icon {
-     font-size: 1.8rem;
-     cursor: pointer;
-     transition: color 0.3s ease;
- }
-  
- .toggle-icon .fa-toggle-on {
-     color: #007bff;
- }
-  
- .toggle-icon .fa-toggle-off {
-     color: #ccc;
- }
-  
- .toggle-icon:hover {
-     opacity: 0.8;
- }
-  
- .action-icons {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* spacing between icons */
-}
+        /* PANEL STYLES */
+        /* ========================== */
+        .panel {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            padding-bottom: 2px;
+            margin: 0 auto;
+        }
 
-.action-icons svg {
-    cursor: pointer;
-    color: #333;
-    transition: color 0.2s ease;
-}
+        .border-b {
+            border-bottom-width: 1px;
+        }
 
-.action-icons svg:hover {
-    color: #4361ee;
-}
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-  
- .edit-icon {
-     color: blue;
-     font-size: 18px;
-     cursor: pointer;
- }
-  
- .edit-icon:hover {
-     background-color: #e0f0ff;
- }
-  
- .icon-wrapper {
-     margin: 8px 12px;
- }
-  
- .delete-icon {
-     color: red;
-     font-size: 18px;
-     cursor: pointer;
- }
-  
- .delete-icon:hover {
-     background-color: #fde0e0;
- }
-  
- /* Dark Theme Styles */
- body.dark {
-     background-color: #121212;
-     color: #fff;
- }
-  
- .dark .panel {
-     background: #1e1e1e;
-     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-     color: #fff;
- }
-  
- .dark th {
-     background-color: #333;
-     color: #ddd;
- }
-  
- .dark td {
-     border-bottom: 1px solid #555;
- }
-  
- .dark .modal-content {
-     background: #2a2a2a;
-     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-     color: #fff;
- }
-  
- .dark .modal-header {
-     border-bottom: 2px solid #555;
- }
-  
- .dark .close-btn {
-     color: #ccc;
- }
-  
- .dark .close-btn:hover {
-     color: #fff;
- }
-  
- .dark .form-group label {
-     color: #eee;
- }
-  
- .dark .form-group input,
- .dark .form-group select,
- .dark .form-group textarea {
-     background-color: #333;
-     color: #fff;
-     border: 1px solid #555;
- }
-  
- .dark .form-group input:focus,
- .dark .form-group select:focus,
- .dark .form-group textarea:focus {
-     border-color: #64b5f6;
-     box-shadow: 0 0 8px rgba(100, 181, 246, 0.2);
- }
-  
- .error-message {
-     color: red;
-     font-size: 12px;
-     display: block;
-     margin-top: 5px;
- }
-  
- .error {
-     border-color: red;
- }
-  
- .has-success input {
-     border-color: green;
- }
-  
- .dataTable-dropdown .dataTable-selector,
- .dataTable-search .dataTable-input {
-     width: auto;
-     background-color: #fff;
-     color: #0e1726;
-     border-color: #e0e6ed;
-     border-radius: 6px;
-     padding: 8px 16px;
-     font-size: 14px;
-     line-height: 20px;
-     font-weight: 600;
-     border-width: 1px;
-     outline: none !important;
- }
-  
- .dataTable-dropdown .dataTable-selector:focus,
- .dataTable-search .dataTable-input:focus {
-     border-color: #4361ee;
- }
-  
- .dataTable-search .dataTable-input {
-     box-shadow: none !important;
- }
-  
- .dataTable-dropdown .dataTable-selector {
-     padding-top: .375rem;
-     padding-bottom: .375rem;
- }
-  
- .dataTable-dropdown .dataTable-selector:where([dir=ltr], [dir=ltr] *) {
-     padding-left: .5rem;
-     padding-right: 1rem;
- }
-  
- .dark .dataTable-dropdown .dataTable-selector,
- .dark .dataTable-search .dataTable-input {
-     background-color: #121e32;
-     color: #888ea8;
-     border-color: #17263c;
- }
-  
- .dataTable-dropdown label {
-     margin-bottom: 0;
- }
-  
- .panel-footer {
-     padding: 8px 16px;
-     background-color: #fff;
-     color: #0e1726;
-     font-size: 14px;
-     line-height: 20px;
-     border-top: 1px solid #e0e6ed;
-     text-align: left;
- }
-  
- .dark .panel-footer {
-     background-color: #121e32;
-     color: #888ea8;
-     border-top: 1px solid #17263c;
- }
-  
- .ltr .dataTable-search {
-     margin-left: auto
- }
-  
- .rtl .dataTable-search {
-     margin-right: auto
- }
-  
-     </style>
-  
+        .panel-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* ========================== */
+        /* BUTTON STYLES */
+        /* ========================== */
+        .btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1.5rem;
+            border-width: 1px;
+            padding: .5rem 1.25rem;
+            font-size: .875rem;
+            line-height: 1.25rem;
+            font-weight: 600;
+            --tw-shadow: 0 10px 20px -10px;
+            --tw-shadow-colored: 0 10px 20px -10px var(--tw-shadow-color);
+            outline: 2px solid #0000;
+            outline-offset: 2px;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+            transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+            transition-duration: .3s
+        }
+
+        .btn-primary {
+            --tw-border-opacity: 1;
+            border-color: rgb(67 97 238/var(--tw-border-opacity));
+            --tw-bg-opacity: 1;
+            background-color: rgb(67 97 238/var(--tw-bg-opacity));
+            --tw-text-opacity: 1;
+            color: rgb(255 255 255/var(--tw-text-opacity));
+            --tw-shadow-color: #4361ee99;
+            --tw-shadow: var(--tw-shadow-colored)
+        }
+
+        .btn-primary:hover {
+            background-color: #4361ee;
+        }
+
+        .btn-outline-primary {
+            --tw-border-opacity: 1;
+            border-color: rgb(67 97 238/var(--tw-border-opacity));
+            --tw-text-opacity: 1;
+            color: rgb(67 97 238/var(--tw-text-opacity));
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+        }
+
+        .btn-outline-primary:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(67 97 238/var(--tw-bg-opacity));
+            --tw-text-opacity: 1;
+            color: rgb(255 255 255/var(--tw-text-opacity))
+        }
+
+        /* ========================== */
+        /* TABLE STYLES */
+        /* ========================== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+        }
+
+        /* ========================== */
+        /* MODAL STYLES */
+        /* ========================== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ========================== */
+        /* MODAL HEADER */
+        /* ========================== */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h5 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            font-size: 2rem;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        /* ========================== */
+        /* FORM LAYOUT & FIELDS */
+        /* ========================== */
+        .form-container {
+            margin-top: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-column {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.3s ease-in-out;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        }
+
+        /* ========================== */
+        /* TEXTAREA STYLES */
+        /* ========================== */
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* ========================== */
+        /* FORM SELECT DROPDOWN */
+        /* ========================== */
+        .form-select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        }
+
+        #UserRoleId,
+        #editUserRoleId {
+            margin-bottom: 20px;
+        }
+
+        /* ========================== */
+        /* FORM ACTION BUTTONS */
+        /* ========================== */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* ========================== */
+        /* ADD USER BUTTON */
+        /* ========================== */
+        .add-user-btn {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* ========================== */
+        /* RESPONSIVE DESIGN */
+        /* ========================== */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+        }
+
+        /* ========================== */
+        /* ICON TOGGLE STYLES */
+        /* ========================== */
+        .toggle-icon {
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-icon .fa-toggle-on {
+            color: #007bff;
+        }
+
+        .toggle-icon .fa-toggle-off {
+            color: #ccc;
+        }
+
+        .toggle-icon:hover {
+            opacity: 0.8;
+        }
+
+        .action-icons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* spacing between icons */
+        }
+
+        .action-icons svg {
+            cursor: pointer;
+            color: #333;
+            transition: color 0.2s ease;
+        }
+
+        .action-icons svg:hover {
+            color: #4361ee;
+        }
+
+
+        .edit-icon {
+            color: blue;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .edit-icon:hover {
+            background-color: #e0f0ff;
+        }
+
+        .icon-wrapper {
+            margin: 8px 12px;
+        }
+
+        .delete-icon {
+            color: red;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .delete-icon:hover {
+            background-color: #fde0e0;
+        }
+
+        /* Dark Theme Styles */
+        body.dark {
+            background-color: #121212;
+            color: #fff;
+        }
+
+        .dark .panel {
+            background: #1e1e1e;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .dark th {
+            background-color: #333;
+            color: #ddd;
+        }
+
+        .dark td {
+            border-bottom: 1px solid #555;
+        }
+
+        .dark .modal-content {
+            background: #2a2a2a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .dark .modal-header {
+            border-bottom: 2px solid #555;
+        }
+
+        .dark .close-btn {
+            color: #ccc;
+        }
+
+        .dark .close-btn:hover {
+            color: #fff;
+        }
+
+        .dark .form-group label {
+            color: #eee;
+        }
+
+        .dark .form-group input,
+        .dark .form-group select,
+        .dark .form-group textarea {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        .dark .form-group input:focus,
+        .dark .form-group select:focus,
+        .dark .form-group textarea:focus {
+            border-color: #64b5f6;
+            box-shadow: 0 0 8px rgba(100, 181, 246, 0.2);
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .error {
+            border-color: red;
+        }
+
+        .has-success input {
+            border-color: green;
+        }
+
+        .dataTable-dropdown .dataTable-selector,
+        .dataTable-search .dataTable-input {
+            width: auto;
+            background-color: #fff;
+            color: #0e1726;
+            border-color: #e0e6ed;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+            border-width: 1px;
+            outline: none !important;
+        }
+
+        .dataTable-dropdown .dataTable-selector:focus,
+        .dataTable-search .dataTable-input:focus {
+            border-color: #4361ee;
+        }
+
+        .dataTable-search .dataTable-input {
+            box-shadow: none !important;
+        }
+
+        .dataTable-dropdown .dataTable-selector {
+            padding-top: .375rem;
+            padding-bottom: .375rem;
+        }
+
+        .dataTable-dropdown .dataTable-selector:where([dir=ltr], [dir=ltr] *) {
+            padding-left: .5rem;
+            padding-right: 1rem;
+        }
+
+        .dark .dataTable-dropdown .dataTable-selector,
+        .dark .dataTable-search .dataTable-input {
+            background-color: #121e32;
+            color: #888ea8;
+            border-color: #17263c;
+        }
+
+        .dataTable-dropdown label {
+            margin-bottom: 0;
+        }
+
+        .panel-footer {
+            padding: 8px 16px;
+            background-color: #fff;
+            color: #0e1726;
+            font-size: 14px;
+            line-height: 20px;
+            border-top: 1px solid #e0e6ed;
+            text-align: left;
+        }
+
+        .dark .panel-footer {
+            background-color: #121e32;
+            color: #888ea8;
+            border-top: 1px solid #17263c;
+        }
+
+        .ltr .dataTable-search {
+            margin-left: auto
+        }
+
+        .rtl .dataTable-search {
+            margin-right: auto
+        }
+    </style>
+
 </head>
 
 <body x-data="main" class="relative overflow-x-hidden font-nunito text-sm font-normal antialiased"
@@ -759,7 +759,9 @@
                     <div class="flex items-center justify-between px-4 py-3">
                         <a href="index.html" class="main-logo flex shrink-0 items-center">
                             <img class="ml-[5px] w-8 flex-none" src="assets/images/icon.png" alt="image" />
-                            <span class="align-middle text-xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">ENDEL DIGITAL</span>
+                            <span
+                                class="align-middle text-xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">ENDEL
+                                DIGITAL</span>
 
                         </a>
                         <a href="javascript:;"
@@ -778,32 +780,33 @@
                         x-data="{ activeDropdown: 'users' }">
                         <li class="menu nav-item">
                             <a href="index.html">
-                            <button type="button" class="nav-link group"
-                                :class="{'active' : activeDropdown === 'dashboard'}"
-                                @click="activeDropdown === 'dashboard' ? activeDropdown = null : activeDropdown = 'dashboard'">
-                                <div class="flex items-center">
-                                    <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
-                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path opacity="0.5"
-                                            d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z"
-                                            fill="currentColor" />
-                                        <path
-                                            d="M9 17.25C8.58579 17.25 8.25 17.5858 8.25 18C8.25 18.4142 8.58579 18.75 9 18.75H15C15.4142 18.75 15.75 18.4142 15.75 18C15.75 17.5858 15.4142 17.25 15 17.25H9Z"
-                                            fill="currentColor" />
-                                    </svg>
+                                <button type="button" class="nav-link group"
+                                    :class="{'active' : activeDropdown === 'dashboard'}"
+                                    @click="activeDropdown === 'dashboard' ? activeDropdown = null : activeDropdown = 'dashboard'">
+                                    <div class="flex items-center">
+                                        <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.5"
+                                                d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z"
+                                                fill="currentColor" />
+                                            <path
+                                                d="M9 17.25C8.58579 17.25 8.25 17.5858 8.25 18C8.25 18.4142 8.58579 18.75 9 18.75H15C15.4142 18.75 15.75 18.4142 15.75 18C15.75 17.5858 15.4142 17.25 15 17.25H9Z"
+                                                fill="currentColor" />
+                                        </svg>
 
-                                    <span
-                                        class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Dashboard</span>
-                                </div>
-                                <div class="rtl:rotate-180" :class="{'!rotate-90' : activeDropdown === 'dashboard'}">
-                                    <!-- <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                        <span
+                                            class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Dashboard</span>
+                                    </div>
+                                    <div class="rtl:rotate-180"
+                                        :class="{'!rotate-90' : activeDropdown === 'dashboard'}">
+                                        <!-- <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg"> -->
                                         <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
                                             stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                            </button>
-                        </a>
+                                        </svg>
+                                    </div>
+                                </button>
+                            </a>
                             <ul x-cloak x-show="activeDropdown === 'dashboard'" x-collapse
                                 class="sub-menu text-gray-500">
                                 <!-- <li>
@@ -845,7 +848,8 @@
                                                     fill="currentColor" />
                                             </svg>
                                             <span
-                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Pre Approval Entry</span>
+                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Pre
+                                                Approval Entry</span>
                                         </div>
                                     </a>
                                 </li>
@@ -895,7 +899,8 @@
                                                     fill="currentColor" />
                                             </svg>
                                             <span
-                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Spot Entry</span>
+                                                class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Spot
+                                                Entry</span>
                                         </div>
                                     </a>
                                 </li>
@@ -1506,7 +1511,7 @@
                                     <a href="UserManagement.html" class="active">User Management</a>
                                 </li>
                                 <li>
-                                    <a href="UserRole.html" >User Role</a>
+                                    <a href="UserRole.html">User Role</a>
                                 </li>
                             </ul>
                         </li>
@@ -1700,7 +1705,9 @@
                         <div class="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
                             <a href="index.html" class="main-logo flex shrink-0 items-center">
                                 <img class="ml-[5px] w-8 flex-none" src="assets/images/icon.png" alt="image" />
-                                <span class="align-middle text-xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">ENDEL DIGITAL</span>
+                                <span
+                                    class="align-middle text-xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">ENDEL
+                                    DIGITAL</span>
                             </a>
 
                             <a href="javascript:;"
@@ -2847,7 +2854,8 @@
                     <div class="px-4 py-2 border-b text-xl font-semibold flex items-center justify-between">
                         <h2>User Management Stack</h2>
                         <div>
-                            <button class="btn btn-sm btn-primary rounded-full" onclick="openAddUserModal()">Add User</button>
+                            <button class="btn btn-sm btn-primary rounded-full" onclick="openAddUserModal()">Add
+                                User</button>
                         </div>
                     </div>
                     <!-- Add the dropdown here -->
@@ -2885,11 +2893,12 @@
                         Showing 0 to 0 of 0 entries
                     </div>
                     <!-- Add pagination controls -->
-                    <div id="paginationControls" style="display: flex; justify-content: flex-end; padding: 8px 16px; gap: 10px;">
+                    <div id="paginationControls"
+                        style="display: flex; justify-content: flex-end; padding: 8px 16px; gap: 10px;">
                         <!-- Pagination buttons will be populated dynamically -->
                     </div>
                 </div>
-            
+
                 <!-- Add User Modal -->
                 <div class="modal" id="addUserModal">
                     <div class="modal-content">
@@ -2904,12 +2913,14 @@
                                     <div class="form-column">
                                         <div class="form-group">
                                             <label for="FirstName">First Name</label>
-                                            <input type="text" id="FirstName" placeholder="Enter First Name" name="firstName">
+                                            <input type="text" id="FirstName" placeholder="Enter First Name"
+                                                name="firstName">
                                             <span class="error-message" id="error-firstName"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="LastName">Last Name</label>
-                                            <input type="text" id="LastName" placeholder="Enter Last Name" name="lastName">
+                                            <input type="text" id="LastName" placeholder="Enter Last Name"
+                                                name="lastName">
                                             <span class="error-message" id="error-lastName"></span>
                                         </div>
                                         <div class="form-group">
@@ -2919,7 +2930,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="password" id="password" placeholder="Enter Password" name="password">
+                                            <input type="password" id="password" placeholder="Enter Password"
+                                                name="password">
                                             <span class="error-message" id="error-password"></span>
                                         </div>
                                         <div class="form-group">
@@ -2933,12 +2945,14 @@
                                     <div class="form-column">
                                         <div class="form-group">
                                             <label for="ContactNo">Contact No.</label>
-                                            <input type="text" id="ContactNo" placeholder="Enter Contact No." name="contactNo">
+                                            <input type="text" id="ContactNo" placeholder="Enter Contact No."
+                                                name="contactNo">
                                             <span class="error-message" id="error-contactNo"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="EmailId">Email Id</label>
-                                            <input type="email" id="EmailId" placeholder="Enter Email Id" name="emailId">
+                                            <input type="email" id="EmailId" placeholder="Enter Email Id"
+                                                name="emailId">
                                             <span class="error-message" id="error-emailId"></span>
                                         </div>
                                         <div class="form-group">
@@ -2995,18 +3009,20 @@
                                     <div class="form-column">
                                         <div class="form-group" id="editFirstNameField">
                                             <label for="editFirstName">First Name</label>
-                                            <input type="text" placeholder="Enter First Name" name="firstName" id="editFirstName">
+                                            <input type="text" placeholder="Enter First Name" name="firstName"
+                                                id="editFirstName">
                                             <span class="error-message" id="error-editfirstName"></span>
                                         </div>
                                         <div class="form-group" id="editLastNameField">
                                             <label for="editLastName">Last Name</label>
-                                            <input type="text" placeholder="Enter Last Name" name="lastName" id="editLastName">
+                                            <input type="text" placeholder="Enter Last Name" name="lastName"
+                                                id="editLastName">
                                             <span class="error-message" id="error-editlastName"></span>
                                         </div>
                                         <div class="form-group" id="editUserNameField">
                                             <label for="editUserName">User Name</label>
-                                            <input type="text" placeholder="Enter User Name" name="userName" id="editUserName"
-                                                autocomplete="off">
+                                            <input type="text" placeholder="Enter User Name" name="userName"
+                                                id="editUserName" autocomplete="off">
                                             <span class="error-message" id="error-edituserName"></span>
                                         </div>
                                         <div class="form-group" id="editPasswordField">
@@ -3016,25 +3032,27 @@
                                         </div>
                                         <div class="form-group" id="editConfirmPasswordField">
                                             <label for="editConfirmPassword">Confirm Password</label>
-                                            <input type="password" placeholder="Confirm New Password" name="ConfirmPassword"
-                                                id="editConfirmPassword" autocomplete="off">
+                                            <input type="password" placeholder="Confirm New Password"
+                                                name="ConfirmPassword" id="editConfirmPassword" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-column">
                                         <div class="form-group" id="editContactNoField">
                                             <label for="editContactNo">Contact No.</label>
-                                            <input type="text" placeholder="Enter Contact No." name="contactNo" id="editContactNo"
-                                                autocomplete="off">
+                                            <input type="text" placeholder="Enter Contact No." name="contactNo"
+                                                id="editContactNo" autocomplete="off">
                                             <span class="error-message" id="error-editcontactNo"></span>
                                         </div>
                                         <div class="form-group" id="editEmailIdField">
                                             <label for="editEmailId">Email Id</label>
-                                            <input type="email" placeholder="Enter Email Id" name="emailId" id="editEmailId">
+                                            <input type="email" placeholder="Enter Email Id" name="emailId"
+                                                id="editEmailId">
                                             <span class="error-message" id="error-editemailId"></span>
                                         </div>
                                         <div class="form-group" id="editAddressField">
                                             <label for="editAddress">Address</label>
-                                            <input type="text" placeholder="Enter Address" name="address" id="editAddress">
+                                            <input type="text" placeholder="Enter Address" name="address"
+                                                id="editAddress">
                                             <span class="error-message" id="error-editaddress"></span>
                                         </div>
                                         <div class="form-group" id="editUserRoleField">
@@ -3075,7 +3093,7 @@
                 <!-- end main content section -->
             </div>
 
-            
+
             <!-- start footer section -->
             <div class="mt-auto p-6 pt-0 text-center dark:text-white-dark ltr:sm:text-left rtl:sm:text-right">
                 © <span id="footer-year">2022</span>. Vristo All rights reserved.
@@ -3095,35 +3113,35 @@
     <script>
         // Configurable backend URL
         const BASE_URL = 'http://192.168.3.73:3001'; // Change to 3002 if port updated
-        
+
         let currentPage = 1;
         let entriesPerPage = 10;
         let isPaginatedView = false;
         let currentEditUserId = null;
-        
+
         // Modal Functions
         function openAddUserModal() {
             document.getElementById('addUserModal').style.display = 'flex';
         }
-        
+
         function closeAddUserModal() {
             document.getElementById('addUserModal').style.display = 'none';
             document.getElementById('addUserForm').reset();
             $('.form-group').removeClass('has-error has-success');
             $('.error-message').text('');
         }
-        
+
         function openEditUserModal() {
             document.getElementById('editUserModal').style.display = 'flex';
         }
-        
+
         function closeEditUserModal() {
             document.getElementById('editUserModal').style.display = 'none';
             document.getElementById('editUserForm').reset();
             $('.form-group').removeClass('has-error has-success');
             $('.error-message').text('');
         }
-        
+
         const showMessage = (msg = 'Example notification text.', type = 'success', position = 'top-right', showCloseButton = true, duration = 2000) => {
             const toast = window.Swal.mixin({
                 toast: true,
@@ -3133,13 +3151,13 @@
                 showCloseButton: showCloseButton,
                 padding: '10px 20px',
             });
-        
+
             toast.fire({
                 icon: type,
                 title: msg,
             });
         };
-        
+
         // Check server health with retry
         async function checkServerHealth(retries = 3, delay = 1000) {
             for (let i = 0; i < retries; i++) {
@@ -3167,44 +3185,44 @@
             }
             return false;
         }
-        
+
         // Fetch all users without pagination
         async function fetchAllUsers() {
-    try {
-        const isServerUp = await checkServerHealth();
-        if (!isServerUp) {
-            throw new Error('Backend server is not responding correctly. Please check the server configuration at ' + BASE_URL);
-        }
+            try {
+                const isServerUp = await checkServerHealth();
+                if (!isServerUp) {
+                    throw new Error('Backend server is not responding correctly. Please check the server configuration at ' + BASE_URL);
+                }
 
-        const response = await fetch(`${BASE_URL}/users/all`, { timeout: 5000 });
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        const text = await response.text();
-        console.log('Raw API response (fetchAllUsers):', text);
+                const response = await fetch(`${BASE_URL}/users/all`, { timeout: 5000 });
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                const text = await response.text();
+                console.log('Raw API response (fetchAllUsers):', text);
 
-        let data;
-        try {
-            data = JSON.parse(text);
-        } catch (e) {
-            console.error('Invalid JSON response:', text);
-            if (text === 'Hello World!') {
-                throw new Error('Backend server is not properly configured. Expected JSON response from NestJS server.');
-            }
-            throw new Error('Invalid JSON response from server');
-        }
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    console.error('Invalid JSON response:', text);
+                    if (text === 'Hello World!') {
+                        throw new Error('Backend server is not properly configured. Expected JSON response from NestJS server.');
+                    }
+                    throw new Error('Invalid JSON response from server');
+                }
 
-        if (!data.users || !Array.isArray(data.users)) {
-            throw new Error('Unexpected response format: users array missing');
-        }
+                if (!data.users || !Array.isArray(data.users)) {
+                    throw new Error('Unexpected response format: users array missing');
+                }
 
-        data.users.sort((a, b) => a.id - b.id); // Sort by id to maintain consistent order
+                data.users.sort((a, b) => a.id - b.id); // Sort by id to maintain consistent order
 
-        const tbody = document.getElementById('userTableBody');
-        tbody.innerHTML = '';
+                const tbody = document.getElementById('userTableBody');
+                tbody.innerHTML = '';
 
-        data.users.forEach(user => {
-            console.log(`User ${user.id}: isActive = ${user.isActive}, type = ${typeof user.isActive}`);
-            const row = document.createElement('tr');
-            row.innerHTML = `
+                data.users.forEach(user => {
+                    console.log(`User ${user.id}: isActive = ${user.isActive}, type = ${typeof user.isActive}`);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
                 <td>${user.firstName} ${user.lastName}</td>
                 <td>${user.userName}</td>
                 <td style="text-align-last: center;">
@@ -3250,63 +3268,63 @@
                     </span>
                 </td>
             `;
-            tbody.appendChild(row);
-        });
+                    tbody.appendChild(row);
+                });
 
-        document.getElementById('panelFooter').textContent = `Showing 1 to ${data.users.length} of ${data.users.length} entries`;
-        const paginationControls = document.getElementById('paginationControls');
-        if (paginationControls) {
-            paginationControls.style.display = 'none';
+                document.getElementById('panelFooter').textContent = `Showing 1 to ${data.users.length} of ${data.users.length} entries`;
+                const paginationControls = document.getElementById('paginationControls');
+                if (paginationControls) {
+                    paginationControls.style.display = 'none';
+                }
+                isPaginatedView = false;
+            } catch (error) {
+                console.error('Error fetching all users:', error);
+                showMessage(`Error fetching all users: ${error.message}`, 'error');
+            }
         }
-        isPaginatedView = false;
-    } catch (error) {
-        console.error('Error fetching all users:', error);
-        showMessage(`Error fetching all users: ${error.message}`, 'error');
-    }
-}
-        
+
         // Fetch users with pagination and search
         async function fetchUsers() {
-    entriesPerPage = document.getElementById('entriesPerPage').value;
-    const searchQuery = document.getElementById('searchInput').value;
+            entriesPerPage = document.getElementById('entriesPerPage').value;
+            const searchQuery = document.getElementById('searchInput').value;
 
-    try {
-        const isServerUp = await checkServerHealth();
-        if (!isServerUp) {
-            throw new Error('Backend server is not responding correctly. Please check the server configuration at ' + BASE_URL);
-        }
+            try {
+                const isServerUp = await checkServerHealth();
+                if (!isServerUp) {
+                    throw new Error('Backend server is not responding correctly. Please check the server configuration at ' + BASE_URL);
+                }
 
-        const response = await fetch(`${BASE_URL}/users?page=${currentPage}&limit=${entriesPerPage}&search=${searchQuery}`, { timeout: 5000 });
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                const response = await fetch(`${BASE_URL}/users?page=${currentPage}&limit=${entriesPerPage}&search=${searchQuery}`, { timeout: 5000 });
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-        const text = await response.text();
-        console.log('Raw API response (fetchUsers):', text);
+                const text = await response.text();
+                console.log('Raw API response (fetchUsers):', text);
 
-        let data;
-        try {
-            data = JSON.parse(text);
-        } catch (e) {
-            console.error('Invalid JSON response:', text);
-            if (text === 'Hello World!') {
-                throw new Error('Backend server is not properly configured. Expected JSON response from NestJS server.');
-            }
-            throw new Error('Invalid JSON response from server');
-        }
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    console.error('Invalid JSON response:', text);
+                    if (text === 'Hello World!') {
+                        throw new Error('Backend server is not properly configured. Expected JSON response from NestJS server.');
+                    }
+                    throw new Error('Invalid JSON response from server');
+                }
 
-        if (!data.users || !Array.isArray(data.users)) {
-            console.error('Unexpected response format:', data);
-            throw new Error('Unexpected response format: users array missing');
-        }
+                if (!data.users || !Array.isArray(data.users)) {
+                    console.error('Unexpected response format:', data);
+                    throw new Error('Unexpected response format: users array missing');
+                }
 
-        data.users.sort((a, b) => a.id - b.id); // Sort by id to maintain consistent order
+                data.users.sort((a, b) => a.id - b.id); // Sort by id to maintain consistent order
 
-        const tbody = document.getElementById('userTableBody');
-        tbody.innerHTML = '';
+                const tbody = document.getElementById('userTableBody');
+                tbody.innerHTML = '';
 
-        data.users.forEach(user => {
-            console.log(`User ${user.id}: isActive = ${user.isActive}, type = ${typeof user.isActive}`);
-            const row = document.createElement('tr');
-            row.innerHTML = `
+                data.users.forEach(user => {
+                    console.log(`User ${user.id}: isActive = ${user.isActive}, type = ${typeof user.isActive}`);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
                 <td>${user.firstName} ${user.lastName}</td>
                 <td>${user.userName}</td>
                 <td style="text-align-last: center;">
@@ -3352,107 +3370,107 @@
                     </span>
                 </td>
             `;
-            tbody.appendChild(row);
-        });
+                    tbody.appendChild(row);
+                });
 
-        if (typeof data.start !== 'number' || typeof data.end !== 'number' || typeof data.total !== 'number') {
-            console.warn('Missing pagination data, using defaults');
-            data.start = 1;
-            data.end = data.users.length;
-            data.total = data.users.length;
-        }
+                if (typeof data.start !== 'number' || typeof data.end !== 'number' || typeof data.total !== 'number') {
+                    console.warn('Missing pagination data, using defaults');
+                    data.start = 1;
+                    data.end = data.users.length;
+                    data.total = data.users.length;
+                }
 
-        document.getElementById('panelFooter').textContent = `Showing ${data.start} to ${data.end} of ${data.total} entries`;
+                document.getElementById('panelFooter').textContent = `Showing ${data.start} to ${data.end} of ${data.total} entries`;
 
-        const paginationControls = document.getElementById('paginationControls');
-        if (paginationControls) {
-            if (data.total <= entriesPerPage) {
-                paginationControls.style.display = 'none';
-            } else {
-                paginationControls.style.display = 'flex';
-                paginationControls.innerHTML = '';
-                const prevButton = document.createElement('button');
-                prevButton.className = 'btn btn-outline-primary';
-                prevButton.textContent = 'Previous';
-                prevButton.disabled = currentPage === 1;
-                prevButton.onclick = () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        fetchUsers();
+                const paginationControls = document.getElementById('paginationControls');
+                if (paginationControls) {
+                    if (data.total <= entriesPerPage) {
+                        paginationControls.style.display = 'none';
+                    } else {
+                        paginationControls.style.display = 'flex';
+                        paginationControls.innerHTML = '';
+                        const prevButton = document.createElement('button');
+                        prevButton.className = 'btn btn-outline-primary';
+                        prevButton.textContent = 'Previous';
+                        prevButton.disabled = currentPage === 1;
+                        prevButton.onclick = () => {
+                            if (currentPage > 1) {
+                                currentPage--;
+                                fetchUsers();
+                            }
+                        };
+                        paginationControls.appendChild(prevButton);
+                        const nextButton = document.createElement('button');
+                        nextButton.className = 'btn btn-outline-primary';
+                        nextButton.textContent = 'Next';
+                        nextButton.disabled = data.end >= data.total;
+                        nextButton.onclick = () => {
+                            if (data.end < data.total) {
+                                currentPage++;
+                                fetchUsers();
+                            }
+                        };
+                        paginationControls.appendChild(nextButton);
                     }
-                };
-                paginationControls.appendChild(prevButton);
-                const nextButton = document.createElement('button');
-                nextButton.className = 'btn btn-outline-primary';
-                nextButton.textContent = 'Next';
-                nextButton.disabled = data.end >= data.total;
-                nextButton.onclick = () => {
-                    if (data.end < data.total) {
-                        currentPage++;
-                        fetchUsers();
-                    }
-                };
-                paginationControls.appendChild(nextButton);
+                }
+                isPaginatedView = true;
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                showMessage(`Error fetching users: ${error.message}`, 'error');
+                checkServerHealth().then(isUp => {
+                    if (isUp) fetchAllUsers();
+                });
             }
         }
-        isPaginatedView = true;
-    } catch (error) {
-        console.error('Error fetching users:', error);
-        showMessage(`Error fetching users: ${error.message}`, 'error');
-        checkServerHealth().then(isUp => {
-            if (isUp) fetchAllUsers();
-        });
-    }
-}
-        
-// Toggle user active status
-async function toggleUserStatus(userId) {
-    try {
-        let toggleInput = document.getElementById(`toggleActive_${userId}`);
-        let isActive = toggleInput.checked;
-        console.log(`Toggling user ${userId}: isActive = ${isActive}`);
 
-        // Optimistically update the UI
-        toggleInput.checked = !isActive;
+        // Toggle user active status
+        async function toggleUserStatus(userId) {
+            try {
+                let toggleInput = document.getElementById(`toggleActive_${userId}`);
+                let isActive = toggleInput.checked;
+                console.log(`Toggling user ${userId}: isActive = ${isActive}`);
 
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
-        const response = await fetch(`${BASE_URL}/users/${userId}/toggle`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ isActive: !isActive }),
-            signal: controller.signal,
-        });
-        clearTimeout(timeoutId);
+                // Optimistically update the UI
+                toggleInput.checked = !isActive;
 
-        console.log(`API response status: ${response.status}`);
-        const text = await response.text();
-        console.log(`API response body: ${text}`);
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                const response = await fetch(`${BASE_URL}/users/${userId}/toggle`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ isActive: !isActive }),
+                    signal: controller.signal,
+                });
+                clearTimeout(timeoutId);
 
-        if (!response.ok) {
-            // Revert the UI change on failure
-            toggleInput.checked = isActive;
-            throw new Error(`HTTP error! Status: ${response.status} - ${text}`);
+                console.log(`API response status: ${response.status}`);
+                const text = await response.text();
+                console.log(`API response body: ${text}`);
+
+                if (!response.ok) {
+                    // Revert the UI change on failure
+                    toggleInput.checked = isActive;
+                    throw new Error(`HTTP error! Status: ${response.status} - ${text}`);
+                }
+
+                // Show success message
+                showMessage(`User ${!isActive ? 'activated' : 'deactivated'} successfully`, 'success');
+
+                // Refresh the table while preserving order
+                if (isPaginatedView) {
+                    fetchUsers(); // Already maintains pagination and search
+                } else {
+                    fetchAllUsers(); // Already fetches all users
+                }
+            } catch (error) {
+                console.error("Error toggling user status:", error);
+                showMessage(`Error toggling user status: ${error.message}`, 'error');
+                // Revert to current state
+                if (isPaginatedView) fetchUsers();
+                else fetchAllUsers();
+            }
         }
 
-        // Show success message
-        showMessage(`User ${!isActive ? 'activated' : 'deactivated'} successfully`, 'success');
-
-        // Refresh the table while preserving order
-        if (isPaginatedView) {
-            fetchUsers(); // Already maintains pagination and search
-        } else {
-            fetchAllUsers(); // Already fetches all users
-        }
-    } catch (error) {
-        console.error("Error toggling user status:", error);
-        showMessage(`Error toggling user status: ${error.message}`, 'error');
-        // Revert to current state
-        if (isPaginatedView) fetchUsers();
-        else fetchAllUsers();
-    }
-}
-        
         // Edit user
         async function editUser(userId) {
             try {
@@ -3461,7 +3479,7 @@ async function toggleUserStatus(userId) {
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 const text = await response.text();
                 console.log('Raw API response (editUser):', text);
-        
+
                 let user;
                 try {
                     user = JSON.parse(text);
@@ -3472,7 +3490,7 @@ async function toggleUserStatus(userId) {
                     }
                     throw new Error('Invalid JSON response from server');
                 }
-        
+
                 document.getElementById('editFirstName').value = user.firstName || '';
                 document.getElementById('editLastName').value = user.lastName || '';
                 document.getElementById('editUserName').value = user.userName || '';
@@ -3481,46 +3499,72 @@ async function toggleUserStatus(userId) {
                 document.getElementById('editAddress').value = user.address || '';
                 document.getElementById('editUserRoleId').value = user.userRoleId || '';
                 document.getElementById('editNotes').value = user.notes || '';
-        
+
                 if (jQuery.fn.niceSelect) {
                     $("#editUserRoleId").val(user.userRoleId || '').niceSelect('update');
                 } else {
                     console.error('NiceSelect is not loaded');
                 }
-        
+
                 document.getElementById('editUserId').value = userId;
                 document.getElementById('editUserForm').dataset.userId = userId;
                 currentEditUserId = userId;
-        
+
                 openEditUserModal();
             } catch (error) {
                 console.error('Error fetching user:', error);
                 showMessage(`Error fetching user data: ${error.message}`, 'error');
             }
         }
-        
+
         // Delete user
         async function deleteUser(userId) {
-            if (confirm('Are you sure you want to delete this user?')) {
-                try {
+            const swalWithBootstrapButtons = window.Swal.mixin({
+                confirmButtonClass: 'btn btn-secondary',
+                cancelButtonClass: 'btn btn-dark ltr:mr-3 rtl:ml-3',
+                buttonsStyling: false,
+            });
+
+            try {
+                const result = await swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: 'You are about to delete this user.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true,
+                    padding: '2em',
+                });
+
+                if (result.isConfirmed) {
                     const response = await fetch(`${BASE_URL}/users/${userId}`, {
                         method: 'DELETE',
                         timeout: 5000,
                     });
-        
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    // await swalWithBootstrapButtons.fire('Deleted!', 'User deleted successfully', 'success');
                     showMessage('User deleted successfully', 'success');
-        
-                    if (isPaginatedView) fetchUsers();
-                    else fetchAllUsers();
-                } catch (error) {
-                    console.error('Error deleting user:', error);
-                    showMessage(`Error deleting user: ${error.message}`, 'error');
+
+                    if (isPaginatedView) {
+                        await fetchUsers();
+                    } else {
+                        await fetchAllUsers();
+                    }
                 }
+                // else if (result.isDismissed && result.dismiss === window.Swal.DismissReason.cancel) {
+                //     await swalWithBootstrapButtons.fire('Cancelled', 'User deletion cancelled', 'error');
+                // }
+            } catch (error) {
+                console.error('Error deleting user:', error);
+                await swalWithBootstrapButtons.fire('Error', `Failed to delete user: ${error.message}`, 'error');
             }
         }
-        
+
         // Form Handling and Validation
         $(document).ready(function () {
             if (jQuery.fn.niceSelect) {
@@ -3529,7 +3573,7 @@ async function toggleUserStatus(userId) {
             } else {
                 console.error('NiceSelect library failed to load');
             }
-        
+
             const validateField = (name, value) => {
                 let error = '';
                 switch (name) {
@@ -3572,7 +3616,7 @@ async function toggleUserStatus(userId) {
                 }
                 return error;
             };
-        
+
             const handleChange = (e, formPrefix = '') => {
                 const { name, value } = e.target;
                 const error = validateField(name, value);
@@ -3588,7 +3632,7 @@ async function toggleUserStatus(userId) {
                     inputElement.classList.add('has-success');
                 }
             };
-        
+
             const validateForm = (formData, formPrefix = '') => {
                 const errors = {};
                 Object.keys(formData).forEach(key => {
@@ -3604,10 +3648,10 @@ async function toggleUserStatus(userId) {
                 });
                 return Object.keys(errors).length === 0;
             };
-        
+
             $("#addUserForm").submit(async function (event) {
                 event.preventDefault();
-        
+
                 const formData = {
                     firstName: $("#FirstName").val(),
                     lastName: $("#LastName").val(),
@@ -3620,12 +3664,12 @@ async function toggleUserStatus(userId) {
                     userRoleId: $("#UserRoleId").val(),
                     notes: $("textarea[name='notes']").val() || null,
                 };
-        
+
                 if (!validateForm(formData, '')) {
                     showMessage('Please fix the errors in the form', 'error');
                     return;
                 }
-        
+
                 const payload = {
                     firstName: formData.firstName,
                     lastName: formData.lastName,
@@ -3637,9 +3681,9 @@ async function toggleUserStatus(userId) {
                     userRoleId: parseInt(formData.userRoleId),
                     notes: formData.notes,
                 };
-        
+
                 console.log('Add User Payload:', payload);
-        
+
                 try {
                     const response = await fetch(`${BASE_URL}/users`, {
                         method: 'POST',
@@ -3647,11 +3691,11 @@ async function toggleUserStatus(userId) {
                         body: JSON.stringify(payload),
                         timeout: 5000,
                     });
-        
+
                     console.log('Response Status:', response.status);
                     const text = await response.text();
                     console.log('Raw Response:', text);
-        
+
                     if (!response.ok) {
                         let errorData;
                         try {
@@ -3661,7 +3705,7 @@ async function toggleUserStatus(userId) {
                         }
                         throw new Error(errorData.message || `Failed to create user: ${response.status}`);
                     }
-        
+
                     const data = JSON.parse(text);
                     showMessage(data.message || 'User created successfully', 'success');
                     closeAddUserModal();
@@ -3672,16 +3716,16 @@ async function toggleUserStatus(userId) {
                     showMessage(`Error creating user: ${error.message}`, 'error');
                 }
             });
-        
+
             $("#editUserForm").submit(async function (event) {
                 event.preventDefault();
-        
+
                 const userId = Number(document.getElementById('editUserId').value) || currentEditUserId;
                 if (isNaN(userId) || !userId) {
                     showMessage('Invalid user ID', 'error');
                     return;
                 }
-        
+
                 const formData = {
                     firstName: $("#editFirstName").val(),
                     lastName: $("#editLastName").val(),
@@ -3694,12 +3738,12 @@ async function toggleUserStatus(userId) {
                     userRoleId: $("#editUserRoleId").val(),
                     notes: $("#editNotes").val() || null,
                 };
-        
+
                 if (!validateForm(formData, 'edit')) {
                     showMessage('Please fix the errors in the form', 'error');
                     return;
                 }
-        
+
                 const payload = {
                     firstName: formData.firstName,
                     lastName: formData.lastName,
@@ -3711,9 +3755,9 @@ async function toggleUserStatus(userId) {
                     notes: formData.notes,
                 };
                 if (formData.password) payload.password = formData.password;
-        
+
                 console.log('Edit User Payload:', payload);
-        
+
                 try {
                     const response = await fetch(`${BASE_URL}/users/${userId}`, {
                         method: 'PATCH',
@@ -3721,11 +3765,11 @@ async function toggleUserStatus(userId) {
                         body: JSON.stringify(payload),
                         timeout: 5000,
                     });
-        
+
                     console.log('Response Status:', response.status);
                     const text = await response.text();
                     console.log('Raw Response:', text);
-        
+
                     if (!response.ok) {
                         let errorData;
                         try {
@@ -3735,7 +3779,7 @@ async function toggleUserStatus(userId) {
                         }
                         throw new Error(errorData.message || `Failed to update user: ${response.status}`);
                     }
-        
+
                     const data = JSON.parse(text);
                     showMessage(data.message || 'User updated successfully', 'success');
                     closeEditUserModal();
@@ -3747,37 +3791,37 @@ async function toggleUserStatus(userId) {
                     showMessage(`Error updating user: ${error.message}`, 'error');
                 }
             });
-        
+
             $("#FirstName, #LastName, #email, #password, #ConfirmPassword, #ContactNo, #EmailId, #Address, #UserRoleId").on("input change", function (e) {
                 handleChange(e, '');
             });
-        
+
             $("#editFirstName, #editLastName, #editUserName, #editPassword, #editConfirmPassword, #editContactNo, #editEmailId, #editAddress, #editUserRoleId").on("input change", function (e) {
                 handleChange(e, 'edit');
             });
-        
+
             $("#email, #editUserName").on("input", function () {
                 this.value = this.value.replace(/\s+/g, "").toLowerCase();
             });
-        
+
             $(document).on('change', 'input[id^="toggleActive_"]', function () {
                 const userId = this.id.split('_')[1];
                 console.log(`Toggle clicked for user ${userId}`);
                 toggleUserStatus(Number(userId));
             });
-        
+
             $("#entriesPerPage").on("change", function () {
                 entriesPerPage = this.value;
                 currentPage = 1;
                 fetchUsers();
             });
-        
+
             $("#searchInput").on("input", function () {
                 currentPage = 1;
                 fetchUsers();
             });
         });
-        
+
         // Initial fetch with server health check
         (async () => {
             const isServerUp = await checkServerHealth();
@@ -3787,7 +3831,7 @@ async function toggleUserStatus(userId) {
                 showMessage('Backend server is not responding at ' + BASE_URL + '. Please check the server configuration.', 'error');
             }
         })();
-        </script>
+    </script>
 
     <script>
         document.addEventListener('alpine:init', () => {
@@ -3997,7 +4041,7 @@ async function toggleUserStatus(userId) {
                     this.notifications = this.notifications.filter((d) => d.id !== value);
                 },
 
-                removeMessage(value) {  
+                removeMessage(value) {
                     this.messages = this.messages.filter((d) => d.id !== value);
                 },
             }));
