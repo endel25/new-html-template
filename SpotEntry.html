@@ -2872,6 +2872,7 @@
                 </div>
             </header>
             <div class="dvanimation animate__animated p-6" :class="[$store.app.animation]">
+                <!--start main content-->
                 <div class="table-container">
                     <div class="px-6 py-4 border-b text-xl font-semibold flex items-center justify-between">
                         <span>Visitor Appointment Data</span>
@@ -3133,7 +3134,7 @@
                                         <label for="edit-drivernationalid" class="w-40 text-sm font-medium">Driver
                                             National ID</label>
                                         <div class="flex-1">
-                                            <input type="text" id="edit-drivernationalid" name "drivernationalid"
+                                            <input type="text" id="edit-drivernationalid" name="drivernationalid"
                                                 placeholder="Enter driver national ID"
                                                 class="w-full text-xs px-3 py-2 border rounded" />
                                             <span class="error text-red-500 text-xs" id="error-drivernationalid"></span>
@@ -3570,170 +3571,248 @@
                 }
 
                 function validateForm(formData) {
-                    let isValid = true;
-                    clearErrors();
-                    console.log('Validating form:', formData);
+    let isValid = true;
+    clearErrors();
+    console.log('Validating form:', formData);
 
-                    if (!formData.firstname) {
-                        document.getElementById('error-firstname').textContent = 'First name is required';
-                        isValid = false;
-                    }
-                    if (!formData.email) {
-                        document.getElementById('error-email').textContent = 'Email is required';
-                        isValid = false;
-                    }
-                    if (!formData.contactnumber) {
-                        document.getElementById('error-contactnumber').textContent = 'Contact number is required';
-                        isValid = false;
-                    }
-                    if (!formData.nationalid) {
-                        document.getElementById('error-nationalid').textContent = 'National ID is required';
-                        isValid = false;
-                    }
-                    if (formData.driverToggle && !formData.drivername) {
-                        document.getElementById('error-drivername').textContent = 'Driver name is required';
-                        isValid = false;
-                    }
-                    if (formData.durationunit && !['Hours', 'Minutes', 'Days'].includes(formData.durationunit)) {
-                        document.getElementById('error-durationUnit').textContent = 'Duration unit must be Hours, Minutes, or Days';
-                        isValid = false;
-                    }
+    if (!formData.firstname) {
+        document.getElementById('error-firstname').textContent = 'First name is required';
+        isValid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.firstname)) {
+        document.getElementById('error-firstname').textContent = 'First name must contain only letters';
+        isValid = false;
+    }
 
-                    return isValid;
+    if (!formData.lastname) {
+        document.getElementById('error-lastname').textContent = 'Last name is required';
+        isValid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.lastname)) {
+        document.getElementById('error-lastname').textContent = 'Last name must contain only letters';
+        isValid = false;
+    }
+
+    if (!formData.email) {
+        document.getElementById('error-email').textContent = 'Email is required';
+        isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        document.getElementById('error-email').textContent = 'Invalid email format';
+        isValid = false;
+    }
+
+    if (!formData.contactnumber) {
+        document.getElementById('error-contactnumber').textContent = 'Contact number is required';
+        isValid = false;
+    } else if (!/^\d{10}$/.test(formData.contactnumber)) {
+        document.getElementById('error-contactnumber').textContent = 'Contact number must be 10 digits';
+        isValid = false;
+    }
+
+    if (!formData.nationalid) {
+        document.getElementById('error-nationalid').textContent = 'National ID is required';
+        isValid = false;
+    }
+
+    if (!formData.gender) {
+        document.getElementById('error-gender').textContent = 'Gender is required';
+        isValid = false;
+    }
+
+    if (!formData.date) {
+        document.getElementById('error-date').textContent = 'Date is required';
+        isValid = false;
+    } else {
+        let formattedDate = formData.date;
+        if (formData.date.match(/^\d{2}-\d{2}-\d{4}$/)) {
+            const [day, month, year] = formData.date.split('-');
+            formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+        }
+        const today = new Date().toISOString().split('T')[0];
+        if (formattedDate < today) {
+            document.getElementById('error-date').textContent = 'Date cannot be in the past';
+            isValid = false;
+        }
+    }
+
+    if (!formData.time) {
+        document.getElementById('error-time').textContent = 'Time is required';
+        isValid = false;
+    }
+
+    if (!formData.visit) {
+        document.getElementById('error-visit').textContent = 'Purpose of visit is required';
+        isValid = false;
+    }
+
+    if (!formData.personname) {
+        document.getElementById('error-personname').textContent = 'Person name is required';
+        isValid = false;
+    }
+
+    if (!formData.department) {
+        document.getElementById('error-department').textContent = 'Department is required';
+        isValid = false;
+    }
+
+    if (!formData.durationUnit) {
+        document.getElementById('error-durationUnit').textContent = 'Duration unit is required';
+        isValid = false;
+    } else if (!['Hours', 'Minutes', 'Days'].includes(formData.durationUnit)) {
+        document.getElementById('error-durationUnit').textContent = 'Duration unit must be Hours, Minutes, or Days';
+        isValid = false;
+    }
+
+    if (!formData.durationtime) {
+        document.getElementById('error-durationtime').textContent = 'Duration time is required';
+        isValid = false;
+    } else if (formData.durationtime <= 0) {
+        document.getElementById('error-durationtime').textContent = 'Duration must be greater than 0';
+        isValid = false;
+    }
+
+    if (!formData.visitortype) {
+        document.getElementById('error-visitortype').textContent = 'Visitor type is required';
+        isValid = false;
+    }
+
+    if (formData.driverToggle) {
+        if (!formData.drivername) {
+            document.getElementById('error-drivername').textContent = 'Driver name is required';
+            isValid = false;
+        } else if (!/^[a-zA-Z\s]+$/.test(formData.drivername)) {
+            document.getElementById('error-drivername').textContent = 'Driver name must contain only letters';
+            isValid = false;
+        }
+
+        if (!formData.drivermobile) {
+            document.getElementById('error-drivermobile').textContent = 'Driver mobile is required';
+            isValid = false;
+        } else if (!/^\d{10}$/.test(formData.drivermobile)) {
+            document.getElementById('error-drivermobile').textContent = 'Driver mobile must be 10 digits';
+            isValid = false;
+        }
+
+        if (!formData.drivernationalid) {
+            document.getElementById('error-drivernationalid').textContent = 'Driver national ID is required';
+            isValid = false;
+        } 
+    }
+
+    if (!isValid) {
+        console.log('Validation failed for:', formData);
+    }
+    return isValid;
+}
+
+
+document.getElementById('editForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    clearErrors();
+    console.log('Edit form submitted');
+
+    const formData = new FormData(this);
+    const updatedVisitor = {
+        id: formData.get('id'),
+        firstname: formData.get('firstname')?.trim(),
+        lastname: formData.get('lastname')?.trim(),
+        contactnumber: formData.get('contactnumber')?.trim(),
+        nationalid: formData.get('nationalid')?.trim(),
+        gender: formData.get('gender'),
+        email: formData.get('email')?.trim(),
+        date: formData.get('date'),
+        time: formData.get('time'),
+        visit: formData.get('visit')?.trim(),
+        personname: formData.get('personname')?.trim(),
+        department: formData.get('department')?.trim(),
+        durationUnit: formData.get('durationUnit'),
+        durationtime: formData.get('durationtime'),
+        visitortype: formData.get('visitortype'),
+        vehicletype: formData.get('vehicletype')?.trim(),
+        vehiclenumber: formData.get('vehiclenumber')?.trim(),
+        drivername: formData.get('drivername')?.trim(),
+        drivermobile: formData.get('drivermobile')?.trim(),
+        drivernationalid: formData.get('drivernationalid')?.trim(),
+        notes: formData.get('notes')?.trim(),
+        driverToggle: document.getElementById('edit-driverToggle').checked,
+        photo: formData.get('photo'),
+        driverphoto: formData.get('driverphoto'),
+    };
+    console.log('Form data with id:', updatedVisitor.id, updatedVisitor);
+
+    if (validateForm(updatedVisitor)) {
+        try {
+            const apiFormData = new FormData();
+            Object.keys(updatedVisitor).forEach(key => {
+                if (key === 'photo' || key === 'driverphoto') {
+                    if (updatedVisitor[key] && updatedVisitor[key].size > 0) {
+                        apiFormData.append(key, updatedVisitor[key]);
+                    }
+                } else if (key !== 'driverToggle' && key !== 'id' && updatedVisitor[key] !== null && updatedVisitor[key] !== undefined) {
+                    apiFormData.append(key, updatedVisitor[key]);
                 }
+            });
 
-                document.getElementById('editForm').addEventListener('submit', async function (e) {
-                    e.preventDefault();
-                    clearErrors();
-                    console.log('Edit form submitted');
+            const existingVisitor = visitors.find(v => v.id == updatedVisitor.id);
+            if (!apiFormData.get('photo') && existingVisitor?.photo) {
+                apiFormData.append('photo', existingVisitor.photo);
+            }
+            if (!apiFormData.get('driverphoto') && existingVisitor?.driverphoto) {
+                apiFormData.append('driverphoto', existingVisitor.driverphoto);
+            }
 
-                    const formData = new FormData(this);
-                    const updatedVisitor = {
-                        id: formData.get('id'),
-                        firstname: formData.get('firstname'),
-                        lastname: formData.get('lastname'),
-                        contactnumber: formData.get('contactnumber'),
-                        nationalid: formData.get('nationalid'),
-                        gender: formData.get('gender'),
-                        email: formData.get('email'),
-                        date: formData.get('date'),
-                        time: formData.get('time'),
-                        visit: formData.get('visit'),
-                        personname: formData.get('personname'),
-                        department: formData.get('department'),
-                        durationunit: formData.get('durationUnit'),
-                        durationtime: formData.get('durationtime'),
-                        visitortype: formData.get('visitortype'),
-                        vehicletype: formData.get('vehicletype'),
-                        vehiclenumber: formData.get('vehiclenumber'),
-                        drivername: formData.get('drivername'),
-                        drivermobile: formData.get('drivermobile'),
-                        drivernationalid: formData.get('drivernationalid'),
-                        notes: formData.get('notes'),
-                        driverToggle: document.getElementById('edit-driverToggle').checked,
-                        photo: formData.get('photo'),
-                        driverphoto: formData.get('driverphoto'),
-                    };
-                    console.log('Form data with id:', updatedVisitor.id, updatedVisitor);
+            console.log('Sending PATCH with FormData for id:', updatedVisitor.id);
+            for (const [key, value] of apiFormData.entries()) {
+                console.log(`${key}:`, value instanceof File ? value.name : value);
+            }
 
-                    if (validateForm(updatedVisitor)) {
-                        try {
-                            const apiFormData = new FormData();
-                            Object.keys(updatedVisitor).forEach(key => {
-                                if (key === 'photo' || key === 'driverphoto') {
-                                    if (updatedVisitor[key] && updatedVisitor[key].size > 0) {
-                                        apiFormData.append('files', updatedVisitor[key]);
-                                    } else if (updatedVisitor[key] && typeof updatedVisitor[key] === 'string') {
-                                        apiFormData.append(key, updatedVisitor[key]);
-                                    }
-                                } else if (key !== 'driverToggle' && key !== 'id' && updatedVisitor[key] !== undefined) {
-                                    apiFormData.append(key, updatedVisitor[key] || '');
-                                }
-                            });
+            const response = await fetch(`http://192.168.3.73:3001/visitors/${updatedVisitor.id}`, {
+                method: 'PATCH',
+                body: apiFormData,
+            });
 
-                            const existingVisitor = visitors.find(v => v.id == updatedVisitor.id);
-                            if (!apiFormData.get('photo') && existingVisitor?.photo) {
-                                apiFormData.append('photo', existingVisitor.photo);
-                            }
-                            if (!apiFormData.get('driverphoto') && existingVisitor?.driverphoto) {
-                                apiFormData.append('driverphoto', existingVisitor.driverphoto);
-                            }
+            const responseData = await response.json();
+            console.log('PATCH response status:', response.status, 'data:', responseData);
 
-                            console.log('Sending PATCH with FormData for id:', updatedVisitor.id);
-                            for (const [key, value] of apiFormData.entries()) {
-                                console.log(`${key}:`, value instanceof File ? value.name : value);
-                            }
+            if (!response.ok) {
+                throw new Error(responseData.message || `HTTP ${response.status}`);
+            }
 
-                            const response = await fetch(`http://192.168.3.73:3001/visitors/${updatedVisitor.id}`, {
-                                method: 'PATCH',
-                                body: apiFormData,
-                            });
+            const index = visitors.findIndex(v => v.id == updatedVisitor.id);
+            if (index !== -1) {
+                visitors[index] = {
+                    ...visitors[index],
+                    ...responseData,
+                    date: responseData.date ? responseData.date.split('-').reverse().join('-') : visitors[index].date,
+                };
+                localStorage.setItem('visitors', JSON.stringify(visitors));
+                populateTable();
+            }
 
-                            const responseData = await response.json();
-                            console.log('PATCH response status:', response.status);
-                            console.log('PATCH response data:', responseData);
+            const mainPreview = document.getElementById('mainPreview');
+            if (responseData.photo) {
+                mainPreview.src = `http://192.168.3.73:3001/uploads/${responseData.photo}`;
+                mainPreview.style.display = 'block';
+            }
+            const driverPreview = document.getElementById('driverPreview');
+            if (responseData.driverphoto) {
+                driverPreview.src = `http://192.168.3.73:3001/uploads/${responseData.driverphoto}`;
+                driverPreview.style.display = 'block';
+            }
 
-                            if (!response.ok) {
-                                throw new Error(responseData.message || `HTTP ${response.status}`);
-                            }
+            currentPage = 1;
+            searchQuery = '';
+            document.getElementById('searchInput').value = '';
 
-                            if (!responseData.id || responseData.id != updatedVisitor.id || responseData.firstname !== updatedVisitor.firstname) {
-                                throw new Error('Server did not confirm update: Response data does not match submitted data');
-                            }
-
-                            const index = visitors.findIndex(v => v.id == updatedVisitor.id);
-                            if (index !== -1) {
-                                visitors[index] = {
-                                    ...visitors[index],
-                                    ...responseData,
-                                    date: responseData.date ? responseData.date.split('-').reverse().join('-') : visitors[index].date,
-                                };
-                                localStorage.setItem('visitors', JSON.stringify(visitors));
-                                populateTable();
-                            }
-
-                            const mainPreview = document.getElementById('mainPreview');
-                            if (responseData.photo) {
-                                mainPreview.src = `http://192.168.3.73:3001/uploads/${responseData.photo}`;
-                                mainPreview.style.display = 'block';
-                            }
-                            const driverPreview = document.getElementById('driverPreview');
-                            if (responseData.driverphoto) {
-                                driverPreview.src = `http://192.168.3.73:3001/uploads/${responseData.driverphoto}`;
-                                driverPreview.style.display = 'block';
-                            }
-
-                            currentPage = 1;
-                            searchQuery = '';
-                            document.getElementById('searchInput').value = '';
-
-                            await fetchVisitors().then(() => {
-                                const updatedVisitorInArray = visitors.find(v => v.id == updatedVisitor.id);
-                                console.log('Updated visitor after refresh:', updatedVisitorInArray);
-                                if (updatedVisitorInArray.firstname !== updatedVisitor.firstname) {
-                                    console.warn('Frontend and backend data mismatch detected, relying on local update');
-                                }
-                            });
-
-                            closeEditModal();
-                            showMessage('Visitor updated successfully', 'success');
-                        } catch (error) {
-                            console.error('Failed to update visitor for id:', updatedVisitor.id, error.message);
-                            document.getElementById('error-notes').textContent = error.message || 'Failed to update visitor';
-                            if (error.message.includes('photo')) {
-                                document.getElementById('error-photo').textContent = 'Invalid photo upload';
-                            } else if (error.message.includes('date')) {
-                                document.getElementById('error-date').textContent = 'Invalid date format';
-                            } else if (error.message.includes('required')) {
-                                document.getElementById('error-notes').textContent = 'Missing required fields';
-                            } else if (error.message.includes('CORS')) {
-                                document.getElementById('error-notes').textContent = 'CORS issue detected, check server configuration';
-                            }
-                            await fetchVisitors();
-                            populateTable();
-                        }
-                    }
-                });
+            await fetchVisitors();
+            closeEditModal();
+            showMessage('Visitor updated successfully', 'success');
+        } catch (error) {
+            console.error('Failed to update visitor:', error.message);
+            document.getElementById('error-notes').textContent = error.message || 'Failed to update visitor';
+        }
+    } else {
+        console.log('Validation failed, form not submitted');
+    }
+});
 
                 async function deleteVisitor(id) {
                     const swalWithBootstrapButtons = window.Swal.mixin({
