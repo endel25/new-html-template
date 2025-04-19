@@ -3145,8 +3145,8 @@
                 
                 async function fetchVisitors() {
                     try {
-                        console.log('Fetching visitors from http://192.168.3.75:3001/visitors');
-                        const response = await fetch(`http://192.168.3.75:3001/visitors?t=${new Date().getTime()}`, {
+                        console.log('Fetching visitors from http://192.168.3.74:3001/visitors');
+                        const response = await fetch(`http://192.168.3.74:3001/visitors?t=${new Date().getTime()}`, {
                             method: 'GET',
                             headers: { 'Content-Type': 'application/json' },
                         });
@@ -3286,7 +3286,7 @@
                             document.getElementById('edit-drivernationalid').value = visitor.drivernationalid || '';
                             const driverPreview = document.getElementById('driverPreview');
                             if (visitor.driverphoto) {
-                                driverPreview.src = `http://192.168.3.75:3001/uploads/${visitor.driverphoto}`;
+                                driverPreview.src = `http://192.168.3.74:3001/uploads/${visitor.driverphoto}`;
                                 driverPreview.style.display = 'block';
                                 console.log('Driver photo URL set to:', driverPreview.src);
                             } else {
@@ -3453,7 +3453,7 @@
                 
                     const mainPreview = document.getElementById('mainPreview');
                     if (visitor.photo) {
-                        const photoUrl = `http://192.168.3.75:3001/uploads/${encodeURIComponent(visitor.photo)}`;
+                        const photoUrl = `http://192.168.3.74:3001/uploads/${encodeURIComponent(visitor.photo)}`;
                         mainPreview.src = photoUrl;
                         mainPreview.style.display = 'block';
                         console.log('Main photo URL set to:', photoUrl);
@@ -3467,7 +3467,7 @@
                     }
                     const driverPreview = document.getElementById('driverPreview');
                     if (visitor.driverphoto) {
-                        const driverPhotoUrl = `http://192.168.3.75:3001/uploads/${encodeURIComponent(visitor.driverphoto)}`;
+                        const driverPhotoUrl = `http://192.168.3.74:3001/uploads/${encodeURIComponent(visitor.driverphoto)}`;
                         driverPreview.src = driverPhotoUrl;
                         driverPreview.style.display = 'block';
                         console.log('Driver photo URL set to:', driverPhotoUrl);
@@ -3590,7 +3590,7 @@
                                 console.log(`${key}:`, value instanceof File ? value.name : value);
                             }
                 
-                            const response = await fetch(`http://192.168.3.75:3001/visitors/${updatedVisitor.id}`, {
+                            const response = await fetch(`http://192.168.3.74:3001/visitors/${updatedVisitor.id}`, {
                                 method: 'PATCH',
                                 body: apiFormData,
                             });
@@ -3620,12 +3620,12 @@
                 
                             const mainPreview = document.getElementById('mainPreview');
                             if (responseData.photo) {
-                                mainPreview.src = `http://192.168.3.75:3001/uploads/${responseData.photo}`;
+                                mainPreview.src = `http://192.168.3.74:3001/uploads/${responseData.photo}`;
                                 mainPreview.style.display = 'block';
                             }
                             const driverPreview = document.getElementById('driverPreview');
                             if (responseData.driverphoto) {
-                                driverPreview.src = `http://192.168.3.75:3001/uploads/${responseData.driverphoto}`;
+                                driverPreview.src = `http://192.168.3.74:3001/uploads/${responseData.driverphoto}`;
                                 driverPreview.style.display = 'block';
                             }
                 
@@ -3664,7 +3664,7 @@
                 async function deleteVisitor(id) {
                     if (confirm('Are you sure you want to delete this visitor?')) {
                         try {
-                            const response = await fetch(`http://192.168.3.75:3001/visitors/${id}`, {
+                            const response = await fetch(`http://192.168.3.74:3001/visitors/${id}`, {
                                 method: 'DELETE',
                             });
                 
